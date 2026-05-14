@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+.DS_Store
+ml/models_saved/*.pkl
+ml/models_saved/*.joblib
+ml/models_saved/*.h5
+*.egg-info/
+dist/
+build/
+.pytest_cache/
