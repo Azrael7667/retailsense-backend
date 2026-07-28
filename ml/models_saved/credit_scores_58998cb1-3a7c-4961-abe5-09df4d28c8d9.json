@@ -1,0 +1,1404 @@
+{
+  "scores": [
+    {
+      "customer_id": "a7a131d8-a9e7-4965-b221-e393b736376a",
+      "customer_name": "Ram Bahadur Thapa",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 64,
+      "unpaid_ratio": 0.1562,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "16%",
+          "impact": "positive",
+          "detail": "Buys on credit 16% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "4019.84",
+          "impact": "positive",
+          "detail": "avg purchase is 4019.84"
+        }
+      ]
+    },
+    {
+      "customer_id": "1c53e081-2489-4b85-8845-2d588409e919",
+      "customer_name": "Sita Devi Sharma",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.001,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 73,
+      "unpaid_ratio": 0.0959,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "10%",
+          "impact": "positive",
+          "detail": "Buys on credit 10% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3124.11",
+          "impact": "positive",
+          "detail": "avg purchase is 3124.11"
+        }
+      ]
+    },
+    {
+      "customer_id": "5a56cc17-a2a8-469e-82b8-b333473764c8",
+      "customer_name": "Maya Devi Gurung",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 80,
+      "unpaid_ratio": 0.1,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "10%",
+          "impact": "positive",
+          "detail": "Buys on credit 10% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3426.50",
+          "impact": "positive",
+          "detail": "avg purchase is 3426.50"
+        }
+      ]
+    },
+    {
+      "customer_id": "14f4fd65-b244-44d8-9599-b433681e1bd9",
+      "customer_name": "Kamal Raj Adhikari",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.001,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 68,
+      "unpaid_ratio": 0.1324,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "13%",
+          "impact": "positive",
+          "detail": "Buys on credit 13% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "4076.32",
+          "impact": "positive",
+          "detail": "avg purchase is 4076.32"
+        }
+      ]
+    },
+    {
+      "customer_id": "84eef40d-3cf4-4c2a-84c2-b5aaa3e7dd9f",
+      "customer_name": "Sunita Shrestha",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 86,
+      "unpaid_ratio": 0.0698,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "7%",
+          "impact": "positive",
+          "detail": "Buys on credit 7% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3263.60",
+          "impact": "positive",
+          "detail": "avg purchase is 3263.60"
+        }
+      ]
+    },
+    {
+      "customer_id": "ada3d5dc-6ad6-4c68-9725-e8d8b83d9729",
+      "customer_name": "Deepak Raj Pokhrel",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 12000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 77,
+      "unpaid_ratio": 0.1039,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "10%",
+          "impact": "positive",
+          "detail": "Buys on credit 10% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3354.81",
+          "impact": "positive",
+          "detail": "avg purchase is 3354.81"
+        }
+      ]
+    },
+    {
+      "customer_id": "59b0cdf5-47b9-4531-96ac-773f9986ee2a",
+      "customer_name": "Anita Kumari Magar",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 57,
+      "unpaid_ratio": 0.193,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "19%",
+          "impact": "positive",
+          "detail": "Buys on credit 19% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3770.53",
+          "impact": "positive",
+          "detail": "avg purchase is 3770.53"
+        }
+      ]
+    },
+    {
+      "customer_id": "4c46e917-c5a9-417b-98a0-2c77c21f0357",
+      "customer_name": "Sabita Devi Neupane",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 62,
+      "unpaid_ratio": 0.129,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "13%",
+          "impact": "positive",
+          "detail": "Buys on credit 13% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3007.26",
+          "impact": "positive",
+          "detail": "avg purchase is 3007.26"
+        }
+      ]
+    },
+    {
+      "customer_id": "7a135926-1dcb-442b-96f5-8330e06d0c13",
+      "customer_name": "Nabin Raj Bhandari",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 66,
+      "unpaid_ratio": 0.0909,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "9%",
+          "impact": "positive",
+          "detail": "Buys on credit 9% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3977.12",
+          "impact": "positive",
+          "detail": "avg purchase is 3977.12"
+        }
+      ]
+    },
+    {
+      "customer_id": "8d4f5eea-6fcc-4cb1-a03c-2a9e9c9a8cd8",
+      "customer_name": "Puja Kumari Poudel",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 30000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 63,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Buys on credit 0% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3745.40",
+          "impact": "positive",
+          "detail": "avg purchase is 3745.40"
+        }
+      ]
+    },
+    {
+      "customer_id": "d4b83615-59e5-4d21-8833-3dc7d7a675ef",
+      "customer_name": "Suresh Kumar Karki",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 30000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 69,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Buys on credit 0% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "4081.59",
+          "impact": "positive",
+          "detail": "avg purchase is 4081.59"
+        }
+      ]
+    },
+    {
+      "customer_id": "1ae5f4b2-41f8-4eb6-b8bf-50183bdfd3ae",
+      "customer_name": "Rita Devi Basnet",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 25000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 60,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Buys on credit 0% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3922.00",
+          "impact": "positive",
+          "detail": "avg purchase is 3922.00"
+        }
+      ]
+    },
+    {
+      "customer_id": "18cbee1e-95f2-48cb-96d2-d1028e5699c0",
+      "customer_name": "Arun Bahadur Khadka",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.001,
+      "current_balance": 0.0,
+      "credit_limit": 30000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 72,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Buys on credit 0% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3321.74",
+          "impact": "positive",
+          "detail": "avg purchase is 3321.74"
+        }
+      ]
+    },
+    {
+      "customer_id": "f6748566-30a8-47fd-9e17-8b4557d1333a",
+      "customer_name": "Bikram Singh Tharu",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.001,
+      "current_balance": 0.0,
+      "credit_limit": 30000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 54,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Buys on credit 0% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "2484.63",
+          "impact": "positive",
+          "detail": "avg purchase is 2484.63"
+        }
+      ]
+    },
+    {
+      "customer_id": "6766acae-390c-443d-910e-296d99f32496",
+      "customer_name": "Rajesh Kumar Mandal",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0011,
+      "current_balance": 0.0,
+      "credit_limit": 30000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 58,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Buys on credit 0% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "4102.93",
+          "impact": "positive",
+          "detail": "avg purchase is 4102.93"
+        }
+      ]
+    },
+    {
+      "customer_id": "400e9955-4d30-49ca-bff1-c20199a07feb",
+      "customer_name": "Dinesh Raj Dahal",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.001,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 43,
+      "unpaid_ratio": 0.2558,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "26%",
+          "impact": "positive",
+          "detail": "Buys on credit 26% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "4279.30",
+          "impact": "positive",
+          "detail": "avg purchase is 4279.30"
+        }
+      ]
+    },
+    {
+      "customer_id": "aa3a4568-b093-408a-883b-20a46175d90e",
+      "customer_name": "Santosh Kumar Giri",
+      "credit_score": 100,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0012,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 30,
+      "unpaid_ratio": 0.2,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "20%",
+          "impact": "positive",
+          "detail": "Buys on credit 20% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "4184.67",
+          "impact": "positive",
+          "detail": "avg purchase is 4184.67"
+        }
+      ]
+    },
+    {
+      "customer_id": "90cd7d84-a576-4d10-a015-182e3ceae442",
+      "customer_name": "Test1",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0097,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Purchase history",
+          "value": "0 purchases",
+          "impact": "negative",
+          "detail": "0 total purchases on record"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Buys on credit 0% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "fc3eedaa-3a81-433b-9aad-d685d5d63ed7",
+      "customer_name": "Test2",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0097,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Purchase history",
+          "value": "0 purchases",
+          "impact": "negative",
+          "detail": "0 total purchases on record"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Buys on credit 0% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "0cc16b48-68aa-4848-b109-2b472b214b1f",
+      "customer_name": "Hari Prasad Koirala",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0077,
+      "current_balance": 0.0,
+      "credit_limit": 15000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 71,
+      "unpaid_ratio": 0.0282,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "4636.13",
+          "impact": "negative",
+          "detail": "avg purchase is 4636.13"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "3%",
+          "impact": "positive",
+          "detail": "Buys on credit 3% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "9a857789-68af-470e-aa92-c7122deec75c",
+      "customer_name": "Gita Kumari Rai",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0077,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 49,
+      "unpaid_ratio": 0.0612,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "4325.10",
+          "impact": "negative",
+          "detail": "avg purchase is 4325.10"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "6%",
+          "impact": "positive",
+          "detail": "Buys on credit 6% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "5eed824b-92ab-400b-b961-12a5502f5cae",
+      "customer_name": "Bishnu Kumar Tamang",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0077,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 93,
+      "unpaid_ratio": 0.1183,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "4808.92",
+          "impact": "negative",
+          "detail": "avg purchase is 4808.92"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "12%",
+          "impact": "positive",
+          "detail": "Buys on credit 12% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "abb8dd0a-f567-4a53-8eb3-0b8121ae0c38",
+      "customer_name": "Binod Kumar Pandey",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0077,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 55,
+      "unpaid_ratio": 0.1455,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "4374.36",
+          "impact": "negative",
+          "detail": "avg purchase is 4374.36"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "15%",
+          "impact": "positive",
+          "detail": "Buys on credit 15% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "f18fd942-c030-4d68-a216-a7cd03f0d4cd",
+      "customer_name": "Rekha Devi Bhattarai",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0077,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 78,
+      "unpaid_ratio": 0.0769,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "4938.65",
+          "impact": "negative",
+          "detail": "avg purchase is 4938.65"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "8%",
+          "impact": "positive",
+          "detail": "Buys on credit 8% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "07ff601d-1591-4de3-a50e-8aeedea7dfd2",
+      "customer_name": "Prakash Bahadur Limbu",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0078,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 58,
+      "unpaid_ratio": 0.0862,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "4373.28",
+          "impact": "negative",
+          "detail": "avg purchase is 4373.28"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "9%",
+          "impact": "positive",
+          "detail": "Buys on credit 9% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "758e3c2e-e304-4215-b48e-69086419fc4e",
+      "customer_name": "Mina Kumari Chaudhary",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0073,
+      "current_balance": 0.0,
+      "credit_limit": 25000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 62,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "4543.55",
+          "impact": "negative",
+          "detail": "avg purchase is 4543.55"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Buys on credit 0% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "c78d3b1f-b356-45e8-9500-0a387a406301",
+      "customer_name": "Laxmi Devi Yadav",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0077,
+      "current_balance": 0.0,
+      "credit_limit": 25000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 60,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "4661.00",
+          "impact": "negative",
+          "detail": "avg purchase is 4661.00"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Buys on credit 0% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "7017a4f8-3f73-40b8-9670-54c224effe8b",
+      "customer_name": "Sarita Kumari Regmi",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0103,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 25,
+      "unpaid_ratio": 0.2,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "20%",
+          "impact": "positive",
+          "detail": "Buys on credit 20% of the time"
+        },
+        {
+          "factor": "Purchase history",
+          "value": "25 purchases",
+          "impact": "negative",
+          "detail": "25 total purchases on record"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "e3915752-540f-4fc3-9cff-f39d6d10114a",
+      "customer_name": "Kiran Kumari Subedi",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0077,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 32,
+      "unpaid_ratio": 0.2812,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "5240.31",
+          "impact": "negative",
+          "detail": "avg purchase is 5240.31"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "28%",
+          "impact": "positive",
+          "detail": "Buys on credit 28% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "793412a1-2b27-4978-b8ce-4873c9e919ae",
+      "customer_name": "Prem Bahadur Ale",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0085,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 32,
+      "unpaid_ratio": 0.1562,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "4559.38",
+          "impact": "negative",
+          "detail": "avg purchase is 4559.38"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "16%",
+          "impact": "positive",
+          "detail": "Buys on credit 16% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "08d8b40e-bed9-444f-b657-37ac80f8e9fa",
+      "customer_name": "Durga Kumari Bista",
+      "credit_score": 99,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0097,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 25,
+      "unpaid_ratio": 0.16,
+      "explanations": [
+        {
+          "factor": "Purchase history",
+          "value": "25 purchases",
+          "impact": "negative",
+          "detail": "25 total purchases on record"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "16%",
+          "impact": "positive",
+          "detail": "Buys on credit 16% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        }
+      ]
+    },
+    {
+      "customer_id": "bab3d2b7-7773-40a8-8506-0e3c6b20ee3f",
+      "customer_name": "Kamala Devi Jha",
+      "credit_score": 89,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.114,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 32,
+      "unpaid_ratio": 0.375,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "38%",
+          "impact": "negative",
+          "detail": "Buys on credit 38% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Using 0% of credit limit"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "3931.56",
+          "impact": "positive",
+          "detail": "avg purchase is 3931.56"
+        }
+      ]
+    },
+    {
+      "customer_id": "3b43085d-95c1-414a-b21f-36ce33639b6c",
+      "customer_name": "Mahesh Bahadur Bohara",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9713,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 24,
+      "unpaid_ratio": 0.4583,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "46%",
+          "impact": "negative",
+          "detail": "Buys on credit 46% of the time"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "4457.08",
+          "impact": "negative",
+          "detail": "avg purchase is 4457.08"
+        },
+        {
+          "factor": "Purchase history",
+          "value": "24 purchases",
+          "impact": "negative",
+          "detail": "24 total purchases on record"
+        }
+      ]
+    },
+    {
+      "customer_id": "7d6d1bba-6d19-4d80-87b4-15b14659abb1",
+      "customer_name": "Gopal Raj Acharya",
+      "credit_score": 1,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9915,
+      "current_balance": 19000.0,
+      "credit_limit": 20000.0,
+      "balance_ratio": 0.95,
+      "n_purchases": 85,
+      "unpaid_ratio": 0.4941,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "49%",
+          "impact": "negative",
+          "detail": "Buys on credit 49% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "95%",
+          "impact": "negative",
+          "detail": "Using 95% of credit limit"
+        },
+        {
+          "factor": "N Khata Debits",
+          "value": "12.00",
+          "impact": "negative",
+          "detail": "n khata debits is 12.00"
+        }
+      ]
+    },
+    {
+      "customer_id": "d42ed10f-ee6d-452d-b2d2-1c2901458cb7",
+      "customer_name": "Anju Kumari Khatri",
+      "credit_score": 1,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9913,
+      "current_balance": 13800.0,
+      "credit_limit": 15000.0,
+      "balance_ratio": 0.92,
+      "n_purchases": 50,
+      "unpaid_ratio": 0.58,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "58%",
+          "impact": "negative",
+          "detail": "Buys on credit 58% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "92%",
+          "impact": "negative",
+          "detail": "Using 92% of credit limit"
+        },
+        {
+          "factor": "N Khata Debits",
+          "value": "14.00",
+          "impact": "negative",
+          "detail": "n khata debits is 14.00"
+        }
+      ]
+    },
+    {
+      "customer_id": "69536efd-d06b-4392-8ed2-473404753098",
+      "customer_name": "Kavita Devi Dhakal",
+      "credit_score": 0,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9969,
+      "current_balance": 18500.0,
+      "credit_limit": 20000.0,
+      "balance_ratio": 0.925,
+      "n_purchases": 68,
+      "unpaid_ratio": 0.6618,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "66%",
+          "impact": "negative",
+          "detail": "Buys on credit 66% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "92%",
+          "impact": "negative",
+          "detail": "Using 92% of credit limit"
+        },
+        {
+          "factor": "N Khata Debits",
+          "value": "12.00",
+          "impact": "negative",
+          "detail": "n khata debits is 12.00"
+        }
+      ]
+    },
+    {
+      "customer_id": "1bdb6dd6-cd07-40df-bec4-d46d00c8634c",
+      "customer_name": "Narayan Prasad Timilsina",
+      "credit_score": 0,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9975,
+      "current_balance": 15200.0,
+      "credit_limit": 20000.0,
+      "balance_ratio": 0.76,
+      "n_purchases": 77,
+      "unpaid_ratio": 0.6104,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "61%",
+          "impact": "negative",
+          "detail": "Buys on credit 61% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "76%",
+          "impact": "negative",
+          "detail": "Using 76% of credit limit"
+        },
+        {
+          "factor": "N Khata Debits",
+          "value": "10.00",
+          "impact": "negative",
+          "detail": "n khata debits is 10.00"
+        }
+      ]
+    },
+    {
+      "customer_id": "dabd1849-40d8-453c-9175-835fc5740af7",
+      "customer_name": "Radha Kumari Parajuli",
+      "credit_score": 0,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9967,
+      "current_balance": 12800.0,
+      "credit_limit": 15000.0,
+      "balance_ratio": 0.8533,
+      "n_purchases": 61,
+      "unpaid_ratio": 0.6885,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "69%",
+          "impact": "negative",
+          "detail": "Buys on credit 69% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "85%",
+          "impact": "negative",
+          "detail": "Using 85% of credit limit"
+        },
+        {
+          "factor": "N Khata Debits",
+          "value": "13.00",
+          "impact": "negative",
+          "detail": "n khata debits is 13.00"
+        }
+      ]
+    },
+    {
+      "customer_id": "88306714-9d4f-4d92-92e1-46e28e311cc4",
+      "customer_name": "Nirmala Devi Chapagain",
+      "credit_score": 0,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9969,
+      "current_balance": 14200.0,
+      "credit_limit": 15000.0,
+      "balance_ratio": 0.9467,
+      "n_purchases": 62,
+      "unpaid_ratio": 0.6452,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "65%",
+          "impact": "negative",
+          "detail": "Buys on credit 65% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "95%",
+          "impact": "negative",
+          "detail": "Using 95% of credit limit"
+        },
+        {
+          "factor": "N Khata Debits",
+          "value": "10.00",
+          "impact": "negative",
+          "detail": "n khata debits is 10.00"
+        }
+      ]
+    },
+    {
+      "customer_id": "2b7ff507-15d3-4d93-96ab-874f09da796f",
+      "customer_name": "Shyam Bahadur Rawat",
+      "credit_score": 0,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9975,
+      "current_balance": 17500.0,
+      "credit_limit": 20000.0,
+      "balance_ratio": 0.875,
+      "n_purchases": 70,
+      "unpaid_ratio": 0.5,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "50%",
+          "impact": "negative",
+          "detail": "Buys on credit 50% of the time"
+        },
+        {
+          "factor": "Credit utilization",
+          "value": "88%",
+          "impact": "negative",
+          "detail": "Using 88% of credit limit"
+        },
+        {
+          "factor": "N Khata Debits",
+          "value": "15.00",
+          "impact": "negative",
+          "detail": "n khata debits is 15.00"
+        }
+      ]
+    }
+  ]
+}

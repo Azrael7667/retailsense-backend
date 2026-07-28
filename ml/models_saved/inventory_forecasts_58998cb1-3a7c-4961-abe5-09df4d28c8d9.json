@@ -1,0 +1,2819 @@
+{
+  "recommendations": [
+    {
+      "product_name": "Tata Genuine Oil CI4 1L",
+      "unit": "litre",
+      "current_stock": 18.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 8.2,
+      "next_4w_demand": 33.3,
+      "weeks_of_stock": 2.2,
+      "needs_restock": false,
+      "suggested_order": 20.3,
+      "predictions": [
+        8.1,
+        8.4,
+        8.4,
+        8.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Tata Genuine Oil CH4 1L",
+      "unit": "litre",
+      "current_stock": 29.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 10.2,
+      "next_4w_demand": 44.5,
+      "weeks_of_stock": 2.8,
+      "needs_restock": false,
+      "suggested_order": 20.5,
+      "predictions": [
+        10.9,
+        11.2,
+        11.2,
+        11.2
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Air Filter (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 19.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 5.1,
+      "next_4w_demand": 28.7,
+      "weeks_of_stock": 3.7,
+      "needs_restock": false,
+      "suggested_order": 14.7,
+      "predictions": [
+        5.4,
+        7.7,
+        7.8,
+        7.8
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Air Filter (Bolero/Scorpio)",
+      "unit": "pcs",
+      "current_stock": 18.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 4.5,
+      "next_4w_demand": 24.3,
+      "weeks_of_stock": 4.0,
+      "needs_restock": false,
+      "suggested_order": 11.3,
+      "predictions": [
+        4.5,
+        6.6,
+        6.6,
+        6.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Lining Rear (Tata Sumo)",
+      "unit": "set",
+      "current_stock": 15.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 3.2,
+      "next_4w_demand": 12.8,
+      "weeks_of_stock": 4.7,
+      "needs_restock": false,
+      "suggested_order": 2.8,
+      "predictions": [
+        3.2,
+        3.2,
+        3.2,
+        3.2
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Oil DOT3 500ml",
+      "unit": "bottle",
+      "current_stock": 26.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 5.4,
+      "next_4w_demand": 21.4,
+      "weeks_of_stock": 4.8,
+      "needs_restock": false,
+      "suggested_order": 0.4,
+      "predictions": [
+        5.2,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Servo Pride 1L",
+      "unit": "litre",
+      "current_stock": 46.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 8.2,
+      "next_4w_demand": 41.2,
+      "weeks_of_stock": 5.6,
+      "needs_restock": false,
+      "suggested_order": 0.2,
+      "predictions": [
+        10.3,
+        10.3,
+        10.3,
+        10.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Castrol CRB Turbo 1L",
+      "unit": "litre",
+      "current_stock": 50.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 8.7,
+      "next_4w_demand": 36.0,
+      "weeks_of_stock": 5.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        9.0,
+        9.0,
+        9.0,
+        9.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Fuel Filter (Tata Ace)",
+      "unit": "pcs",
+      "current_stock": 18.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.7,
+      "next_4w_demand": 11.0,
+      "weeks_of_stock": 6.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.5,
+        2.5,
+        3.0,
+        3.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Coolant 1L",
+      "unit": "litre",
+      "current_stock": 28.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 3.9,
+      "next_4w_demand": 28.1,
+      "weeks_of_stock": 7.2,
+      "needs_restock": false,
+      "suggested_order": 5.1,
+      "predictions": [
+        4.7,
+        7.8,
+        7.8,
+        7.8
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Veedol 20W50 1L",
+      "unit": "litre",
+      "current_stock": 43.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 5.8,
+      "next_4w_demand": 23.6,
+      "weeks_of_stock": 7.4,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        4.3,
+        6.7,
+        6.3,
+        6.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Air Filter (Tata Ace)",
+      "unit": "pcs",
+      "current_stock": 26.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 3.4,
+      "next_4w_demand": 15.6,
+      "weeks_of_stock": 7.6,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.9,
+        3.9,
+        3.9,
+        3.9
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Oil Filter (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 42.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 5.3,
+      "next_4w_demand": 23.1,
+      "weeks_of_stock": 7.9,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        6.0,
+        5.7,
+        5.7,
+        5.7
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Oil Filter (Bolero)",
+      "unit": "pcs",
+      "current_stock": 44.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 5.5,
+      "next_4w_demand": 19.4,
+      "weeks_of_stock": 8.0,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        4.6,
+        4.6,
+        5.1,
+        5.1
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Timing Belt (Bolero/Scorpio)",
+      "unit": "pcs",
+      "current_stock": 20.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.5,
+      "next_4w_demand": 11.6,
+      "weeks_of_stock": 8.0,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.9,
+        2.9,
+        2.9,
+        2.9
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Indicator Bulb 12V",
+      "unit": "pcs",
+      "current_stock": 66.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 8.1,
+      "next_4w_demand": 39.0,
+      "weeks_of_stock": 8.1,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        10.2,
+        9.6,
+        9.6,
+        9.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Battery 12V 60Ah (Amaron)",
+      "unit": "pcs",
+      "current_stock": 19.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 10.0,
+      "weeks_of_stock": 8.3,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Battery 12V 60Ah (Exide)",
+      "unit": "pcs",
+      "current_stock": 22.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 9.5,
+      "weeks_of_stock": 8.5,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.6,
+        2.3,
+        2.3,
+        2.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Clutch Kit (Tata Sumo)",
+      "unit": "set",
+      "current_stock": 20.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 11.7,
+      "weeks_of_stock": 8.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.7,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Valve Kit (Tata Sumo)",
+      "unit": "set",
+      "current_stock": 23.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 11.2,
+      "weeks_of_stock": 8.8,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.8,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Wiper Blade (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 23.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 12.0,
+      "weeks_of_stock": 8.8,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Tail Light Bulb",
+      "unit": "pcs",
+      "current_stock": 49.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 5.5,
+      "next_4w_demand": 28.2,
+      "weeks_of_stock": 8.9,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        6.9,
+        7.1,
+        7.1,
+        7.1
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Headlight Bulb 12V 60W",
+      "unit": "pcs",
+      "current_stock": 55.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 6.0,
+      "next_4w_demand": 23.4,
+      "weeks_of_stock": 9.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        5.7,
+        5.9,
+        5.9,
+        5.9
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Gear Oil 90 (1L)",
+      "unit": "litre",
+      "current_stock": 32.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 3.2,
+      "next_4w_demand": 14.1,
+      "weeks_of_stock": 10.0,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.3,
+        3.6,
+        3.6,
+        3.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Tie Rod End (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 24.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.4,
+      "next_4w_demand": 9.9,
+      "weeks_of_stock": 10.0,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.1,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Head Gasket (Tata Ace)",
+      "unit": "pcs",
+      "current_stock": 25.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.4,
+      "next_4w_demand": 9.2,
+      "weeks_of_stock": 10.4,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        1.5,
+        1.5,
+        2.8,
+        3.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Radiator Hose Upper",
+      "unit": "pcs",
+      "current_stock": 27.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 10.4,
+      "weeks_of_stock": 10.4,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.6,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Radiator Grill (Tata Ace)",
+      "unit": "pcs",
+      "current_stock": 26.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.5,
+      "next_4w_demand": 11.6,
+      "weeks_of_stock": 10.4,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.9,
+        2.9,
+        2.9,
+        2.9
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Lining Rear (Bolero)",
+      "unit": "set",
+      "current_stock": 35.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 3.3,
+      "next_4w_demand": 16.5,
+      "weeks_of_stock": 10.6,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.9,
+        4.2,
+        4.2,
+        4.2
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Clutch Plate (Tata Ace)",
+      "unit": "pcs",
+      "current_stock": 27.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.5,
+      "next_4w_demand": 12.3,
+      "weeks_of_stock": 10.8,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.1,
+        3.4,
+        3.4,
+        3.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Water Pump (Bolero)",
+      "unit": "pcs",
+      "current_stock": 25.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 10.0,
+      "weeks_of_stock": 10.9,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Head Gasket (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 30.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.7,
+      "next_4w_demand": 13.6,
+      "weeks_of_stock": 11.1,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.4,
+        3.4,
+        3.4,
+        3.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Pad Front (Bolero)",
+      "unit": "set",
+      "current_stock": 43.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 3.8,
+      "next_4w_demand": 18.4,
+      "weeks_of_stock": 11.3,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        4.6,
+        4.6,
+        4.6,
+        4.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Pressure Plate (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 60.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 5.3,
+      "next_4w_demand": 54.1,
+      "weeks_of_stock": 11.3,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        13.6,
+        13.5,
+        13.5,
+        13.5
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Thermostat (Universal)",
+      "unit": "pcs",
+      "current_stock": 44.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 3.9,
+      "next_4w_demand": 11.2,
+      "weeks_of_stock": 11.3,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        1.9,
+        3.1,
+        3.1,
+        3.1
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Clutch Plate (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 26.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 10.9,
+      "weeks_of_stock": 11.8,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.5,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Master Cylinder (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 28.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 9.1,
+      "weeks_of_stock": 12.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        1.3,
+        2.4,
+        2.7,
+        2.7
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Wheel Bearing (Bolero)",
+      "unit": "pcs",
+      "current_stock": 49.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 4.0,
+      "next_4w_demand": 20.8,
+      "weeks_of_stock": 12.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        5.2,
+        5.2,
+        5.2,
+        5.2
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Pad Front (Tata Ace)",
+      "unit": "set",
+      "current_stock": 50.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 3.9,
+      "next_4w_demand": 20.4,
+      "weeks_of_stock": 12.8,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        5.1,
+        5.1,
+        5.1,
+        5.1
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Crankshaft Seal Rear",
+      "unit": "pcs",
+      "current_stock": 33.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.4,
+      "next_4w_demand": 9.6,
+      "weeks_of_stock": 13.8,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.4,
+        2.4,
+        2.4,
+        2.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Wheel Hub Seal (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 32.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 8.7,
+      "weeks_of_stock": 14.5,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        1.8,
+        2.3,
+        2.3,
+        2.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Fuel Filter (Bolero/Yoddha)",
+      "unit": "pcs",
+      "current_stock": 40.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.7,
+      "next_4w_demand": 13.3,
+      "weeks_of_stock": 14.8,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.1,
+        3.4,
+        3.4,
+        3.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Shock Absorber Front (Bolero)",
+      "unit": "pcs",
+      "current_stock": 35.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 8.5,
+      "weeks_of_stock": 15.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.5,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Door Handle (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 32.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.1,
+      "next_4w_demand": 11.6,
+      "weeks_of_stock": 15.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        1.8,
+        3.0,
+        3.4,
+        3.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Alternator (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 42.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.7,
+      "next_4w_demand": 13.1,
+      "weeks_of_stock": 15.6,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.2,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Tie Rod End (Bolero/Scorpio)",
+      "unit": "pcs",
+      "current_stock": 36.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 12.1,
+      "weeks_of_stock": 15.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.1,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Leaf Spring (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 41.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 11.6,
+      "weeks_of_stock": 15.8,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.9,
+        2.9,
+        2.9,
+        2.9
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Drum (Tata Sumo Rear)",
+      "unit": "pcs",
+      "current_stock": 34.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.1,
+      "next_4w_demand": 10.4,
+      "weeks_of_stock": 16.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.6,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Battery 12V 80Ah (Exide)",
+      "unit": "pcs",
+      "current_stock": 44.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 10.8,
+      "weeks_of_stock": 16.9,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.7,
+        2.7,
+        2.7,
+        2.7
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Pad Front (Tata Sumo)",
+      "unit": "set",
+      "current_stock": 68.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 4.0,
+      "next_4w_demand": 18.8,
+      "weeks_of_stock": 17.0,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        4.7,
+        4.7,
+        4.7,
+        4.7
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Fan Belt (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 50.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.9,
+      "next_4w_demand": 13.4,
+      "weeks_of_stock": 17.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.0,
+        3.4,
+        3.5,
+        3.5
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Pad",
+      "unit": "pcs",
+      "current_stock": 49.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.8,
+      "next_4w_demand": 14.0,
+      "weeks_of_stock": 17.5,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.9,
+        3.7,
+        3.7,
+        3.7
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Ball Joint (Bolero)",
+      "unit": "pcs",
+      "current_stock": 35.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.0,
+      "next_4w_demand": 8.0,
+      "weeks_of_stock": 17.5,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.0,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Timing Chain (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 44.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.5,
+      "next_4w_demand": 11.4,
+      "weeks_of_stock": 17.6,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.5,
+        2.9,
+        3.0,
+        3.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Piston Ring Set (Tata Sumo)",
+      "unit": "set",
+      "current_stock": 39.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 12.7,
+      "weeks_of_stock": 17.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.8,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Bonnet Lock (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 43.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.4,
+      "next_4w_demand": 10.7,
+      "weeks_of_stock": 17.9,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.7,
+        2.7,
+        2.7,
+        2.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Radiator Hose Lower",
+      "unit": "pcs",
+      "current_stock": 63.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 3.5,
+      "next_4w_demand": 17.2,
+      "weeks_of_stock": 18.0,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        4.3,
+        4.3,
+        4.3,
+        4.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Wiper Blade (Bolero/Scorpio)",
+      "unit": "pcs",
+      "current_stock": 42.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 11.2,
+      "weeks_of_stock": 18.3,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.8,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Clutch Bearing (Universal)",
+      "unit": "pcs",
+      "current_stock": 48.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 14.4,
+      "weeks_of_stock": 18.5,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.3,
+        3.7,
+        3.7,
+        3.7
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Gearbox Oil Seal",
+      "unit": "pcs",
+      "current_stock": 48.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.5,
+      "next_4w_demand": 12.8,
+      "weeks_of_stock": 19.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.2,
+        3.2,
+        3.2,
+        3.2
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Wheel Cylinder (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 42.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.1,
+      "next_4w_demand": 11.9,
+      "weeks_of_stock": 20.0,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.9,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "King Pin Kit (Tata Sumo)",
+      "unit": "set",
+      "current_stock": 43.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.1,
+      "next_4w_demand": 10.5,
+      "weeks_of_stock": 20.5,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.1,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Piston Kit (Tata Sumo)",
+      "unit": "set",
+      "current_stock": 52.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.5,
+      "next_4w_demand": 10.8,
+      "weeks_of_stock": 20.8,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.7,
+        2.7,
+        2.7,
+        2.7
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Ball Joint (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 46.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 10.9,
+      "weeks_of_stock": 20.9,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.5,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Diff Pinion Bearing",
+      "unit": "pcs",
+      "current_stock": 46.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 10.0,
+      "weeks_of_stock": 20.9,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Gearbox Bearing Set",
+      "unit": "set",
+      "current_stock": 48.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 13.1,
+      "weeks_of_stock": 20.9,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.2,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Axle Shaft Seal (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 65.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 3.0,
+      "next_4w_demand": 13.2,
+      "weeks_of_stock": 21.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.3,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Wheel Cylinder (Bolero)",
+      "unit": "pcs",
+      "current_stock": 58.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 12.4,
+      "weeks_of_stock": 22.3,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.1,
+        3.1,
+        3.1,
+        3.1
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Water Pump (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 52.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 12.2,
+      "weeks_of_stock": 22.6,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.6,
+        3.0,
+        3.3,
+        3.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Drum (Tata Ace)",
+      "unit": "pcs",
+      "current_stock": 50.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 8.8,
+      "weeks_of_stock": 22.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.2,
+        2.2,
+        2.2,
+        2.2
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Pressure Plate (Bolero)",
+      "unit": "pcs",
+      "current_stock": 59.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 10.7,
+      "weeks_of_stock": 22.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.6,
+        2.6,
+        2.6,
+        2.9
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Disc (Bolero/Scorpio)",
+      "unit": "pcs",
+      "current_stock": 58.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.5,
+      "next_4w_demand": 11.6,
+      "weeks_of_stock": 23.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.9,
+        2.9,
+        2.9,
+        2.9
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Leaf Spring (Tata Ace)",
+      "unit": "pcs",
+      "current_stock": 49.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.1,
+      "next_4w_demand": 10.0,
+      "weeks_of_stock": 23.3,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.2,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Steering Gear Box (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 56.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 12.1,
+      "weeks_of_stock": 24.3,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.8,
+        3.1,
+        3.1,
+        3.1
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Side Mirror Right (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 66.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.7,
+      "next_4w_demand": 12.0,
+      "weeks_of_stock": 24.4,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Shock Absorber (Tata Ace)",
+      "unit": "pcs",
+      "current_stock": 60.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.4,
+      "next_4w_demand": 10.0,
+      "weeks_of_stock": 25.0,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.0,
+        2.4,
+        2.8,
+        2.8
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Head Gasket (Bolero)",
+      "unit": "pcs",
+      "current_stock": 63.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.5,
+      "next_4w_demand": 11.3,
+      "weeks_of_stock": 25.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        1.8,
+        2.3,
+        3.5,
+        3.7
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Fan Belt (Bolero/Scorpio)",
+      "unit": "pcs",
+      "current_stock": 73.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.8,
+      "next_4w_demand": 13.2,
+      "weeks_of_stock": 26.1,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.3,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Crankshaft Seal Front",
+      "unit": "pcs",
+      "current_stock": 73.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.8,
+      "next_4w_demand": 9.4,
+      "weeks_of_stock": 26.1,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.3,
+        2.3,
+        2.4,
+        2.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Starter Motor (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 55.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.1,
+      "next_4w_demand": 7.3,
+      "weeks_of_stock": 26.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        1.0,
+        2.1,
+        2.1,
+        2.1
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Side Mirror Left (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 69.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 14.0,
+      "weeks_of_stock": 26.5,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.4,
+        3.6,
+        4.0,
+        4.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Pad Front (Scorpio)",
+      "unit": "set",
+      "current_stock": 72.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.6,
+      "next_4w_demand": 14.6,
+      "weeks_of_stock": 27.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.9,
+        3.9,
+        3.9,
+        3.9
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Shock Absorber Front (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 61.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 12.1,
+      "weeks_of_stock": 27.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.1,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Side Mirror (Bolero)",
+      "unit": "pcs",
+      "current_stock": 61.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 8.0,
+      "weeks_of_stock": 27.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        1.8,
+        1.8,
+        1.9,
+        2.5
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Shock Absorber Rear (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 62.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 7.7,
+      "weeks_of_stock": 28.2,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        1.7,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Clutch Plate (Bolero/Yoddha)",
+      "unit": "pcs",
+      "current_stock": 63.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 10.4,
+      "weeks_of_stock": 28.6,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.6,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Wheel Bearing Rear (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 63.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 11.9,
+      "weeks_of_stock": 28.6,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.3,
+        3.2,
+        3.2,
+        3.2
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Wheel Bearing Front (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 74.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.5,
+      "next_4w_demand": 9.2,
+      "weeks_of_stock": 29.6,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        1.9,
+        2.7,
+        2.3,
+        2.3
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Piston Kit (Bolero)",
+      "unit": "set",
+      "current_stock": 61.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.0,
+      "next_4w_demand": 10.0,
+      "weeks_of_stock": 30.5,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Disc (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 69.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 9.6,
+      "weeks_of_stock": 31.4,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.4,
+        2.4,
+        2.4,
+        2.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Fuel Filter (Tata Sumo)",
+      "unit": "pcs",
+      "current_stock": 79.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.5,
+      "next_4w_demand": 11.2,
+      "weeks_of_stock": 31.6,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.8,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Clutch Kit (Bolero/Yoddha)",
+      "unit": "set",
+      "current_stock": 73.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 14.1,
+      "weeks_of_stock": 31.7,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.4,
+        3.9,
+        3.9,
+        3.9
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Number Plate Light",
+      "unit": "pcs",
+      "current_stock": 78.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.4,
+      "next_4w_demand": 10.8,
+      "weeks_of_stock": 32.5,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.7,
+        2.7,
+        2.7,
+        2.7
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Grease 500g",
+      "unit": "tin",
+      "current_stock": 69.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.1,
+      "next_4w_demand": 9.6,
+      "weeks_of_stock": 32.9,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.4,
+        2.4,
+        2.4,
+        2.4
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Fuse Box Set",
+      "unit": "set",
+      "current_stock": 78.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.3,
+      "next_4w_demand": 10.4,
+      "weeks_of_stock": 33.9,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        2.6,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Brake Oil",
+      "unit": "pcs",
+      "current_stock": 99.0,
+      "reorder_level": 5.0,
+      "avg_weekly_qty": 2.9,
+      "next_4w_demand": 14.5,
+      "weeks_of_stock": 34.1,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.7,
+        3.6,
+        3.6,
+        3.6
+      ],
+      "method": "lightgbm"
+    },
+    {
+      "product_name": "Bumper Guard (Universal)",
+      "unit": "pcs",
+      "current_stock": 80.0,
+      "reorder_level": 2.0,
+      "avg_weekly_qty": 2.2,
+      "next_4w_demand": 12.9,
+      "weeks_of_stock": 36.4,
+      "needs_restock": false,
+      "suggested_order": 0,
+      "predictions": [
+        3.0,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "method": "lightgbm"
+    }
+  ],
+  "forecasts": {
+    "Brake Pad": {
+      "method": "lightgbm",
+      "predictions": [
+        2.9,
+        3.7,
+        3.7,
+        3.7
+      ],
+      "avg_weekly_qty": 2.8,
+      "mae": 1.72
+    },
+    "Brake Oil": {
+      "method": "lightgbm",
+      "predictions": [
+        3.7,
+        3.6,
+        3.6,
+        3.6
+      ],
+      "avg_weekly_qty": 2.9,
+      "mae": 1.94
+    },
+    "Tata Genuine Oil CH4 1L": {
+      "method": "lightgbm",
+      "predictions": [
+        10.9,
+        11.2,
+        11.2,
+        11.2
+      ],
+      "avg_weekly_qty": 10.2,
+      "mae": 4.86
+    },
+    "Tata Genuine Oil CI4 1L": {
+      "method": "lightgbm",
+      "predictions": [
+        8.1,
+        8.4,
+        8.4,
+        8.4
+      ],
+      "avg_weekly_qty": 8.2,
+      "mae": 3.0
+    },
+    "Castrol CRB Turbo 1L": {
+      "method": "lightgbm",
+      "predictions": [
+        9.0,
+        9.0,
+        9.0,
+        9.0
+      ],
+      "avg_weekly_qty": 8.7,
+      "mae": 5.03
+    },
+    "Servo Pride 1L": {
+      "method": "lightgbm",
+      "predictions": [
+        10.3,
+        10.3,
+        10.3,
+        10.3
+      ],
+      "avg_weekly_qty": 8.2,
+      "mae": 7.03
+    },
+    "Veedol 20W50 1L": {
+      "method": "lightgbm",
+      "predictions": [
+        4.3,
+        6.7,
+        6.3,
+        6.3
+      ],
+      "avg_weekly_qty": 5.8,
+      "mae": 1.08
+    },
+    "Gear Oil 90 (1L)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.3,
+        3.6,
+        3.6,
+        3.6
+      ],
+      "avg_weekly_qty": 3.2,
+      "mae": 1.24
+    },
+    "Coolant 1L": {
+      "method": "lightgbm",
+      "predictions": [
+        4.7,
+        7.8,
+        7.8,
+        7.8
+      ],
+      "avg_weekly_qty": 3.9,
+      "mae": 1.11
+    },
+    "Brake Oil DOT3 500ml": {
+      "method": "lightgbm",
+      "predictions": [
+        5.2,
+        5.4,
+        5.4,
+        5.4
+      ],
+      "avg_weekly_qty": 5.4,
+      "mae": 1.8
+    },
+    "Grease 500g": {
+      "method": "lightgbm",
+      "predictions": [
+        2.4,
+        2.4,
+        2.4,
+        2.4
+      ],
+      "avg_weekly_qty": 2.1,
+      "mae": 1.45
+    },
+    "Air Filter (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        5.4,
+        7.7,
+        7.8,
+        7.8
+      ],
+      "avg_weekly_qty": 5.1,
+      "mae": 1.42
+    },
+    "Air Filter (Bolero/Scorpio)": {
+      "method": "lightgbm",
+      "predictions": [
+        4.5,
+        6.6,
+        6.6,
+        6.6
+      ],
+      "avg_weekly_qty": 4.5,
+      "mae": 1.76
+    },
+    "Air Filter (Tata Ace)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.9,
+        3.9,
+        3.9,
+        3.9
+      ],
+      "avg_weekly_qty": 3.4,
+      "mae": 1.99
+    },
+    "Oil Filter (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        6.0,
+        5.7,
+        5.7,
+        5.7
+      ],
+      "avg_weekly_qty": 5.3,
+      "mae": 3.97
+    },
+    "Oil Filter (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        4.6,
+        4.6,
+        5.1,
+        5.1
+      ],
+      "avg_weekly_qty": 5.5,
+      "mae": 1.75
+    },
+    "Fuel Filter (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.8,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "avg_weekly_qty": 2.5,
+      "mae": 1.13
+    },
+    "Fuel Filter (Tata Ace)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.5,
+        2.5,
+        3.0,
+        3.0
+      ],
+      "avg_weekly_qty": 2.7,
+      "mae": 0.63
+    },
+    "Fuel Filter (Bolero/Yoddha)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.1,
+        3.4,
+        3.4,
+        3.4
+      ],
+      "avg_weekly_qty": 2.7,
+      "mae": 1.77
+    },
+    "Brake Pad Front (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        4.7,
+        4.7,
+        4.7,
+        4.7
+      ],
+      "avg_weekly_qty": 4.0,
+      "mae": 2.45
+    },
+    "Brake Pad Front (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        4.6,
+        4.6,
+        4.6,
+        4.6
+      ],
+      "avg_weekly_qty": 3.8,
+      "mae": 3.06
+    },
+    "Brake Pad Front (Scorpio)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.9,
+        3.9,
+        3.9,
+        3.9
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 1.3
+    },
+    "Brake Pad Front (Tata Ace)": {
+      "method": "lightgbm",
+      "predictions": [
+        5.1,
+        5.1,
+        5.1,
+        5.1
+      ],
+      "avg_weekly_qty": 3.9,
+      "mae": 3.56
+    },
+    "Brake Lining Rear (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.2,
+        3.2,
+        3.2,
+        3.2
+      ],
+      "avg_weekly_qty": 3.2,
+      "mae": 1.41
+    },
+    "Brake Lining Rear (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.9,
+        4.2,
+        4.2,
+        4.2
+      ],
+      "avg_weekly_qty": 3.3,
+      "mae": 2.7
+    },
+    "Brake Disc (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.4,
+        2.4,
+        2.4,
+        2.4
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 0.97
+    },
+    "Brake Disc (Bolero/Scorpio)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.9,
+        2.9,
+        2.9,
+        2.9
+      ],
+      "avg_weekly_qty": 2.5,
+      "mae": 2.01
+    },
+    "Brake Drum (Tata Ace)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.2,
+        2.2,
+        2.2,
+        2.2
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 0.84
+    },
+    "Brake Drum (Tata Sumo Rear)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.6,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "avg_weekly_qty": 2.1,
+      "mae": 0.64
+    },
+    "Wheel Cylinder (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.9,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "avg_weekly_qty": 2.1,
+      "mae": 1.06
+    },
+    "Wheel Cylinder (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.1,
+        3.1,
+        3.1,
+        3.1
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 1.6
+    },
+    "Master Cylinder (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        1.3,
+        2.4,
+        2.7,
+        2.7
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 0.38
+    },
+    "Clutch Plate (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.5,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 1.09
+    },
+    "Clutch Plate (Bolero/Yoddha)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.6,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 0.69
+    },
+    "Clutch Plate (Tata Ace)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.1,
+        3.4,
+        3.4,
+        3.4
+      ],
+      "avg_weekly_qty": 2.5,
+      "mae": 1.17
+    },
+    "Pressure Plate (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        13.6,
+        13.5,
+        13.5,
+        13.5
+      ],
+      "avg_weekly_qty": 5.3,
+      "mae": 5.82
+    },
+    "Pressure Plate (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.6,
+        2.6,
+        2.6,
+        2.9
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 1.12
+    },
+    "Clutch Bearing (Universal)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.3,
+        3.7,
+        3.7,
+        3.7
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 1.96
+    },
+    "Clutch Kit (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.7,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 0.81
+    },
+    "Clutch Kit (Bolero/Yoddha)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.4,
+        3.9,
+        3.9,
+        3.9
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 1.0
+    },
+    "Head Gasket (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.4,
+        3.4,
+        3.4,
+        3.4
+      ],
+      "avg_weekly_qty": 2.7,
+      "mae": 1.95
+    },
+    "Head Gasket (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        1.8,
+        2.3,
+        3.5,
+        3.7
+      ],
+      "avg_weekly_qty": 2.5,
+      "mae": 0.82
+    },
+    "Head Gasket (Tata Ace)": {
+      "method": "lightgbm",
+      "predictions": [
+        1.5,
+        1.5,
+        2.8,
+        3.4
+      ],
+      "avg_weekly_qty": 2.4,
+      "mae": 0.75
+    },
+    "Piston Kit (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.7,
+        2.7,
+        2.7,
+        2.7
+      ],
+      "avg_weekly_qty": 2.5,
+      "mae": 1.08
+    },
+    "Piston Kit (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "avg_weekly_qty": 2.0,
+      "mae": 0.8
+    },
+    "Piston Ring Set (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.8,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 0.26
+    },
+    "Valve Kit (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.8,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 1.53
+    },
+    "Timing Belt (Bolero/Scorpio)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.9,
+        2.9,
+        2.9,
+        2.9
+      ],
+      "avg_weekly_qty": 2.5,
+      "mae": 1.86
+    },
+    "Timing Chain (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.5,
+        2.9,
+        3.0,
+        3.0
+      ],
+      "avg_weekly_qty": 2.5,
+      "mae": 1.68
+    },
+    "Water Pump (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.6,
+        3.0,
+        3.3,
+        3.3
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 1.49
+    },
+    "Water Pump (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 1.24
+    },
+    "Thermostat (Universal)": {
+      "method": "lightgbm",
+      "predictions": [
+        1.9,
+        3.1,
+        3.1,
+        3.1
+      ],
+      "avg_weekly_qty": 3.9,
+      "mae": 15.2
+    },
+    "Radiator Hose Upper": {
+      "method": "lightgbm",
+      "predictions": [
+        2.6,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 1.25
+    },
+    "Radiator Hose Lower": {
+      "method": "lightgbm",
+      "predictions": [
+        4.3,
+        4.3,
+        4.3,
+        4.3
+      ],
+      "avg_weekly_qty": 3.5,
+      "mae": 2.88
+    },
+    "Fan Belt (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.0,
+        3.4,
+        3.5,
+        3.5
+      ],
+      "avg_weekly_qty": 2.9,
+      "mae": 1.29
+    },
+    "Fan Belt (Bolero/Scorpio)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.3,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "avg_weekly_qty": 2.8,
+      "mae": 1.49
+    },
+    "Shock Absorber Front (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.1,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 1.0
+    },
+    "Shock Absorber Front (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.5,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 0.52
+    },
+    "Shock Absorber Rear (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        1.7,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 0.84
+    },
+    "Shock Absorber (Tata Ace)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.0,
+        2.4,
+        2.8,
+        2.8
+      ],
+      "avg_weekly_qty": 2.4,
+      "mae": 0.61
+    },
+    "Leaf Spring (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.9,
+        2.9,
+        2.9,
+        2.9
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 1.69
+    },
+    "Leaf Spring (Tata Ace)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.2,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "avg_weekly_qty": 2.1,
+      "mae": 0.93
+    },
+    "Tie Rod End (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.1,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "avg_weekly_qty": 2.4,
+      "mae": 1.2
+    },
+    "Tie Rod End (Bolero/Scorpio)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.1,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 1.0
+    },
+    "Ball Joint (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.5,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 0.75
+    },
+    "Ball Joint (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.0,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "avg_weekly_qty": 2.0,
+      "mae": 0.5
+    },
+    "Wheel Bearing Front (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        1.9,
+        2.7,
+        2.3,
+        2.3
+      ],
+      "avg_weekly_qty": 2.5,
+      "mae": 0.94
+    },
+    "Wheel Bearing Rear (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.3,
+        3.2,
+        3.2,
+        3.2
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 1.88
+    },
+    "Wheel Bearing (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        5.2,
+        5.2,
+        5.2,
+        5.2
+      ],
+      "avg_weekly_qty": 4.0,
+      "mae": 3.48
+    },
+    "King Pin Kit (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.1,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "avg_weekly_qty": 2.1,
+      "mae": 0.56
+    },
+    "Steering Gear Box (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.8,
+        3.1,
+        3.1,
+        3.1
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 0.74
+    },
+    "Battery 12V 60Ah (Exide)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.6,
+        2.3,
+        2.3,
+        2.3
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 1.35
+    },
+    "Battery 12V 80Ah (Exide)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.7,
+        2.7,
+        2.7,
+        2.7
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 0.99
+    },
+    "Battery 12V 60Ah (Amaron)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 1.02
+    },
+    "Headlight Bulb 12V 60W": {
+      "method": "lightgbm",
+      "predictions": [
+        5.7,
+        5.9,
+        5.9,
+        5.9
+      ],
+      "avg_weekly_qty": 6.0,
+      "mae": 2.87
+    },
+    "Indicator Bulb 12V": {
+      "method": "lightgbm",
+      "predictions": [
+        10.2,
+        9.6,
+        9.6,
+        9.6
+      ],
+      "avg_weekly_qty": 8.1,
+      "mae": 5.5
+    },
+    "Tail Light Bulb": {
+      "method": "lightgbm",
+      "predictions": [
+        6.9,
+        7.1,
+        7.1,
+        7.1
+      ],
+      "avg_weekly_qty": 5.5,
+      "mae": 4.02
+    },
+    "Wiper Blade (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 1.74
+    },
+    "Wiper Blade (Bolero/Scorpio)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.8,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 1.78
+    },
+    "Starter Motor (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        1.0,
+        2.1,
+        2.1,
+        2.1
+      ],
+      "avg_weekly_qty": 2.1,
+      "mae": 0.43
+    },
+    "Alternator (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.2,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "avg_weekly_qty": 2.7,
+      "mae": 1.05
+    },
+    "Fuse Box Set": {
+      "method": "lightgbm",
+      "predictions": [
+        2.6,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 1.11
+    },
+    "Axle Shaft Seal (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.3,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "avg_weekly_qty": 3.0,
+      "mae": 1.11
+    },
+    "Crankshaft Seal Front": {
+      "method": "lightgbm",
+      "predictions": [
+        2.3,
+        2.3,
+        2.4,
+        2.4
+      ],
+      "avg_weekly_qty": 2.8,
+      "mae": 0.45
+    },
+    "Crankshaft Seal Rear": {
+      "method": "lightgbm",
+      "predictions": [
+        2.4,
+        2.4,
+        2.4,
+        2.4
+      ],
+      "avg_weekly_qty": 2.4,
+      "mae": 1.22
+    },
+    "Gearbox Oil Seal": {
+      "method": "lightgbm",
+      "predictions": [
+        3.2,
+        3.2,
+        3.2,
+        3.2
+      ],
+      "avg_weekly_qty": 2.5,
+      "mae": 1.9
+    },
+    "Wheel Hub Seal (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        1.8,
+        2.3,
+        2.3,
+        2.3
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 0.98
+    },
+    "Diff Pinion Bearing": {
+      "method": "lightgbm",
+      "predictions": [
+        2.5,
+        2.5,
+        2.5,
+        2.5
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 1.22
+    },
+    "Gearbox Bearing Set": {
+      "method": "lightgbm",
+      "predictions": [
+        3.2,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "avg_weekly_qty": 2.3,
+      "mae": 1.01
+    },
+    "Side Mirror Left (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.4,
+        3.6,
+        4.0,
+        4.0
+      ],
+      "avg_weekly_qty": 2.6,
+      "mae": 0.92
+    },
+    "Side Mirror Right (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "avg_weekly_qty": 2.7,
+      "mae": 1.25
+    },
+    "Side Mirror (Bolero)": {
+      "method": "lightgbm",
+      "predictions": [
+        1.8,
+        1.8,
+        1.9,
+        2.5
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 0.36
+    },
+    "Bonnet Lock (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.7,
+        2.7,
+        2.7,
+        2.6
+      ],
+      "avg_weekly_qty": 2.4,
+      "mae": 0.75
+    },
+    "Door Handle (Tata Sumo)": {
+      "method": "lightgbm",
+      "predictions": [
+        1.8,
+        3.0,
+        3.4,
+        3.4
+      ],
+      "avg_weekly_qty": 2.1,
+      "mae": 0.83
+    },
+    "Bumper Guard (Universal)": {
+      "method": "lightgbm",
+      "predictions": [
+        3.0,
+        3.3,
+        3.3,
+        3.3
+      ],
+      "avg_weekly_qty": 2.2,
+      "mae": 1.16
+    },
+    "Number Plate Light": {
+      "method": "lightgbm",
+      "predictions": [
+        2.7,
+        2.7,
+        2.7,
+        2.7
+      ],
+      "avg_weekly_qty": 2.4,
+      "mae": 1.72
+    },
+    "Radiator Grill (Tata Ace)": {
+      "method": "lightgbm",
+      "predictions": [
+        2.9,
+        2.9,
+        2.9,
+        2.9
+      ],
+      "avg_weekly_qty": 2.5,
+      "mae": 1.46
+    }
+  }
+}

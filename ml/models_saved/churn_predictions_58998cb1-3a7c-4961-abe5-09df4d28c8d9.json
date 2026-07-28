@@ -1,0 +1,688 @@
+{
+  "predictions": [
+    {
+      "customer_id": "bab3d2b7-7773-40a8-8506-0e3c6b20ee3f",
+      "customer_name": "Kamala Devi Jha",
+      "churn_probability": 0.7251,
+      "churn_percent": 72.5,
+      "risk_level": "high",
+      "is_churned": true,
+      "recency_days": 214,
+      "frequency": 32,
+      "monetary_total": 125810.0,
+      "last_purchase_days_ago": 214,
+      "explanations": [
+        "Only 32 total purchases increases churn risk",
+        "Total spend Rs 125,810 increases churn risk",
+        "Days Active: 152.00 increases churn risk"
+      ],
+      "action": "Call customer immediately. Offer special discount or loyalty reward."
+    },
+    {
+      "customer_id": "7017a4f8-3f73-40b8-9670-54c224effe8b",
+      "customer_name": "Sarita Kumari Regmi",
+      "churn_probability": 0.7251,
+      "churn_percent": 72.5,
+      "risk_level": "high",
+      "is_churned": true,
+      "recency_days": 218,
+      "frequency": 25,
+      "monetary_total": 96130.0,
+      "last_purchase_days_ago": 218,
+      "explanations": [
+        "Only 25 total purchases increases churn risk",
+        "Total spend Rs 96,130 increases churn risk",
+        "Days Active: 133.00 increases churn risk"
+      ],
+      "action": "Call customer immediately. Offer special discount or loyalty reward."
+    },
+    {
+      "customer_id": "3b43085d-95c1-414a-b21f-36ce33639b6c",
+      "customer_name": "Mahesh Bahadur Bohara",
+      "churn_probability": 0.7251,
+      "churn_percent": 72.5,
+      "risk_level": "high",
+      "is_churned": true,
+      "recency_days": 225,
+      "frequency": 24,
+      "monetary_total": 106970.0,
+      "last_purchase_days_ago": 225,
+      "explanations": [
+        "Only 24 total purchases increases churn risk",
+        "Total spend Rs 106,970 increases churn risk",
+        "Days Active: 137.00 increases churn risk"
+      ],
+      "action": "Call customer immediately. Offer special discount or loyalty reward."
+    },
+    {
+      "customer_id": "e3915752-540f-4fc3-9cff-f39d6d10114a",
+      "customer_name": "Kiran Kumari Subedi",
+      "churn_probability": 0.7251,
+      "churn_percent": 72.5,
+      "risk_level": "high",
+      "is_churned": true,
+      "recency_days": 200,
+      "frequency": 32,
+      "monetary_total": 167690.0,
+      "last_purchase_days_ago": 200,
+      "explanations": [
+        "Only 32 total purchases increases churn risk",
+        "Total spend Rs 167,690 increases churn risk",
+        "Days Active: 164.00 increases churn risk"
+      ],
+      "action": "Call customer immediately. Offer special discount or loyalty reward."
+    },
+    {
+      "customer_id": "793412a1-2b27-4978-b8ce-4873c9e919ae",
+      "customer_name": "Prem Bahadur Ale",
+      "churn_probability": 0.7251,
+      "churn_percent": 72.5,
+      "risk_level": "high",
+      "is_churned": true,
+      "recency_days": 227,
+      "frequency": 32,
+      "monetary_total": 145900.0,
+      "last_purchase_days_ago": 227,
+      "explanations": [
+        "Only 32 total purchases increases churn risk",
+        "Total spend Rs 145,900 increases churn risk",
+        "Days Active: 139.00 increases churn risk"
+      ],
+      "action": "Call customer immediately. Offer special discount or loyalty reward."
+    },
+    {
+      "customer_id": "08d8b40e-bed9-444f-b657-37ac80f8e9fa",
+      "customer_name": "Durga Kumari Bista",
+      "churn_probability": 0.7251,
+      "churn_percent": 72.5,
+      "risk_level": "high",
+      "is_churned": true,
+      "recency_days": 217,
+      "frequency": 25,
+      "monetary_total": 70870.0,
+      "last_purchase_days_ago": 217,
+      "explanations": [
+        "Only 25 total purchases increases churn risk",
+        "Total spend Rs 70,870 increases churn risk",
+        "Days Active: 145.00 increases churn risk"
+      ],
+      "action": "Call customer immediately. Offer special discount or loyalty reward."
+    },
+    {
+      "customer_id": "aa3a4568-b093-408a-883b-20a46175d90e",
+      "customer_name": "Santosh Kumar Giri",
+      "churn_probability": 0.7251,
+      "churn_percent": 72.5,
+      "risk_level": "high",
+      "is_churned": true,
+      "recency_days": 227,
+      "frequency": 30,
+      "monetary_total": 125540.0,
+      "last_purchase_days_ago": 227,
+      "explanations": [
+        "Only 30 total purchases increases churn risk",
+        "Total spend Rs 125,540 increases churn risk",
+        "Days Active: 136.00 increases churn risk"
+      ],
+      "action": "Call customer immediately. Offer special discount or loyalty reward."
+    },
+    {
+      "customer_id": "f6748566-30a8-47fd-9e17-8b4557d1333a",
+      "customer_name": "Bikram Singh Tharu",
+      "churn_probability": 0.1452,
+      "churn_percent": 14.5,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 0,
+      "frequency": 54,
+      "monetary_total": 134170.0,
+      "last_purchase_days_ago": 0,
+      "explanations": [
+        "Only 54 total purchases decreases churn risk",
+        "Total spend Rs 134,170 increases churn risk",
+        "Days Active: 362.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "d42ed10f-ee6d-452d-b2d2-1c2901458cb7",
+      "customer_name": "Anju Kumari Khatri",
+      "churn_probability": 0.1452,
+      "churn_percent": 14.5,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 29,
+      "frequency": 50,
+      "monetary_total": 172355.0,
+      "last_purchase_days_ago": 29,
+      "explanations": [
+        "Only 50 total purchases decreases churn risk",
+        "Total spend Rs 172,355 increases churn risk",
+        "Days Active: 329.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "400e9955-4d30-49ca-bff1-c20199a07feb",
+      "customer_name": "Dinesh Raj Dahal",
+      "churn_probability": 0.0926,
+      "churn_percent": 9.3,
+      "risk_level": "low",
+      "is_churned": true,
+      "recency_days": 215,
+      "frequency": 43,
+      "monetary_total": 184010.0,
+      "last_purchase_days_ago": 215,
+      "explanations": [
+        "Only 43 total purchases decreases churn risk",
+        "Total spend Rs 184,010 decreases churn risk",
+        "Days Active: 151.00 increases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "a7a131d8-a9e7-4965-b221-e393b736376a",
+      "customer_name": "Ram Bahadur Thapa",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 8,
+      "frequency": 64,
+      "monetary_total": 257270.0,
+      "last_purchase_days_ago": 8,
+      "explanations": [
+        "Only 64 total purchases decreases churn risk",
+        "Total spend Rs 257,270 decreases churn risk",
+        "Days Active: 357.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "1c53e081-2489-4b85-8845-2d588409e919",
+      "customer_name": "Sita Devi Sharma",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 12,
+      "frequency": 73,
+      "monetary_total": 228060.0,
+      "last_purchase_days_ago": 12,
+      "explanations": [
+        "Only 73 total purchases decreases churn risk",
+        "Total spend Rs 228,060 decreases churn risk",
+        "Days Active: 354.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "0cc16b48-68aa-4848-b109-2b472b214b1f",
+      "customer_name": "Hari Prasad Koirala",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 13,
+      "frequency": 71,
+      "monetary_total": 329165.0,
+      "last_purchase_days_ago": 13,
+      "explanations": [
+        "Only 71 total purchases decreases churn risk",
+        "Total spend Rs 329,165 decreases churn risk",
+        "Days Active: 348.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "9a857789-68af-470e-aa92-c7122deec75c",
+      "customer_name": "Gita Kumari Rai",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 0,
+      "frequency": 49,
+      "monetary_total": 211930.0,
+      "last_purchase_days_ago": 0,
+      "explanations": [
+        "Only 49 total purchases decreases churn risk",
+        "Total spend Rs 211,930 decreases churn risk",
+        "Days Active: 354.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "5eed824b-92ab-400b-b961-12a5502f5cae",
+      "customer_name": "Bishnu Kumar Tamang",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 8,
+      "frequency": 93,
+      "monetary_total": 447230.0,
+      "last_purchase_days_ago": 8,
+      "explanations": [
+        "Only 93 total purchases decreases churn risk",
+        "Total spend Rs 447,230 decreases churn risk",
+        "Days Active: 358.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "5a56cc17-a2a8-469e-82b8-b333473764c8",
+      "customer_name": "Maya Devi Gurung",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 8,
+      "frequency": 80,
+      "monetary_total": 274120.0,
+      "last_purchase_days_ago": 8,
+      "explanations": [
+        "Only 80 total purchases decreases churn risk",
+        "Total spend Rs 274,120 decreases churn risk",
+        "Days Active: 357.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "14f4fd65-b244-44d8-9599-b433681e1bd9",
+      "customer_name": "Kamal Raj Adhikari",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 6,
+      "frequency": 68,
+      "monetary_total": 277190.0,
+      "last_purchase_days_ago": 6,
+      "explanations": [
+        "Only 68 total purchases decreases churn risk",
+        "Total spend Rs 277,190 decreases churn risk",
+        "Days Active: 360.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "84eef40d-3cf4-4c2a-84c2-b5aaa3e7dd9f",
+      "customer_name": "Sunita Shrestha",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 0,
+      "frequency": 86,
+      "monetary_total": 280670.0,
+      "last_purchase_days_ago": 0,
+      "explanations": [
+        "Only 86 total purchases decreases churn risk",
+        "Total spend Rs 280,670 decreases churn risk",
+        "Days Active: 366.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "abb8dd0a-f567-4a53-8eb3-0b8121ae0c38",
+      "customer_name": "Binod Kumar Pandey",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 0,
+      "frequency": 55,
+      "monetary_total": 240590.0,
+      "last_purchase_days_ago": 0,
+      "explanations": [
+        "Only 55 total purchases decreases churn risk",
+        "Total spend Rs 240,590 decreases churn risk",
+        "Days Active: 366.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "f18fd942-c030-4d68-a216-a7cd03f0d4cd",
+      "customer_name": "Rekha Devi Bhattarai",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 1,
+      "frequency": 78,
+      "monetary_total": 385215.0,
+      "last_purchase_days_ago": 1,
+      "explanations": [
+        "Only 78 total purchases decreases churn risk",
+        "Total spend Rs 385,215 decreases churn risk",
+        "Days Active: 365.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "ada3d5dc-6ad6-4c68-9725-e8d8b83d9729",
+      "customer_name": "Deepak Raj Pokhrel",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 4,
+      "frequency": 77,
+      "monetary_total": 258320.0,
+      "last_purchase_days_ago": 4,
+      "explanations": [
+        "Only 77 total purchases decreases churn risk",
+        "Total spend Rs 258,320 decreases churn risk",
+        "Days Active: 362.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "59b0cdf5-47b9-4531-96ac-773f9986ee2a",
+      "customer_name": "Anita Kumari Magar",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 1,
+      "frequency": 57,
+      "monetary_total": 214920.0,
+      "last_purchase_days_ago": 1,
+      "explanations": [
+        "Only 57 total purchases decreases churn risk",
+        "Total spend Rs 214,920 decreases churn risk",
+        "Days Active: 363.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "07ff601d-1591-4de3-a50e-8aeedea7dfd2",
+      "customer_name": "Prakash Bahadur Limbu",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 1,
+      "frequency": 58,
+      "monetary_total": 253650.0,
+      "last_purchase_days_ago": 1,
+      "explanations": [
+        "Only 58 total purchases decreases churn risk",
+        "Total spend Rs 253,650 decreases churn risk",
+        "Days Active: 358.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "4c46e917-c5a9-417b-98a0-2c77c21f0357",
+      "customer_name": "Sabita Devi Neupane",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 0,
+      "frequency": 62,
+      "monetary_total": 186450.0,
+      "last_purchase_days_ago": 0,
+      "explanations": [
+        "Only 62 total purchases decreases churn risk",
+        "Total spend Rs 186,450 decreases churn risk",
+        "Days Active: 366.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "7a135926-1dcb-442b-96f5-8330e06d0c13",
+      "customer_name": "Nabin Raj Bhandari",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 3,
+      "frequency": 66,
+      "monetary_total": 262490.0,
+      "last_purchase_days_ago": 3,
+      "explanations": [
+        "Only 66 total purchases decreases churn risk",
+        "Total spend Rs 262,490 decreases churn risk",
+        "Days Active: 363.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "8d4f5eea-6fcc-4cb1-a03c-2a9e9c9a8cd8",
+      "customer_name": "Puja Kumari Poudel",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 57,
+      "frequency": 63,
+      "monetary_total": 235960.0,
+      "last_purchase_days_ago": 57,
+      "explanations": [
+        "Only 63 total purchases decreases churn risk",
+        "Total spend Rs 235,960 decreases churn risk",
+        "Days Active: 307.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "d4b83615-59e5-4d21-8833-3dc7d7a675ef",
+      "customer_name": "Suresh Kumar Karki",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 1,
+      "frequency": 69,
+      "monetary_total": 281630.0,
+      "last_purchase_days_ago": 1,
+      "explanations": [
+        "Only 69 total purchases decreases churn risk",
+        "Total spend Rs 281,630 decreases churn risk",
+        "Days Active: 363.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "1ae5f4b2-41f8-4eb6-b8bf-50183bdfd3ae",
+      "customer_name": "Rita Devi Basnet",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 0,
+      "frequency": 60,
+      "monetary_total": 235320.0,
+      "last_purchase_days_ago": 0,
+      "explanations": [
+        "Only 60 total purchases decreases churn risk",
+        "Total spend Rs 235,320 decreases churn risk",
+        "Days Active: 366.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "18cbee1e-95f2-48cb-96d2-d1028e5699c0",
+      "customer_name": "Arun Bahadur Khadka",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 8,
+      "frequency": 72,
+      "monetary_total": 239165.0,
+      "last_purchase_days_ago": 8,
+      "explanations": [
+        "Only 72 total purchases decreases churn risk",
+        "Total spend Rs 239,165 decreases churn risk",
+        "Days Active: 350.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "758e3c2e-e304-4215-b48e-69086419fc4e",
+      "customer_name": "Mina Kumari Chaudhary",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 10,
+      "frequency": 62,
+      "monetary_total": 281700.0,
+      "last_purchase_days_ago": 10,
+      "explanations": [
+        "Only 62 total purchases decreases churn risk",
+        "Total spend Rs 281,700 decreases churn risk",
+        "Days Active: 355.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "c78d3b1f-b356-45e8-9500-0a387a406301",
+      "customer_name": "Laxmi Devi Yadav",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 21,
+      "frequency": 60,
+      "monetary_total": 279660.0,
+      "last_purchase_days_ago": 21,
+      "explanations": [
+        "Only 60 total purchases decreases churn risk",
+        "Total spend Rs 279,660 decreases churn risk",
+        "Days Active: 341.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "6766acae-390c-443d-910e-296d99f32496",
+      "customer_name": "Rajesh Kumar Mandal",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 6,
+      "frequency": 58,
+      "monetary_total": 237970.0,
+      "last_purchase_days_ago": 6,
+      "explanations": [
+        "Only 58 total purchases decreases churn risk",
+        "Total spend Rs 237,970 decreases churn risk",
+        "Days Active: 360.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "69536efd-d06b-4392-8ed2-473404753098",
+      "customer_name": "Kavita Devi Dhakal",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 6,
+      "frequency": 68,
+      "monetary_total": 267555.0,
+      "last_purchase_days_ago": 6,
+      "explanations": [
+        "Only 68 total purchases decreases churn risk",
+        "Total spend Rs 267,555 decreases churn risk",
+        "Days Active: 355.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "1bdb6dd6-cd07-40df-bec4-d46d00c8634c",
+      "customer_name": "Narayan Prasad Timilsina",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 6,
+      "frequency": 77,
+      "monetary_total": 312670.0,
+      "last_purchase_days_ago": 6,
+      "explanations": [
+        "Only 77 total purchases decreases churn risk",
+        "Total spend Rs 312,670 decreases churn risk",
+        "Days Active: 349.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "dabd1849-40d8-453c-9175-835fc5740af7",
+      "customer_name": "Radha Kumari Parajuli",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 1,
+      "frequency": 61,
+      "monetary_total": 227740.0,
+      "last_purchase_days_ago": 1,
+      "explanations": [
+        "Only 61 total purchases decreases churn risk",
+        "Total spend Rs 227,740 decreases churn risk",
+        "Days Active: 361.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "7d6d1bba-6d19-4d80-87b4-15b14659abb1",
+      "customer_name": "Gopal Raj Acharya",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 12,
+      "frequency": 85,
+      "monetary_total": 309990.0,
+      "last_purchase_days_ago": 12,
+      "explanations": [
+        "Only 85 total purchases decreases churn risk",
+        "Total spend Rs 309,990 decreases churn risk",
+        "Days Active: 354.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "88306714-9d4f-4d92-92e1-46e28e311cc4",
+      "customer_name": "Nirmala Devi Chapagain",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 1,
+      "frequency": 62,
+      "monetary_total": 198390.0,
+      "last_purchase_days_ago": 1,
+      "explanations": [
+        "Only 62 total purchases decreases churn risk",
+        "Total spend Rs 198,390 decreases churn risk",
+        "Days Active: 364.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    },
+    {
+      "customer_id": "2b7ff507-15d3-4d93-96ab-874f09da796f",
+      "customer_name": "Shyam Bahadur Rawat",
+      "churn_probability": 0.0806,
+      "churn_percent": 8.1,
+      "risk_level": "low",
+      "is_churned": false,
+      "recency_days": 13,
+      "frequency": 70,
+      "monetary_total": 295440.0,
+      "last_purchase_days_ago": 13,
+      "explanations": [
+        "Only 70 total purchases decreases churn risk",
+        "Total spend Rs 295,440 decreases churn risk",
+        "Days Active: 341.00 decreases churn risk"
+      ],
+      "action": "Customer is active. Continue regular engagement."
+    }
+  ]
+}

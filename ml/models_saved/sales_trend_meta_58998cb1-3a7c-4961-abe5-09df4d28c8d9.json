@@ -1,0 +1,288 @@
+{
+  "model": "prophet_optuna",
+  "version": "1.0",
+  "store_id": "58998cb1-3a7c-4961-abe5-09df4d28c8d9",
+  "trained_on": "2026-07-27",
+  "best_params": {
+    "changepoint_prior_scale": 0.010055656968342496,
+    "seasonality_prior_scale": 3.302444534766253,
+    "holidays_prior_scale": 20.56404639572217
+  },
+  "insights": {
+    "trend_direction": "declining",
+    "trend_percent": -20.8,
+    "avg_weekly_sales": 219462.04,
+    "best_week_ever": 497435.0,
+    "worst_week_ever": 26710.0,
+    "best_month": "Mar",
+    "worst_month": "Dec",
+    "forecast_8w": [
+      {
+        "week": "2025-01-05",
+        "revenue": 113980.37,
+        "revenue_lower": 24886.97,
+        "revenue_upper": 208982.63
+      },
+      {
+        "week": "2025-01-12",
+        "revenue": 129954.2,
+        "revenue_lower": 31530.67,
+        "revenue_upper": 223654.01
+      },
+      {
+        "week": "2025-01-19",
+        "revenue": 143047.52,
+        "revenue_lower": 52794.0,
+        "revenue_upper": 238407.46
+      },
+      {
+        "week": "2025-01-26",
+        "revenue": 147484.18,
+        "revenue_lower": 53526.36,
+        "revenue_upper": 243469.84
+      },
+      {
+        "week": "2025-02-02",
+        "revenue": 142925.75,
+        "revenue_lower": 57011.8,
+        "revenue_upper": 238202.34
+      },
+      {
+        "week": "2025-02-09",
+        "revenue": 133961.4,
+        "revenue_lower": 41104.41,
+        "revenue_upper": 215129.76
+      },
+      {
+        "week": "2025-02-16",
+        "revenue": 129278.89,
+        "revenue_lower": 31049.61,
+        "revenue_upper": 216502.86
+      },
+      {
+        "week": "2025-02-23",
+        "revenue": 139232.66,
+        "revenue_lower": 43817.32,
+        "revenue_upper": 230169.19
+      }
+    ],
+    "historical": [
+      {
+        "week": "2023-12-26",
+        "revenue": 91440.0
+      },
+      {
+        "week": "2024-01-02",
+        "revenue": 285150.0
+      },
+      {
+        "week": "2024-01-09",
+        "revenue": 248780.0
+      },
+      {
+        "week": "2024-01-16",
+        "revenue": 208465.0
+      },
+      {
+        "week": "2024-01-23",
+        "revenue": 226870.0
+      },
+      {
+        "week": "2024-01-30",
+        "revenue": 281000.0
+      },
+      {
+        "week": "2024-02-06",
+        "revenue": 264670.0
+      },
+      {
+        "week": "2024-02-13",
+        "revenue": 276660.0
+      },
+      {
+        "week": "2024-02-20",
+        "revenue": 189640.0
+      },
+      {
+        "week": "2024-02-27",
+        "revenue": 232070.0
+      },
+      {
+        "week": "2024-03-05",
+        "revenue": 406700.0
+      },
+      {
+        "week": "2024-03-12",
+        "revenue": 465670.0
+      },
+      {
+        "week": "2024-03-19",
+        "revenue": 332400.0
+      },
+      {
+        "week": "2024-03-26",
+        "revenue": 275870.0
+      },
+      {
+        "week": "2024-04-02",
+        "revenue": 270400.0
+      },
+      {
+        "week": "2024-04-09",
+        "revenue": 283540.0
+      },
+      {
+        "week": "2024-04-16",
+        "revenue": 185660.0
+      },
+      {
+        "week": "2024-04-23",
+        "revenue": 224810.0
+      },
+      {
+        "week": "2024-04-30",
+        "revenue": 223340.0
+      },
+      {
+        "week": "2024-05-07",
+        "revenue": 407320.0
+      },
+      {
+        "week": "2024-05-14",
+        "revenue": 310000.0
+      },
+      {
+        "week": "2024-05-21",
+        "revenue": 148480.0
+      },
+      {
+        "week": "2024-05-28",
+        "revenue": 206690.0
+      },
+      {
+        "week": "2024-06-04",
+        "revenue": 149000.0
+      },
+      {
+        "week": "2024-06-11",
+        "revenue": 176810.0
+      },
+      {
+        "week": "2024-06-18",
+        "revenue": 164140.0
+      },
+      {
+        "week": "2024-06-25",
+        "revenue": 78490.0
+      },
+      {
+        "week": "2024-07-02",
+        "revenue": 144080.0
+      },
+      {
+        "week": "2024-07-09",
+        "revenue": 165080.0
+      },
+      {
+        "week": "2024-07-16",
+        "revenue": 118180.0
+      },
+      {
+        "week": "2024-07-23",
+        "revenue": 132680.0
+      },
+      {
+        "week": "2024-07-30",
+        "revenue": 158200.0
+      },
+      {
+        "week": "2024-08-06",
+        "revenue": 132330.0
+      },
+      {
+        "week": "2024-08-13",
+        "revenue": 182140.0
+      },
+      {
+        "week": "2024-08-20",
+        "revenue": 169620.0
+      },
+      {
+        "week": "2024-08-27",
+        "revenue": 89520.0
+      },
+      {
+        "week": "2024-09-03",
+        "revenue": 373840.0
+      },
+      {
+        "week": "2024-09-10",
+        "revenue": 225780.0
+      },
+      {
+        "week": "2024-09-17",
+        "revenue": 358760.0
+      },
+      {
+        "week": "2024-09-24",
+        "revenue": 318760.0
+      },
+      {
+        "week": "2024-10-01",
+        "revenue": 325510.0
+      },
+      {
+        "week": "2024-10-08",
+        "revenue": 497435.0
+      },
+      {
+        "week": "2024-10-15",
+        "revenue": 105820.0
+      },
+      {
+        "week": "2024-10-22",
+        "revenue": 182780.0
+      },
+      {
+        "week": "2024-10-29",
+        "revenue": 319590.0
+      },
+      {
+        "week": "2024-11-05",
+        "revenue": 166830.0
+      },
+      {
+        "week": "2024-11-12",
+        "revenue": 167700.0
+      },
+      {
+        "week": "2024-11-19",
+        "revenue": 161390.0
+      },
+      {
+        "week": "2024-11-26",
+        "revenue": 148690.0
+      },
+      {
+        "week": "2024-12-03",
+        "revenue": 128980.0
+      },
+      {
+        "week": "2024-12-10",
+        "revenue": 172880.0
+      },
+      {
+        "week": "2024-12-17",
+        "revenue": 139240.0
+      },
+      {
+        "week": "2024-12-24",
+        "revenue": 124360.0
+      },
+      {
+        "week": "2024-12-31",
+        "revenue": 26710.0
+      }
+    ]
+  }
+}

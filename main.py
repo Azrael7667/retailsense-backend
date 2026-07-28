@@ -20,13 +20,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Import and register all routers ──────────────────────────
 from routers import (
     auth, products, categories, customers,
     suppliers, invoices, purchases, expenses,
-    khata, reports, ai_models, dashboard
+    khata, reports, dashboard,
+    ai_cash_flow, ai_inventory, ai_churn,
+    ai_sales_trend, ai_anomaly, ai_credit
 )
 
+# Core routers
 app.include_router(auth.router,       prefix="/api/auth",       tags=["Auth"])
 app.include_router(products.router,   prefix="/api/products",   tags=["Products"])
 app.include_router(categories.router, prefix="/api/categories", tags=["Categories"])
@@ -37,8 +39,15 @@ app.include_router(purchases.router,  prefix="/api/purchases",  tags=["Purchases
 app.include_router(expenses.router,   prefix="/api/expenses",   tags=["Expenses"])
 app.include_router(khata.router,      prefix="/api/khata",      tags=["Khata / Udharo"])
 app.include_router(reports.router,    prefix="/api/reports",    tags=["Reports"])
-app.include_router(ai_models.router,  prefix="/api/ai",         tags=["AI Models"])
 app.include_router(dashboard.router,  prefix="/api/dashboard",  tags=["Dashboard"])
+
+# AI routers — each gets its own unique prefix
+app.include_router(ai_cash_flow.router,   prefix="/api/ai/cashflow",   tags=["AI - Cash Flow"])
+app.include_router(ai_inventory.router,   prefix="/api/ai/inventory",  tags=["AI - Inventory"])
+app.include_router(ai_churn.router,       prefix="/api/ai/churn",      tags=["AI - Churn"])
+app.include_router(ai_sales_trend.router, prefix="/api/ai/trend",      tags=["AI - Sales Trend"])
+app.include_router(ai_anomaly.router,     prefix="/api/ai/anomaly",    tags=["AI - Anomaly"])
+app.include_router(ai_credit.router,      prefix="/api/ai/credit",     tags=["AI - Credit"])
 
 @app.get("/", tags=["Health"])
 def root():
