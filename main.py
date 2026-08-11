@@ -21,6 +21,8 @@ app.add_middleware(
 )
 
 from routers import (
+    admin,
+    classification,
     auth, products, categories, customers,
     suppliers, invoices, purchases, expenses,
     khata, reports, dashboard,
@@ -29,6 +31,8 @@ from routers import (
 )
 
 # Core routers
+app.include_router(classification.router, prefix="/api/admin", tags=["Admin"])
+app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(auth.router,       prefix="/api/auth",       tags=["Auth"])
 app.include_router(products.router,   prefix="/api/products",   tags=["Products"])
 app.include_router(categories.router, prefix="/api/categories", tags=["Categories"])
