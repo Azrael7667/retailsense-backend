@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 10080
     allowed_origins: str = "http://localhost:5173"
+    gemini_api_key: str = ""
 
     class Config:
         env_file = ".env"

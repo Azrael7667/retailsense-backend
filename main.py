@@ -26,6 +26,7 @@ from routers import (
     auth, products, categories, customers,
     suppliers, invoices, purchases, expenses,
     khata, reports, dashboard,
+    pending_documents,
     ai_cash_flow, ai_inventory, ai_churn,
     ai_sales_trend, ai_anomaly, ai_credit
 )
@@ -44,6 +45,7 @@ app.include_router(expenses.router,   prefix="/api/expenses",   tags=["Expenses"
 app.include_router(khata.router,      prefix="/api/khata",      tags=["Khata / Udharo"])
 app.include_router(reports.router,    prefix="/api/reports",    tags=["Reports"])
 app.include_router(dashboard.router,  prefix="/api/dashboard",  tags=["Dashboard"])
+app.include_router(pending_documents.router, prefix="/api/pending-documents", tags=["Pending Documents"])
 
 # AI routers — each gets its own unique prefix
 app.include_router(ai_cash_flow.router,   prefix="/api/ai/cashflow",   tags=["AI - Cash Flow"])

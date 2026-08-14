@@ -17,3 +17,4 @@ prophet==1.1.5
 shap==0.45.0
 optuna==3.6.1
 joblib==1.4.2
+google-genai==2.18.1

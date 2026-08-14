@@ -1,0 +1,413 @@
+
+import json
+import difflib
+import time
+import uuid
+from datetime import date, datetime
+from typing import Optional, List, Dict, Any
+
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Body
+from pydantic import BaseModel
+
+from database import get_supabase_admin
+from middleware.auth_middleware import require_role
+from config import get_settings
+from utils.nepali_date import parse_bs_string_to_ad
+
+from google import genai
+from google.genai import types
+
+router = APIRouter()
+
+BUCKET = "purchase-bills"
+GEMINI_MODEL = "gemini-flash-latest"  # alias — always points at Google's current recommended Flash model
+MATCH_THRESHOLD = 0.90  # raised from 0.72 — 0.72 wrongly matched "Oil Filter" to "Air Filter" at 0.80
+
+ALLOWED_CONTENT_TYPES = {"image/jpeg", "image/png", "image/webp"}
+
+
+# ----------------------------------------------------------------
+# Extraction
+# ----------------------------------------------------------------
+
+EXTRACTION_PROMPT = """You are reading a photo of a supplier purchase bill/invoice for a retail shop in Nepal.
+Extract the following as strict JSON, with no markdown formatting, no commentary — just the JSON object:
+
+{
+  "supplier_name": string or null,
+  "bill_number": string or null,
+  "bill_date": string in YYYY-MM-DD format, or null if unreadable,
+  "bill_date_calendar": either "AD" or "BS" — which calendar system the date on the
+    bill is actually written in. Nepali bills very often use the Bikram Sambat (BS)
+    calendar, which runs roughly 56-57 years ahead of AD (e.g. BS 2081 corresponds
+    to AD 2024-2025). If the bill shows a 4-digit year in the 2080s while the actual
+    date is clearly recent, it is almost certainly BS, not AD. Look for the word
+    "Miti" (a common Nepali label for date) as a strong signal the date is BS.
+  "items": [
+    { "name": string, "quantity": number, "unit_price": number }
+  ],
+  "notes": string or null (anything unclear or worth flagging for human review)
+}
+
+Rules:
+- unit_price is the price PER UNIT charged by the supplier (cost price), not the line total.
+- If a line only shows a total and quantity, divide to get unit_price.
+- If you cannot confidently read a field, use null rather than guessing.
+- Numbers must be plain numbers, not strings, and not include currency symbols.
+"""
+
+def extract_bill_data(image_bytes: bytes, mime_type: str) -> dict:
+    """
+    Calls Gemini with a short retry loop — the free-tier -latest alias
+    occasionally returns 503 UNAVAILABLE under load, and that's usually
+    transient (a few seconds to a couple minutes), not a real failure.
+    """
+    settings = get_settings()
+    client = genai.Client(api_key=settings.gemini_api_key)
+
+    last_error = None
+    delays = [2, 5, 15]  # seconds between attempts — short backoff, 4 tries total
+
+    for attempt, delay in enumerate([0] + delays):
+        if delay:
+            time.sleep(delay)
+        try:
+            response = client.models.generate_content(
+                model=GEMINI_MODEL,
+                contents=[
+                    types.Part.from_bytes(data=image_bytes, mime_type=mime_type),
+                    EXTRACTION_PROMPT,
+                ],
+                config=types.GenerateContentConfig(response_mime_type="application/json"),
+            )
+            return json.loads(response.text)
+        except Exception as e:
+            last_error = e
+            is_retryable = "UNAVAILABLE" in str(e) or "503" in str(e) or "429" in str(e)
+            if not is_retryable:
+                raise  # don't retry real errors (bad key, malformed request, etc.)
+
+    raise last_error
+
+
+def fuzzy_match(name: str, candidates: List[dict]) -> Optional[dict]:
+    """
+    candidates: list of {"id": ..., "name": ...}
+    Returns the best match dict (with a similarity score attached) if above
+    threshold, else None. Uses difflib (stdlib, no extra dependency) rather
+    than a fuzzy-matching library.
+    """
+    best = None
+    best_score = 0.0
+    name_lower = name.strip().lower()
+    for c in candidates:
+        score = difflib.SequenceMatcher(None, name_lower, c["name"].strip().lower()).ratio()
+        if score > best_score:
+            best_score = score
+            best = c
+    if best and best_score >= MATCH_THRESHOLD:
+        return {**best, "match_confidence": round(best_score, 2)}
+    return None
+
+
+def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
+    """
+    Takes raw Gemini output and enriches it with product/supplier matching,
+    producing the structure the frontend review screen actually renders.
+    """
+    products = supabase.table("products") \
+        .select("id, name") \
+        .eq("store_id", store_id).eq("is_active", True) \
+        .execute().data or []
+
+    suppliers = supabase.table("suppliers") \
+        .select("id, name") \
+        .eq("store_id", store_id) \
+        .execute().data or []
+
+    items_out = []
+    for item in extracted.get("items", []):
+        raw_name = (item.get("name") or "").strip()
+        match = fuzzy_match(raw_name, products) if raw_name else None
+        items_out.append({
+            "extracted_name": raw_name,
+            "product_id": match["id"] if match else None,
+            "product_name": match["name"] if match else raw_name,
+            "is_new": match is None,
+            "unit": None,  # only relevant for new products — user fills in during review
+            "quantity": item.get("quantity") or 0,
+            "unit_price": item.get("unit_price") or 0,
+            "match_confidence": match["match_confidence"] if match else None,
+        })
+
+    supplier_name = (extracted.get("supplier_name") or "").strip()
+    supplier_match = None
+    if supplier_name:
+        supplier_match = fuzzy_match(supplier_name, suppliers)
+
+    # Convert BS dates to AD before this ever reaches the frontend or gets
+    # saved as a real purchase_date — Postgres only understands AD dates,
+    # and Gemini is instructed to flag when a bill uses the BS calendar
+    # (very common on Nepali supplier bills).
+    raw_date = extracted.get("bill_date")
+    calendar = (extracted.get("bill_date_calendar") or "AD").upper()
+    date_note = None
+    bill_date_ad = raw_date
+
+    if raw_date and calendar == "BS":
+        converted = parse_bs_string_to_ad(raw_date)
+        if converted:
+            bill_date_ad = converted.isoformat()
+            date_note = f"Date converted from BS {raw_date} to AD {bill_date_ad} — verify before approving."
+        else:
+            bill_date_ad = None
+            date_note = f"Bill showed BS date '{raw_date}' but it could not be converted — please enter the date manually."
+
+    notes = extracted.get("notes")
+    if date_note:
+        notes = f"{notes}\n{date_note}" if notes else date_note
+
+    return {
+        "supplier_name": supplier_name or None,
+        "supplier_id": supplier_match["id"] if supplier_match else None,
+        "bill_number": extracted.get("bill_number"),
+        "bill_date": bill_date_ad,
+        "bill_date_raw": raw_date,
+        "bill_date_calendar": calendar,
+        "items": items_out,
+        "notes": notes,
+    }
+
+
+# ----------------------------------------------------------------
+# Upload + extract
+# ----------------------------------------------------------------
+
+@router.post("/purchase-bill")
+async def upload_purchase_bill(
+    file: UploadFile = File(...),
+    current_user=Depends(require_role("owner", "accountant")),
+):
+    if file.content_type not in ALLOWED_CONTENT_TYPES:
+        raise HTTPException(status_code=400, detail="Only JPEG, PNG, or WEBP images are supported right now")
+
+    supabase = get_supabase_admin()
+    store_id = current_user["store_id"]
+
+    image_bytes = await file.read()
+    ext = file.content_type.split("/")[-1]
+    image_path = f"{store_id}/{uuid.uuid4()}.{ext}"
+
+    try:
+        supabase.storage.from_(BUCKET).upload(
+            image_path, image_bytes, {"content-type": file.content_type}
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Could not upload image: {e}")
+
+    row = supabase.table("pending_documents").insert({
+        "store_id": store_id,
+        "doc_type": "purchase_bill",
+        "status": "processing",
+        "image_path": image_path,
+        "created_by": current_user["id"],
+    }).execute().data[0]
+
+    doc_id = row["id"]
+
+    try:
+        raw_extracted = extract_bill_data(image_bytes, file.content_type)
+        draft = build_review_draft(raw_extracted, store_id, supabase)
+        updated = supabase.table("pending_documents").update({
+            "status": "ready_for_review",
+            "extracted_data": draft,
+        }).eq("id", doc_id).execute().data[0]
+        return updated
+    except Exception as e:
+        supabase.table("pending_documents").update({
+            "status": "failed",
+            "error_message": str(e),
+        }).eq("id", doc_id).execute()
+        raise HTTPException(status_code=500, detail=f"Extraction failed: {e}")
+
+
+# ----------------------------------------------------------------
+# List + read
+# ----------------------------------------------------------------
+
+@router.get("/")
+async def list_pending_documents(
+    doc_type: str = "purchase_bill",
+    status: Optional[str] = None,
+    current_user=Depends(require_role("owner", "accountant")),
+):
+    supabase = get_supabase_admin()
+    q = supabase.table("pending_documents") \
+        .select("*") \
+        .eq("store_id", current_user["store_id"]) \
+        .eq("doc_type", doc_type) \
+        .order("created_at", desc=True)
+    if status:
+        q = q.eq("status", status)
+    return q.execute().data
+
+
+@router.get("/{doc_id}")
+async def get_pending_document(
+    doc_id: str,
+    current_user=Depends(require_role("owner", "accountant")),
+):
+    supabase = get_supabase_admin()
+    row = supabase.table("pending_documents").select("*") \
+        .eq("id", doc_id).eq("store_id", current_user["store_id"]) \
+        .single().execute()
+    if not row.data:
+        raise HTTPException(status_code=404, detail="Not found")
+
+    signed = supabase.storage.from_(BUCKET).create_signed_url(row.data["image_path"], 600)
+    image_url = signed.get("signedURL") or signed.get("signedUrl") or signed.get("signed_url")
+
+    return {**row.data, "image_url": image_url}
+
+
+# ----------------------------------------------------------------
+# Edit draft before approving
+# ----------------------------------------------------------------
+
+@router.patch("/{doc_id}")
+async def update_pending_document(
+    doc_id: str,
+    extracted_data: Dict[str, Any] = Body(...),
+    current_user=Depends(require_role("owner", "accountant")),
+):
+    supabase = get_supabase_admin()
+    existing = supabase.table("pending_documents").select("id, status") \
+        .eq("id", doc_id).eq("store_id", current_user["store_id"]) \
+        .single().execute()
+    if not existing.data:
+        raise HTTPException(status_code=404, detail="Not found")
+    if existing.data["status"] not in ("ready_for_review", "failed"):
+        raise HTTPException(status_code=400, detail=f"Cannot edit a document with status '{existing.data['status']}'")
+
+    updated = supabase.table("pending_documents").update({
+        "extracted_data": extracted_data,
+        "status": "ready_for_review",
+        "error_message": None,
+    }).eq("id", doc_id).execute().data[0]
+    return updated
+
+
+# ----------------------------------------------------------------
+# Approve — creates the real purchase (+ new products) + stock update
+# ----------------------------------------------------------------
+
+@router.post("/{doc_id}/approve")
+async def approve_pending_document(
+    doc_id: str,
+    current_user=Depends(require_role("owner", "accountant")),
+):
+    supabase = get_supabase_admin()
+    store_id = current_user["store_id"]
+
+    doc = supabase.table("pending_documents").select("*") \
+        .eq("id", doc_id).eq("store_id", store_id).single().execute()
+    if not doc.data:
+        raise HTTPException(status_code=404, detail="Not found")
+    if doc.data["status"] != "ready_for_review":
+        raise HTTPException(status_code=400, detail=f"Cannot approve a document with status '{doc.data['status']}'")
+
+    draft = doc.data["extracted_data"] or {}
+    items = draft.get("items", [])
+    if not items:
+        raise HTTPException(status_code=400, detail="No items to approve")
+
+    # 1. Create any flagged-new products first (selling_price left at 0 —
+    #    the shopkeeper sets real pricing separately, we never guess it)
+    resolved_items = []
+    for item in items:
+        product_id = item.get("product_id")
+        if item.get("is_new") and not product_id:
+            new_product = supabase.table("products").insert({
+                "store_id": store_id,
+                "name": item["product_name"],
+                "unit": item.get("unit") or "pcs",
+                "cost_price": item.get("unit_price") or 0,
+                "selling_price": 0,
+                "stock_quantity": 0,  # purchase insert below adds the real quantity
+                "reorder_level": 5,
+                "product_type": "fast",
+                "is_active": True,
+            }).execute().data[0]
+            product_id = new_product["id"]
+        resolved_items.append({**item, "product_id": product_id})
+
+    # 2. Create the purchase + line items (mirrors purchases.py's logic)
+    subtotal = sum((i["quantity"] or 0) * (i["unit_price"] or 0) for i in resolved_items)
+    total = subtotal  # no tax captured from bill extraction yet
+
+    purchase = supabase.table("purchases").insert({
+        "store_id": store_id,
+        "supplier_id": draft.get("supplier_id"),
+        "bill_number": draft.get("bill_number"),
+        "purchase_date": draft.get("bill_date") or date.today().isoformat(),
+        "subtotal": round(subtotal, 2),
+        "tax": 0,
+        "total": round(total, 2),
+        "paid_amount": round(total, 2),
+        "status": "paid",
+        "notes": draft.get("notes") or f"Created from scanned bill (supplier: {draft.get('supplier_name') or 'unknown'})",
+    }).execute().data[0]
+
+    supabase.table("purchase_items").insert([
+        {
+            "purchase_id": purchase["id"],
+            "product_id": i["product_id"],
+            "product_name": i["product_name"],
+            "quantity": i["quantity"],
+            "unit_price": i["unit_price"],
+            "total": round((i["quantity"] or 0) * (i["unit_price"] or 0), 2),
+        }
+        for i in resolved_items
+    ]).execute()
+
+    # 3. Add stock
+    for i in resolved_items:
+        prod = supabase.table("products").select("stock_quantity").eq("id", i["product_id"]).single().execute()
+        if prod.data:
+            new_qty = prod.data["stock_quantity"] + i["quantity"]
+            supabase.table("products").update({"stock_quantity": new_qty}).eq("id", i["product_id"]).execute()
+
+    # 4. Mark the pending document approved
+    supabase.table("pending_documents").update({
+        "status": "approved",
+        "resulting_purchase_id": purchase["id"],
+        "reviewed_by": current_user["id"],
+        "reviewed_at": datetime.utcnow().isoformat(),
+    }).eq("id", doc_id).execute()
+
+    return {"message": "Purchase created", "purchase_id": purchase["id"]}
+
+
+# ----------------------------------------------------------------
+# Reject
+# ----------------------------------------------------------------
+
+@router.post("/{doc_id}/reject")
+async def reject_pending_document(
+    doc_id: str,
+    current_user=Depends(require_role("owner", "accountant")),
+):
+    supabase = get_supabase_admin()
+    existing = supabase.table("pending_documents").select("id, status") \
+        .eq("id", doc_id).eq("store_id", current_user["store_id"]) \
+        .single().execute()
+    if not existing.data:
+        raise HTTPException(status_code=404, detail="Not found")
+
+    supabase.table("pending_documents").update({
+        "status": "rejected",
+        "reviewed_by": current_user["id"],
+        "reviewed_at": datetime.utcnow().isoformat(),
+    }).eq("id", doc_id).execute()
+
+    return {"message": "Document rejected"}
