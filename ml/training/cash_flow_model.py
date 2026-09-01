@@ -56,7 +56,7 @@ def fetch_data(store_id: str) -> pd.DataFrame:
         raise ValueError("No invoice data found.")
 
     inv_df["invoice_date"] = pd.to_datetime(inv_df["invoice_date"])
-    inv_df = inv_df[inv_df["invoice_date"].dt.year == 2024]
+    inv_df = inv_df[inv_df["invoice_date"] >= (pd.Timestamp.now() - pd.Timedelta(days=395))]
 
     # Weekly aggregation
     inv_df["week"] = inv_df["invoice_date"].dt.to_period("W-MON").apply(lambda x: x.start_time)
@@ -66,16 +66,25 @@ def fetch_data(store_id: str) -> pd.DataFrame:
 
     # Weekly expenses
     exp_df = pd.DataFrame(exp)
+    weekly_exp = pd.DataFrame(columns=["ds", "expenses"])
     if not exp_df.empty:
         exp_df["expense_date"] = pd.to_datetime(exp_df["expense_date"])
-        exp_df = exp_df[exp_df["expense_date"].dt.year == 2024]
-        exp_df["week"] = exp_df["expense_date"].dt.to_period("W-MON").apply(lambda x: x.start_time)
-        weekly_exp = exp_df.groupby("week")["amount"].sum().reset_index()
-        weekly_exp.columns = ["ds", "expenses"]
-        weekly_exp["ds"] = pd.to_datetime(weekly_exp["ds"])
-    else:
-        weeks = pd.date_range("2024-01-01", "2024-12-31", freq="W-MON")
-        weekly_exp = pd.DataFrame({"ds": weeks, "expenses": 10500.0})
+        exp_df = exp_df[exp_df["expense_date"] >= (pd.Timestamp.now() - pd.Timedelta(days=395))]
+        if not exp_df.empty:
+            exp_df["week"] = exp_df["expense_date"].dt.to_period("W-MON").apply(lambda x: x.start_time)
+            weekly_exp = exp_df.groupby("week")["amount"].sum().reset_index()
+            weekly_exp.columns = ["ds", "expenses"]
+            weekly_exp["ds"] = pd.to_datetime(weekly_exp["ds"])
+
+    # Fall back to an estimated flat weekly expense if there's no real
+    # expense data in the training window (either the table was empty,
+    # or every row in it fell outside the last ~13 months). Built from
+    # weekly_rev's own ds values directly — an independently generated
+    # date_range doesn't reliably land on the same period anchor as
+    # to_period("W-MON").start_time, which silently produced zero
+    # matching dates on merge and turned every expense value NaN.
+    if weekly_exp.empty:
+        weekly_exp = pd.DataFrame({"ds": weekly_rev["ds"].values, "expenses": 10500.0})
 
     df = weekly_rev.merge(weekly_exp, on="ds", how="left")
     df["expenses"]      = df["expenses"].fillna(df["expenses"].mean())
@@ -89,23 +98,27 @@ def fetch_data(store_id: str) -> pd.DataFrame:
 
 
 def add_nepali_holidays():
+    # Approximate month/day for each festival, repeated across the years our
+    # training + forecast window can touch — was hardcoded to 2024-only dates,
+    # which silently stopped applying once real data moved past that year.
+    this_year = pd.Timestamp.now().year
+    years = [this_year - 1, this_year, this_year + 1]
+
+    rows = []
+    for y in years:
+        rows += [
+            ("Dashain", f"{y}-10-07"), ("Dashain", f"{y}-10-14"), ("Dashain", f"{y}-10-21"),
+            ("Tihar",   f"{y}-10-28"), ("Tihar",   f"{y}-11-04"),
+            ("Nepali_New_Year", f"{y}-04-08"),
+            ("Holi", f"{y}-03-25"),
+            ("Maghe_Sankranti", f"{y}-01-15"),
+        ]
+
     holidays = pd.DataFrame({
-        "holiday": [
-            "Dashain", "Dashain", "Dashain",
-            "Tihar",   "Tihar",
-            "Nepali_New_Year",
-            "Holi",
-            "Maghe_Sankranti",
-        ],
-        "ds": pd.to_datetime([
-            "2024-10-07", "2024-10-14", "2024-10-21",
-            "2024-10-28", "2024-11-04",
-            "2024-04-08",
-            "2024-03-25",
-            "2024-01-15",
-        ]),
-        "lower_window": [-1, -1, -1, -1, -1, -1, -1, -1],
-        "upper_window": [ 1,  1,  1,  2,  1,  1,  1,  1],
+        "holiday": [r[0] for r in rows],
+        "ds": pd.to_datetime([r[1] for r in rows]),
+        "lower_window": -1,
+        "upper_window": [1 if r[0] != "Tihar" else 2 for r in rows],
     })
     return holidays
 

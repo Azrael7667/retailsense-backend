@@ -84,10 +84,10 @@ def build_customer_features(customers, invoices):
     inv_df["invoice_date"] = pd.to_datetime(inv_df["invoice_date"])
 
     # Use 2024 data only for clean training
-    inv_df = inv_df[inv_df["invoice_date"].dt.year == 2024]
+    inv_df = inv_df[inv_df["invoice_date"] >= (pd.Timestamp.now() - pd.Timedelta(days=395))]
 
-    # Reference date = last day of training period
-    ref_date = pd.Timestamp("2024-12-31")
+    # Reference date = today (was hardcoded to end of 2024 — broke once real data moved past that)
+    ref_date = pd.Timestamp.now().normalize()
 
     feature_rows = []
     for cust in customers:
@@ -134,7 +134,7 @@ def build_customer_features(customers, invoices):
 
         # Churn label: no purchase in last 60 days of training period
         # We look at purchases in last 2 months vs first 10 months
-        late_period_start = pd.Timestamp("2024-11-01")
+        late_period_start = ref_date - pd.Timedelta(days=60)  # last ~2 months, relative to today
         recent_purchases  = len(cust_invs[cust_invs["invoice_date"] >= late_period_start])
         is_churned        = int(recency_days >= CHURN_DAYS)
 

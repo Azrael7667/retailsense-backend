@@ -1,30 +1,15 @@
 """
 📁 BACKEND — routers/classification.py
-Endpoint to trigger product velocity classification
+Endpoint to preview product velocity classification
 """
 
-from fastapi import APIRouter, BackgroundTasks
+from fastapi import APIRouter
 import os
 import sys
 
 router = APIRouter()
 
 STORE_ID = "58998cb1-3a7c-4961-abe5-09df4d28c8d9"
-
-
-@router.post("/classify-products")
-async def classify_products(background_tasks: BackgroundTasks):
-    """Trigger product velocity classification in background"""
-    def run():
-        sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-        from scripts.classify_products import classify_products
-        classify_products(store_id=STORE_ID)
-
-    background_tasks.add_task(run)
-    return {
-        "status":  "started",
-        "message": "Product classification started. Products will be updated in ~10 seconds."
-    }
 
 
 @router.get("/classify-products/preview")

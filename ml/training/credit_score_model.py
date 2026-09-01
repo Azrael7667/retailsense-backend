@@ -80,7 +80,7 @@ def build_credit_features(customers, invoices, khata):
     inv_df = pd.DataFrame(invoices)
     if not inv_df.empty:
         inv_df["invoice_date"] = pd.to_datetime(inv_df["invoice_date"])
-        inv_df = inv_df[inv_df["invoice_date"].dt.year == 2024]
+        inv_df = inv_df[inv_df["invoice_date"] >= (pd.Timestamp.now() - pd.Timedelta(days=395))]
 
     khata_df = pd.DataFrame(khata)
 

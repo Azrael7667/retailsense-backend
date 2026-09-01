@@ -23,13 +23,19 @@ async def list_purchases(
         q = q.lte("purchase_date", str(end_date))
     return q.execute().data
 
+def _net_price(unit_price: float, discount_percent: float) -> float:
+    disc = discount_percent or 0
+    return round(unit_price * (1 - disc / 100.0), 4)
+
 @router.post("/")
 async def create_purchase(body: PurchaseCreate, user=Depends(get_current_user)):
     supabase = get_supabase()
     store_id = get_store_id(user.id)
 
-    subtotal = sum(item.quantity * item.unit_price for item in body.items)
-    total = subtotal + body.tax
+    gross_subtotal = sum(item.quantity * item.unit_price for item in body.items)
+    subtotal       = sum(item.quantity * _net_price(item.unit_price, item.discount_percent) for item in body.items)
+    discount_total = round(gross_subtotal - subtotal, 2)
+    total          = subtotal + body.tax
 
     purchase_data = {
         "store_id": store_id,
@@ -37,6 +43,7 @@ async def create_purchase(body: PurchaseCreate, user=Depends(get_current_user)):
         "bill_number": body.bill_number,
         "purchase_date": str(body.purchase_date),
         "subtotal": round(subtotal, 2),
+        "discount_total": discount_total,
         "tax": body.tax,
         "total": round(total, 2),
         "paid_amount": round(total, 2),
@@ -47,22 +54,30 @@ async def create_purchase(body: PurchaseCreate, user=Depends(get_current_user)):
 
     line_items = []
     for item in body.items:
+        net_price = _net_price(item.unit_price, item.discount_percent)
         line_items.append({
             "purchase_id": purchase["id"],
             "product_id": str(item.product_id) if item.product_id else None,
             "product_name": item.product_name,
             "quantity": item.quantity,
             "unit_price": item.unit_price,
-            "total": round(item.quantity * item.unit_price, 2),
+            "discount_percent": item.discount_percent or 0,
+            "total": round(item.quantity * net_price, 2),
         })
     supabase.table("purchase_items").insert(line_items).execute()
 
-    # Add stock for each product
+    # Add stock + roll cost price forward (keep previous cost for reference)
     for item in body.items:
         if item.product_id:
-            prod = supabase.table("products").select("stock_quantity").eq("id", str(item.product_id)).single().execute()
+            prod = supabase.table("products").select("stock_quantity, cost_price").eq("id", str(item.product_id)).single().execute()
             if prod.data:
                 new_qty = prod.data["stock_quantity"] + item.quantity
-                supabase.table("products").update({"stock_quantity": new_qty}).eq("id", str(item.product_id)).execute()
+                net_price = _net_price(item.unit_price, item.discount_percent)
+                supabase.table("products").update({
+                    "stock_quantity": new_qty,
+                    "previous_cost_price": prod.data["cost_price"],
+                    "cost_price": net_price,
+                    "list_price": item.unit_price,
+                }).eq("id", str(item.product_id)).execute()
 
     return purchase

@@ -42,7 +42,7 @@ def fetch_data(store_id):
 
     df = pd.DataFrame(all_inv)
     df["invoice_date"] = pd.to_datetime(df["invoice_date"])
-    df = df[df["invoice_date"].dt.year == 2024]
+    df = df[df["invoice_date"] >= (pd.Timestamp.now() - pd.Timedelta(days=395))]
 
     # Weekly aggregation
     df["week"] = df["invoice_date"].dt.to_period("W-MON").apply(lambda x: x.start_time)

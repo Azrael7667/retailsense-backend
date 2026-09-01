@@ -216,7 +216,7 @@ def train(store_id: str = None):
             })
 
     df = pd.DataFrame(rows)
-    df = df[df["date"].dt.year == 2024]
+    df = df[df["date"] >= (pd.Timestamp.now() - pd.Timedelta(days=395))]
     print(f"  2024 items: {len(df)} rows, {df['product_name'].nunique()} unique products")
 
     # Weekly aggregation per product

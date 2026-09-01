@@ -160,6 +160,44 @@ async def deactivate_staff(staff_id: str, current_user=Depends(require_role("own
     supabase.table("users").update({"is_active": False}).eq("id", staff_id).execute()
     return {"message": "Staff member deactivated"}
 
+
+@router.delete("/staff/{staff_id}")
+async def delete_staff(staff_id: str, current_user=Depends(require_role("owner"))):
+    """
+    Owner-only. Permanently removes a staff member — deletes their
+    Supabase Auth account (so they can never log in again, even if
+    re-invited later with a fresh flow) and their `users` profile row.
+
+    This is a hard delete, unlike /deactivate. If the staff member has
+    activity_log entries or other records referencing their user id,
+    those references will either cascade or block deletion depending
+    on how the FK is set up — if this errors with a foreign key
+    violation, deactivate instead of delete for that person.
+    """
+    if staff_id == current_user["id"]:
+        raise HTTPException(status_code=400, detail="You cannot delete your own account")
+
+    supabase = get_supabase_admin()
+    target = supabase.table("users").select("id, store_id, role").eq("id", staff_id).single().execute()
+    if not target.data or target.data["store_id"] != current_user["store_id"]:
+        raise HTTPException(status_code=404, detail="Staff member not found")
+    if target.data["role"] == "owner":
+        raise HTTPException(status_code=400, detail="Cannot delete the store owner")
+
+    try:
+        supabase.table("users").delete().eq("id", staff_id).execute()
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Could not delete staff profile (they may have linked records — try deactivating instead): {e}")
+
+    try:
+        supabase.auth.admin.delete_user(staff_id)
+    except Exception as e:
+        # Profile row is already gone at this point; auth cleanup failing
+        # isn't fatal but is worth surfacing rather than silently swallowing.
+        return {"message": "Staff profile deleted, but auth account cleanup failed", "warning": str(e)}
+
+    return {"message": "Staff member deleted"}
+
 CATEGORY_PRESETS = {
     "grocery":     ["Rice & Flour","Pulses & Lentils","Spices","Oil & Ghee","Snacks","Beverages","Dairy","Personal Care","Household","Others"],
     "clothing":    ["Men's Wear","Women's Wear","Kids Wear","Footwear","Accessories","Ethnic Wear","Innerwear","Others"],

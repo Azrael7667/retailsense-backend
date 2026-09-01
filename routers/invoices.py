@@ -55,17 +55,27 @@ async def create_invoice(body: InvoiceCreate, user=Depends(get_current_user)):
     }
     invoice = supabase.table("invoices").insert(invoice_data).execute().data[0]
 
-    # Insert line items
+    # Snapshot cost_price at time of sale — this is what makes P&L
+    # accurate for past periods even after later restocks change
+    # products.cost_price.
+    product_ids = list({str(item.product_id) for item in body.items if item.product_id})
+    cost_map = {}
+    if product_ids:
+        rows = supabase.table("products").select("id, cost_price").in_("id", product_ids).execute().data or []
+        cost_map = {r["id"]: r.get("cost_price") or 0 for r in rows}
+
     line_items = []
     for item in body.items:
+        pid = str(item.product_id) if item.product_id else None
         line_items.append({
             "invoice_id": invoice["id"],
-            "product_id": str(item.product_id) if item.product_id else None,
+            "product_id": pid,
             "product_name": item.product_name,
             "quantity": item.quantity,
             "unit_price": item.unit_price,
             "discount": item.discount,
             "total": round((item.quantity * item.unit_price) - item.discount, 2),
+            "cost_price_at_sale": cost_map.get(pid, 0) if pid else 0,
         })
     supabase.table("invoice_items").insert(line_items).execute()
 
