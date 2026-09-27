@@ -1,5 +1,3 @@
-
-
 import os
 import json
 import joblib
@@ -12,6 +10,8 @@ from prophet import Prophet
 from prophet.diagnostics import cross_validation, performance_metrics
 import warnings
 warnings.filterwarnings("ignore")
+
+from ml.utils.feature_engineering import add_nepali_holidays
 
 load_dotenv()
 
@@ -76,13 +76,6 @@ def fetch_data(store_id: str) -> pd.DataFrame:
             weekly_exp.columns = ["ds", "expenses"]
             weekly_exp["ds"] = pd.to_datetime(weekly_exp["ds"])
 
-    # Fall back to an estimated flat weekly expense if there's no real
-    # expense data in the training window (either the table was empty,
-    # or every row in it fell outside the last ~13 months). Built from
-    # weekly_rev's own ds values directly — an independently generated
-    # date_range doesn't reliably land on the same period anchor as
-    # to_period("W-MON").start_time, which silently produced zero
-    # matching dates on merge and turned every expense value NaN.
     if weekly_exp.empty:
         weekly_exp = pd.DataFrame({"ds": weekly_rev["ds"].values, "expenses": 10500.0})
 
@@ -97,32 +90,6 @@ def fetch_data(store_id: str) -> pd.DataFrame:
     return df
 
 
-def add_nepali_holidays():
-    # Approximate month/day for each festival, repeated across the years our
-    # training + forecast window can touch — was hardcoded to 2024-only dates,
-    # which silently stopped applying once real data moved past that year.
-    this_year = pd.Timestamp.now().year
-    years = [this_year - 1, this_year, this_year + 1]
-
-    rows = []
-    for y in years:
-        rows += [
-            ("Dashain", f"{y}-10-07"), ("Dashain", f"{y}-10-14"), ("Dashain", f"{y}-10-21"),
-            ("Tihar",   f"{y}-10-28"), ("Tihar",   f"{y}-11-04"),
-            ("Nepali_New_Year", f"{y}-04-08"),
-            ("Holi", f"{y}-03-25"),
-            ("Maghe_Sankranti", f"{y}-01-15"),
-        ]
-
-    holidays = pd.DataFrame({
-        "holiday": [r[0] for r in rows],
-        "ds": pd.to_datetime([r[1] for r in rows]),
-        "lower_window": -1,
-        "upper_window": [1 if r[0] != "Tihar" else 2 for r in rows],
-    })
-    return holidays
-
-
 def train_revenue_model(df: pd.DataFrame):
     print("  Training revenue Prophet model (weekly)...")
     train_df = df[["ds", "revenue"]].rename(columns={"revenue": "y"}).copy()
@@ -132,10 +99,10 @@ def train_revenue_model(df: pd.DataFrame):
 
     model = Prophet(
         holidays                = add_nepali_holidays(),
-        yearly_seasonality      = True,
+        yearly_seasonality      = False,
         weekly_seasonality      = False,
         daily_seasonality       = False,
-        seasonality_mode        = "multiplicative",
+        seasonality_mode        = "additive",
         changepoint_prior_scale = 0.15,
         seasonality_prior_scale = 15.0,
         holidays_prior_scale    = 30.0,
@@ -204,9 +171,9 @@ def evaluate_model(rev_model, df):
 
         cv = cross_validation(
             rev_model,
-            initial="26 weeks",
-            period="4 weeks",
-            horizon="4 weeks",
+            initial="182 days",
+            period="28 days",
+            horizon="28 days",
             parallel=None,
         )
         metrics = performance_metrics(cv)
@@ -217,7 +184,7 @@ def evaluate_model(rev_model, df):
         return {"mae": round(mae, 2), "rmse": round(rmse, 2)}
     except Exception as e:
         print(f"  Evaluation skipped: {e}")
-        return {}
+        return {"error": str(e)}
 
 
 def save_model(rev_model, avg_expense, metrics, store_id):

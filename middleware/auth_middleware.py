@@ -4,6 +4,23 @@ from database import get_supabase, get_supabase_admin
 
 security = HTTPBearer()
 
+
+class AuthedUser:
+    """
+    Wraps the Supabase auth user object and also carries the raw JWT, so
+    routers can forward it into get_supabase(user.access_token) for
+    RLS-aware queries. Attribute access (user.id, user.email, etc.)
+    transparently proxies to the wrapped object, so existing code that
+    reads those fields keeps working unchanged.
+    """
+    def __init__(self, supabase_user, access_token: str):
+        object.__setattr__(self, "_supabase_user", supabase_user)
+        object.__setattr__(self, "access_token", access_token)
+
+    def __getattr__(self, name):
+        return getattr(self._supabase_user, name)
+
+
 async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
 ):
@@ -21,7 +38,7 @@ async def get_current_user(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid or expired token",
             )
-        return response.user
+        return AuthedUser(response.user, token)
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

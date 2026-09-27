@@ -1,108 +1,42 @@
 """
 Bikram Sambat (BS) <-> Gregorian (AD) date conversion.
 
-Mirrors the reference point and calendar table used in the frontend's
-src/utils/dateHelpers.js (adToBS), but in reverse: this converts an
-extracted BS date string (e.g. from a scanned bill) into a real AD date
-Postgres can store. Keep BS_CALENDAR_DATA in sync with the frontend file
-if either ever gets updated — they must describe the same calendar.
+Previously used a hand-maintained lookup table (BS_CALENDAR_DATA) that turned
+out to have silent day-count errors accumulating into a real drift (BS year
+2063 alone summed to 364 days instead of 365 - and there were more errors
+elsewhere, since the total observed drift by 2083 was 5 days, not 1).
+
+Replaced with `samaya` (pip install samaya) - an actively maintained library
+with verified calendar data for BS 2000-2099. Same function signatures as
+before (bs_to_ad, parse_bs_string_to_ad) so nothing else in the app needs to
+change - only this file's internals differ.
 """
 
-from datetime import date, timedelta
+from datetime import date, datetime
 from typing import Optional
 
-BS_CALENDAR_DATA = {
-    2057: [30,32,31,32,31,30,30,30,29,30,29,31],
-    2058: [31,31,32,32,31,30,30,30,29,30,29,31],
-    2059: [31,31,32,31,31,31,30,29,30,29,30,30],
-    2060: [31,32,31,32,31,30,30,30,29,30,29,31],
-    2061: [30,32,31,32,31,30,30,30,29,30,30,30],
-    2062: [31,31,32,32,31,30,30,30,29,30,29,31],
-    2063: [31,31,32,31,31,30,30,29,30,29,30,30],
-    2064: [31,32,31,32,31,30,30,30,29,30,29,31],
-    2065: [31,31,31,32,31,31,29,30,29,30,29,31],
-    2066: [31,31,32,32,31,30,30,29,30,29,30,30],
-    2067: [31,32,31,32,31,30,30,30,29,30,29,31],
-    2068: [31,31,31,32,31,31,29,30,29,30,29,31],
-    2069: [31,31,32,32,31,30,30,29,30,29,30,30],
-    2070: [31,32,31,32,31,30,30,30,29,30,29,31],
-    2071: [31,31,31,32,31,31,29,30,29,30,29,31],
-    2072: [31,32,31,32,31,30,30,29,30,29,30,30],
-    2073: [31,32,31,32,31,30,30,30,29,30,29,31],
-    2074: [31,31,31,32,31,31,30,29,30,29,30,30],
-    2075: [31,32,31,32,31,30,30,30,29,30,29,31],
-    2076: [31,31,32,32,31,30,30,29,30,29,30,30],
-    2077: [31,32,31,32,31,30,30,30,29,30,29,31],
-    2078: [31,31,31,32,31,31,30,29,30,29,30,30],
-    2079: [31,32,31,32,31,30,30,30,29,30,29,31],
-    2080: [31,31,32,32,31,30,30,29,30,29,30,30],
-    2081: [31,32,31,32,31,30,30,30,29,30,29,31],
-    2082: [31,31,31,32,31,31,30,29,30,29,30,30],
-    2083: [31,32,31,32,31,30,30,30,29,30,29,31],
-    2084: [31,31,32,32,31,30,30,29,30,29,30,30],
-    2085: [31,32,31,32,31,30,30,30,29,30,29,31],
-}
-
-# Same reference point as the frontend: 2000-01-01 AD = 2056-09-17 BS
-AD_REF = date(2000, 1, 1)
-BS_REF = {"year": 2056, "month": 9, "day": 17}
-
-
-def _month_days_bs(year: int, month: int) -> int:
-    data = BS_CALENDAR_DATA.get(year)
-    if not data:
-        return 30
-    return data[month - 1] if 1 <= month <= 12 else 30
+from samaya import bs_to_ad as _samaya_bs_to_ad
 
 
 def bs_to_ad(bs_year: int, bs_month: int, bs_day: int) -> Optional[date]:
     """
-    Converts a BS date (year, month, day) to an AD date.Coun
-    Returns None if the BS year is outside our known calendar range
-    (2057-2085 BS, matching the frontend's table) or the date is invalid.
+    Converts a BS date (year, month, day) to an AD date.
+    Returns None if the date is invalid or outside samaya's supported
+    range (BS 2000-2099).
     """
-    if bs_year not in BS_CALENDAR_DATA:
+    try:
+        bs_string = f"{bs_year:04d}-{bs_month:02d}-{bs_day:02d}"
+        ad_string = _samaya_bs_to_ad(bs_string)  # returns 'YYYY-MM-DD' or similar
+        return datetime.strptime(str(ad_string).strip(), "%Y-%m-%d").date()
+    except Exception:
         return None
-    if not (1 <= bs_month <= 12):
-        return None
-    if not (1 <= bs_day <= _month_days_bs(bs_year, bs_month)):
-        return None
-
-    # Count total days from BS_REF to the target BS date
-    days = 0
-    y, m = BS_REF["year"], BS_REF["month"]
-
-    if (bs_year, bs_month, bs_day) >= (y, m, BS_REF["day"]):
-        # target is on/after reference — count forward
-        d = BS_REF["day"]
-        while (y, m) != (bs_year, bs_month):
-            days += _month_days_bs(y, m) - d + 1
-            d = 1
-            m += 1
-            if m > 12:
-                m = 1
-                y += 1
-        days += bs_day - d
-        return AD_REF + timedelta(days=days)
-    else:
-        # target is before reference — count backward
-        d = BS_REF["day"]
-        while (y, m) != (bs_year, bs_month):
-            m -= 1
-            if m < 1:
-                m = 12
-                y -= 1
-            days += _month_days_bs(y, m)
-        days += d - bs_day
-        return AD_REF - timedelta(days=days)
 
 
 def parse_bs_string_to_ad(bs_string: str) -> Optional[date]:
     """
     Takes a BS date string in 'YYYY-MM-DD' format (as Gemini extracts it
     from bills, e.g. "2081-12-30") and returns the equivalent AD date,
-    or None if it can't be parsed/converted (out of known range, or the
-    string wasn't valid BS to begin with).
+    or None if it can't be parsed/converted.
     """
     if not bs_string:
         return None

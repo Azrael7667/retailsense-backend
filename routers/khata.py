@@ -8,13 +8,13 @@ router = APIRouter()
 
 @router.get("/")
 async def list_khata(party_type: str = "customer", user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     return supabase.table("khata_entries").select("*").eq("store_id", store_id).eq("party_type", party_type).order("entry_date", desc=True).execute().data
 
 @router.get("/summary/{party_id}")
 async def khata_summary(party_id: str, user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     entries = supabase.table("khata_entries").select("*").eq("store_id", store_id).eq("party_id", party_id).execute().data
     balance = sum(e["amount"] if e["entry_type"] == "debit" else -e["amount"] for e in entries)
@@ -22,7 +22,7 @@ async def khata_summary(party_id: str, user=Depends(get_current_user)):
 
 @router.post("/")
 async def add_khata_entry(body: KhataEntryCreate, user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     data = body.model_dump()
     data["store_id"] = store_id

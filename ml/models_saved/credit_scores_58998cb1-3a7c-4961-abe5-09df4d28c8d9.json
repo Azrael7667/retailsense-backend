@@ -1,0 +1,2174 @@
+{
+  "scores": [
+    {
+      "customer_id": "97cb4bc2-a941-452c-9f37-865c2f38136e",
+      "customer_name": "Ramesh Shrestha",
+      "credit_score": 96,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0443,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 10,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "14698.48",
+          "impact": "positive",
+          "detail": "avg purchase is 14698.48"
+        }
+      ]
+    },
+    {
+      "customer_id": "8900dd6f-ed59-41d3-afdb-1f9f03a69310",
+      "customer_name": "Prakash Tamang",
+      "credit_score": 95,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0532,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 8,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "7 months",
+          "impact": "positive",
+          "detail": "Active for 7 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "54c23a66-1b44-4812-b885-4a6ba8da6207",
+      "customer_name": "Laxmi Gurung",
+      "credit_score": 95,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0496,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 14,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Max Purchase",
+          "value": "23665.29",
+          "impact": "positive",
+          "detail": "max purchase is 23665.29"
+        }
+      ]
+    },
+    {
+      "customer_id": "f7de5fb0-11fe-453d-962b-128f524688d9",
+      "customer_name": "Arun Limbu",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "81669fa4-52de-498a-86c1-5516a239617f",
+      "customer_name": "Rekha Karki",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "a3baa312-2f86-4cf2-bba8-2d88fc460714",
+      "customer_name": "Pemba Gurung",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "4ebcb469-7f7e-4770-9634-6e56e605a9c9",
+      "customer_name": "Ramesh Chaudhary",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "796e154c-d98e-4b54-95c1-5c0870b8f7ed",
+      "customer_name": "Man Bahadur Koirala",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "016861e7-21b4-48f0-8c46-d817c983e668",
+      "customer_name": "Arun Waiba",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "88275062-cccb-481f-a5a5-eb586a8ee4fc",
+      "customer_name": "Dorje Basnet",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0609,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 6,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "3 months",
+          "impact": "positive",
+          "detail": "Active for 3 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "85b2f277-ca26-4ba1-8b22-a09a487dab29",
+      "customer_name": "Nabin Jha",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "f4d323de-74d4-4ab0-a12d-b90bc5d5e73e",
+      "customer_name": "Arun Chaudhary",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "4b035025-f10f-474f-8611-0851d0a6d72e",
+      "customer_name": "Sabita Thami",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "7b7af518-e8ab-48b9-8d84-184160feb195",
+      "customer_name": "Maya Tamang",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "a09d18b9-38cf-48b1-8b1c-01882535175e",
+      "customer_name": "Bishnu Khadka",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "975ed7df-732a-4c89-91e9-be4eb8854618",
+      "customer_name": "Nabin Pradhan",
+      "credit_score": 94,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0604,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 0,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "0 months",
+          "impact": "positive",
+          "detail": "Active for 0 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "fcb44dc2-56f6-4da5-8888-11a8d3119068",
+      "customer_name": "Radha Jha",
+      "credit_score": 92,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0846,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 12,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Max Purchase",
+          "value": "23330.98",
+          "impact": "positive",
+          "detail": "max purchase is 23330.98"
+        }
+      ]
+    },
+    {
+      "customer_id": "c6819847-2e28-48f5-a3fd-d215b1e2289f",
+      "customer_name": "Bishnu Poudel",
+      "credit_score": 90,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.0953,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 8,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "7 months",
+          "impact": "positive",
+          "detail": "Active for 7 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "ee14ea2d-8347-4267-9572-8182a992da04",
+      "customer_name": "Bikash Sharma",
+      "credit_score": 87,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.1312,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 12,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "9 months",
+          "impact": "negative",
+          "detail": "Active for 9 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "c85fbcc0-0f04-41fb-bab9-fa05e50b03aa",
+      "customer_name": "Lal Bahadur Poudel",
+      "credit_score": 84,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.1647,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 16,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        }
+      ]
+    },
+    {
+      "customer_id": "f231dded-c41a-421b-a984-6c1fc470ed37",
+      "customer_name": "Nirmala Sharma",
+      "credit_score": 83,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.1718,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 13,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        }
+      ]
+    },
+    {
+      "customer_id": "b05232a0-84fd-4912-9126-386e53357847",
+      "customer_name": "Radha Thami",
+      "credit_score": 81,
+      "grade": "A",
+      "decision": "Approve",
+      "max_recommended_credit": 20000,
+      "color": "green",
+      "probability_bad": 0.1945,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 9,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "11%",
+          "impact": "negative",
+          "detail": "Bought on credit 11% of the time historically"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "14844.48",
+          "impact": "positive",
+          "detail": "avg purchase is 14844.48"
+        }
+      ]
+    },
+    {
+      "customer_id": "12a24ff0-5200-4384-97d1-2ae868062a33",
+      "customer_name": "Bikash Manandhar",
+      "credit_score": 78,
+      "grade": "B",
+      "decision": "Approve with caution",
+      "max_recommended_credit": 10000,
+      "color": "blue",
+      "probability_bad": 0.2182,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 11,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        }
+      ]
+    },
+    {
+      "customer_id": "a8ae0b42-0ab0-47fb-b6ea-c910073d4c34",
+      "customer_name": "Prakash Sharma",
+      "credit_score": 75,
+      "grade": "B",
+      "decision": "Approve with caution",
+      "max_recommended_credit": 10000,
+      "color": "blue",
+      "probability_bad": 0.2452,
+      "current_balance": 0.0,
+      "credit_limit": 5000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 17,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        }
+      ]
+    },
+    {
+      "customer_id": "e26928a2-81e1-4f6f-be2f-ddb791eebc94",
+      "customer_name": "Sunil Pradhan",
+      "credit_score": 66,
+      "grade": "B",
+      "decision": "Approve with caution",
+      "max_recommended_credit": 10000,
+      "color": "blue",
+      "probability_bad": 0.3374,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 10,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        }
+      ]
+    },
+    {
+      "customer_id": "5d06412f-6612-45f8-a027-c0ad02558ccb",
+      "customer_name": "Sabita Magar",
+      "credit_score": 58,
+      "grade": "C",
+      "decision": "Small credit only",
+      "max_recommended_credit": 5000,
+      "color": "yellow",
+      "probability_bad": 0.4212,
+      "current_balance": 0.0,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 16,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        }
+      ]
+    },
+    {
+      "customer_id": "a2dc1b6d-4dda-4b1b-bd0e-01d102c3aab3",
+      "customer_name": "Bimala Thami",
+      "credit_score": 58,
+      "grade": "C",
+      "decision": "Small credit only",
+      "max_recommended_credit": 5000,
+      "color": "yellow",
+      "probability_bad": 0.4233,
+      "current_balance": 9027.56,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.9028,
+      "n_purchases": 12,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "8%",
+          "impact": "negative",
+          "detail": "Bought on credit 8% of the time historically"
+        },
+        {
+          "factor": "Purchase history",
+          "value": "12 purchases",
+          "impact": "positive",
+          "detail": "12 purchases on record prior to evaluation period"
+        }
+      ]
+    },
+    {
+      "customer_id": "f43fa3de-bfb7-44a6-843a-d819f15dfa0f",
+      "customer_name": "Sarita Rai",
+      "credit_score": 48,
+      "grade": "D",
+      "decision": "Require advance payment",
+      "max_recommended_credit": 2000,
+      "color": "orange",
+      "probability_bad": 0.5227,
+      "current_balance": 13795.22,
+      "credit_limit": 10000.0,
+      "balance_ratio": 1.3795,
+      "n_purchases": 14,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "17329.61",
+          "impact": "negative",
+          "detail": "avg purchase is 17329.61"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        }
+      ]
+    },
+    {
+      "customer_id": "ff9c938d-050f-476a-9def-7044fe79e2bc",
+      "customer_name": "Rekha Poudel",
+      "credit_score": 39,
+      "grade": "D",
+      "decision": "Require advance payment",
+      "max_recommended_credit": 2000,
+      "color": "orange",
+      "probability_bad": 0.6065,
+      "current_balance": 0.0,
+      "credit_limit": 0.0,
+      "balance_ratio": 0.0,
+      "n_purchases": 10,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        },
+        {
+          "factor": "Max Purchase",
+          "value": "26584.14",
+          "impact": "negative",
+          "detail": "max purchase is 26584.14"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        }
+      ]
+    },
+    {
+      "customer_id": "9d30472d-04c6-4286-8f27-4d8f321480fd",
+      "customer_name": "Bikash Gurung",
+      "credit_score": 39,
+      "grade": "D",
+      "decision": "Require advance payment",
+      "max_recommended_credit": 2000,
+      "color": "orange",
+      "probability_bad": 0.6065,
+      "current_balance": 9694.87,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.9695,
+      "n_purchases": 10,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        },
+        {
+          "factor": "Max Purchase",
+          "value": "25645.11",
+          "impact": "negative",
+          "detail": "max purchase is 25645.11"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        }
+      ]
+    },
+    {
+      "customer_id": "759a1514-31fb-43e8-9e01-13dc4139cca1",
+      "customer_name": "Prakash Adhikari",
+      "credit_score": 28,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.7172,
+      "current_balance": 23073.44,
+      "credit_limit": 0.0,
+      "balance_ratio": 1.0,
+      "n_purchases": 6,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Purchase history",
+          "value": "6 purchases",
+          "impact": "negative",
+          "detail": "6 purchases on record prior to evaluation period"
+        }
+      ]
+    },
+    {
+      "customer_id": "49025b5b-6fcb-43fc-a580-c525781bc45d",
+      "customer_name": "Mina Waiba",
+      "credit_score": 25,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.7514,
+      "current_balance": 9862.58,
+      "credit_limit": 5000.0,
+      "balance_ratio": 1.9725,
+      "n_purchases": 7,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "14%",
+          "impact": "negative",
+          "detail": "Bought on credit 14% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "0% unpaid",
+          "impact": "positive",
+          "detail": "0% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "16073.64",
+          "impact": "negative",
+          "detail": "avg purchase is 16073.64"
+        }
+      ]
+    },
+    {
+      "customer_id": "8c539dea-d8a3-4cbd-94cb-d5f200673e8f",
+      "customer_name": "Sunil Shrestha",
+      "credit_score": 16,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.8359,
+      "current_balance": 16868.47,
+      "credit_limit": 10000.0,
+      "balance_ratio": 1.6868,
+      "n_purchases": 7,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        },
+        {
+          "factor": "Purchase history",
+          "value": "7 purchases",
+          "impact": "negative",
+          "detail": "7 purchases on record prior to evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "0%",
+          "impact": "positive",
+          "detail": "Bought on credit 0% of the time historically"
+        }
+      ]
+    },
+    {
+      "customer_id": "1de152c3-fe34-4839-8b50-62db14c47b36",
+      "customer_name": "Prakash Waiba",
+      "credit_score": 8,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9163,
+      "current_balance": 30656.16,
+      "credit_limit": 10000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 14,
+      "unpaid_ratio": 0.0714,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "7% unpaid",
+          "impact": "negative",
+          "detail": "7% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "14%",
+          "impact": "negative",
+          "detail": "Bought on credit 14% of the time historically"
+        },
+        {
+          "factor": "Historical unpaid amount",
+          "value": "Rs 20,336",
+          "impact": "negative",
+          "detail": "Rs 20,336 left unpaid during the observed history period"
+        }
+      ]
+    },
+    {
+      "customer_id": "3b9e5900-54c8-4bad-b013-75b594f80dc0",
+      "customer_name": "Nirmala Shakya",
+      "credit_score": 7,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9309,
+      "current_balance": 20947.17,
+      "credit_limit": 5000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 12,
+      "unpaid_ratio": 0.0833,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "8% unpaid",
+          "impact": "negative",
+          "detail": "8% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "17%",
+          "impact": "negative",
+          "detail": "Bought on credit 17% of the time historically"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "14290.01",
+          "impact": "positive",
+          "detail": "avg purchase is 14290.01"
+        }
+      ]
+    },
+    {
+      "customer_id": "2ce10ebb-175f-4692-a07a-27a135bb03a1",
+      "customer_name": "Deepak Pradhan",
+      "credit_score": 7,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9301,
+      "current_balance": 24507.56,
+      "credit_limit": 5000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 11,
+      "unpaid_ratio": 0.0909,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "9% unpaid",
+          "impact": "negative",
+          "detail": "9% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "9%",
+          "impact": "negative",
+          "detail": "Bought on credit 9% of the time historically"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "14828.51",
+          "impact": "positive",
+          "detail": "avg purchase is 14828.51"
+        }
+      ]
+    },
+    {
+      "customer_id": "5b0d6551-f8f8-43f7-a125-01396d4b57e1",
+      "customer_name": "Nabin Tamang",
+      "credit_score": 7,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9341,
+      "current_balance": 8026.43,
+      "credit_limit": 0.0,
+      "balance_ratio": 1.0,
+      "n_purchases": 19,
+      "unpaid_ratio": 0.0526,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "5% unpaid",
+          "impact": "negative",
+          "detail": "5% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "5%",
+          "impact": "negative",
+          "detail": "Bought on credit 5% of the time historically"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "13960.08",
+          "impact": "positive",
+          "detail": "avg purchase is 13960.08"
+        }
+      ]
+    },
+    {
+      "customer_id": "ff0ae6da-3475-44de-acc8-b03c81a1e500",
+      "customer_name": "Krishna Pradhan",
+      "credit_score": 5,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9525,
+      "current_balance": 19882.32,
+      "credit_limit": 0.0,
+      "balance_ratio": 1.0,
+      "n_purchases": 10,
+      "unpaid_ratio": 0.1,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "10% unpaid",
+          "impact": "negative",
+          "detail": "10% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "10%",
+          "impact": "negative",
+          "detail": "Bought on credit 10% of the time historically"
+        },
+        {
+          "factor": "Historical unpaid amount",
+          "value": "Rs 19,882",
+          "impact": "negative",
+          "detail": "Rs 19,882 left unpaid during the observed history period"
+        }
+      ]
+    },
+    {
+      "customer_id": "343886cf-0560-4e09-9579-546ebb181b6b",
+      "customer_name": "Chabahil Garage & Spares",
+      "credit_score": 5,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9483,
+      "current_balance": 77169.37,
+      "credit_limit": 20000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 4,
+      "unpaid_ratio": 0.0,
+      "explanations": [
+        {
+          "factor": "Avg Purchase",
+          "value": "23494.90",
+          "impact": "negative",
+          "detail": "avg purchase is 23494.90"
+        },
+        {
+          "factor": "Account tenure",
+          "value": "8 months",
+          "impact": "negative",
+          "detail": "Active for 8 months prior to evaluation"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        }
+      ]
+    },
+    {
+      "customer_id": "17d625b1-1d0e-433e-afa8-bc25c94db2d9",
+      "customer_name": "Bikash Khadka",
+      "credit_score": 5,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9525,
+      "current_balance": 18729.38,
+      "credit_limit": 0.0,
+      "balance_ratio": 1.0,
+      "n_purchases": 11,
+      "unpaid_ratio": 0.0909,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "9%",
+          "impact": "negative",
+          "detail": "Bought on credit 9% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "9% unpaid",
+          "impact": "negative",
+          "detail": "9% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Historical unpaid amount",
+          "value": "Rs 18,729",
+          "impact": "negative",
+          "detail": "Rs 18,729 left unpaid during the observed history period"
+        }
+      ]
+    },
+    {
+      "customer_id": "9a36bf01-6f25-423f-b60e-3247795eb527",
+      "customer_name": "Nirmala Karki",
+      "credit_score": 4,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9629,
+      "current_balance": 1885.2,
+      "credit_limit": 0.0,
+      "balance_ratio": 1.0,
+      "n_purchases": 15,
+      "unpaid_ratio": 0.0667,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "7% unpaid",
+          "impact": "negative",
+          "detail": "7% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "7%",
+          "impact": "negative",
+          "detail": "Bought on credit 7% of the time historically"
+        },
+        {
+          "factor": "Max Purchase",
+          "value": "26603.45",
+          "impact": "negative",
+          "detail": "max purchase is 26603.45"
+        }
+      ]
+    },
+    {
+      "customer_id": "cc913a9a-4bfc-4b74-afbe-b763bd5e3eab",
+      "customer_name": "Rajan Chaudhary",
+      "credit_score": 4,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9553,
+      "current_balance": 19466.8,
+      "credit_limit": 5000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 13,
+      "unpaid_ratio": 0.0769,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "8%",
+          "impact": "negative",
+          "detail": "Bought on credit 8% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "8% unpaid",
+          "impact": "negative",
+          "detail": "8% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Historical unpaid amount",
+          "value": "Rs 19,467",
+          "impact": "negative",
+          "detail": "Rs 19,467 left unpaid during the observed history period"
+        }
+      ]
+    },
+    {
+      "customer_id": "044f8d81-7014-4e91-bc50-4393b745e111",
+      "customer_name": "Pemba Limbu",
+      "credit_score": 4,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9629,
+      "current_balance": 16455.27,
+      "credit_limit": 0.0,
+      "balance_ratio": 1.0,
+      "n_purchases": 14,
+      "unpaid_ratio": 0.0714,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "7% unpaid",
+          "impact": "negative",
+          "detail": "7% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "7%",
+          "impact": "negative",
+          "detail": "Bought on credit 7% of the time historically"
+        },
+        {
+          "factor": "Historical unpaid amount",
+          "value": "Rs 16,455",
+          "impact": "negative",
+          "detail": "Rs 16,455 left unpaid during the observed history period"
+        }
+      ]
+    },
+    {
+      "customer_id": "3f7d980d-1e47-46e6-8d2b-0e1f68e17d61",
+      "customer_name": "Man Bahadur Limbu",
+      "credit_score": 4,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9553,
+      "current_balance": 24200.4,
+      "credit_limit": 10000.0,
+      "balance_ratio": 2.42,
+      "n_purchases": 15,
+      "unpaid_ratio": 0.0667,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "7% unpaid",
+          "impact": "negative",
+          "detail": "7% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "7%",
+          "impact": "negative",
+          "detail": "Bought on credit 7% of the time historically"
+        },
+        {
+          "factor": "Historical unpaid amount",
+          "value": "Rs 24,200",
+          "impact": "negative",
+          "detail": "Rs 24,200 left unpaid during the observed history period"
+        }
+      ]
+    },
+    {
+      "customer_id": "607fa15f-067b-49ae-81bf-4351dbae4636",
+      "customer_name": "Prakash Yadav",
+      "credit_score": 4,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9629,
+      "current_balance": 22883.94,
+      "credit_limit": 10000.0,
+      "balance_ratio": 2.2884,
+      "n_purchases": 16,
+      "unpaid_ratio": 0.0625,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "6%",
+          "impact": "negative",
+          "detail": "Bought on credit 6% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "6% unpaid",
+          "impact": "negative",
+          "detail": "6% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Max Purchase",
+          "value": "28375.59",
+          "impact": "negative",
+          "detail": "max purchase is 28375.59"
+        }
+      ]
+    },
+    {
+      "customer_id": "6f4c6894-c382-4198-87ac-fc93f39b36dc",
+      "customer_name": "Sunita Magar",
+      "credit_score": 4,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9629,
+      "current_balance": 19424.64,
+      "credit_limit": 5000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 14,
+      "unpaid_ratio": 0.0714,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "7% unpaid",
+          "impact": "negative",
+          "detail": "7% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "7%",
+          "impact": "negative",
+          "detail": "Bought on credit 7% of the time historically"
+        },
+        {
+          "factor": "Max Purchase",
+          "value": "24753.94",
+          "impact": "negative",
+          "detail": "max purchase is 24753.94"
+        }
+      ]
+    },
+    {
+      "customer_id": "fea2711a-714a-4f15-9ab8-ac5fbba035c9",
+      "customer_name": "Arun Sherpa",
+      "credit_score": 4,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9629,
+      "current_balance": 8385.2,
+      "credit_limit": 10000.0,
+      "balance_ratio": 0.8385,
+      "n_purchases": 9,
+      "unpaid_ratio": 0.1111,
+      "explanations": [
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "11% unpaid",
+          "impact": "negative",
+          "detail": "11% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Credit usage frequency",
+          "value": "11%",
+          "impact": "negative",
+          "detail": "Bought on credit 11% of the time historically"
+        },
+        {
+          "factor": "Max Purchase",
+          "value": "35555.18",
+          "impact": "negative",
+          "detail": "max purchase is 35555.18"
+        }
+      ]
+    },
+    {
+      "customer_id": "c99b516c-001a-4526-a1ee-ceb2d99f7873",
+      "customer_name": "Kirtipur Auto Garage",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 401983.13,
+      "credit_limit": 30000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 7,
+      "unpaid_ratio": 1.0,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "100% unpaid",
+          "impact": "negative",
+          "detail": "100% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "38836.88",
+          "impact": "negative",
+          "detail": "avg purchase is 38836.88"
+        }
+      ]
+    },
+    {
+      "customer_id": "612c0905-3191-4e7b-a718-d6ca88fbff97",
+      "customer_name": "Bishwakarma Motor Parts",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 368413.61,
+      "credit_limit": 50000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 6,
+      "unpaid_ratio": 0.8333,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "83% unpaid",
+          "impact": "negative",
+          "detail": "83% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "55114.48",
+          "impact": "negative",
+          "detail": "avg purchase is 55114.48"
+        }
+      ]
+    },
+    {
+      "customer_id": "1f62191f-1805-466d-b320-fa295c1c45e7",
+      "customer_name": "Kalanki Auto Service Center",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 141148.75,
+      "credit_limit": 20000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 3,
+      "unpaid_ratio": 0.6667,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "67% unpaid",
+          "impact": "negative",
+          "detail": "67% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "62069.04",
+          "impact": "negative",
+          "detail": "avg purchase is 62069.04"
+        }
+      ]
+    },
+    {
+      "customer_id": "6dac9405-8cf1-4327-b3f1-07ac6e4d03b9",
+      "customer_name": "Gita Auto Workshop",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 170175.91,
+      "credit_limit": 50000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 6,
+      "unpaid_ratio": 0.3333,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "33% unpaid",
+          "impact": "negative",
+          "detail": "33% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "43392.51",
+          "impact": "negative",
+          "detail": "avg purchase is 43392.51"
+        }
+      ]
+    },
+    {
+      "customer_id": "65327aa5-8bfe-48c5-a567-05a68d6942c9",
+      "customer_name": "Bhaktapur Motor Works",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 398899.77,
+      "credit_limit": 20000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 7,
+      "unpaid_ratio": 0.7143,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "71% unpaid",
+          "impact": "negative",
+          "detail": "71% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "45496.17",
+          "impact": "negative",
+          "detail": "avg purchase is 45496.17"
+        }
+      ]
+    },
+    {
+      "customer_id": "4d07bb51-dfc4-43c4-8bb4-f142c147bbbd",
+      "customer_name": "Suryabinayak Auto Center",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 309333.94,
+      "credit_limit": 30000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 3,
+      "unpaid_ratio": 0.6667,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "67% unpaid",
+          "impact": "negative",
+          "detail": "67% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "71598.61",
+          "impact": "negative",
+          "detail": "avg purchase is 71598.61"
+        }
+      ]
+    },
+    {
+      "customer_id": "7ac5a254-b09e-430a-82c0-ba1787cdd270",
+      "customer_name": "Naya Bazar Auto Repair",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 413302.63,
+      "credit_limit": 50000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 11,
+      "unpaid_ratio": 0.4545,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "45% unpaid",
+          "impact": "negative",
+          "detail": "45% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "54298.81",
+          "impact": "negative",
+          "detail": "avg purchase is 54298.81"
+        }
+      ]
+    },
+    {
+      "customer_id": "00fb83c7-ee14-4acb-b44f-255fd5a6060b",
+      "customer_name": "Balaju Motor Workshop",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 222608.74,
+      "credit_limit": 50000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 5,
+      "unpaid_ratio": 0.4,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "40% unpaid",
+          "impact": "negative",
+          "detail": "40% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "58363.27",
+          "impact": "negative",
+          "detail": "avg purchase is 58363.27"
+        }
+      ]
+    },
+    {
+      "customer_id": "f0f81089-d629-4ee4-8563-d0a20e719f25",
+      "customer_name": "Sanepa Motor Workshop",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 156297.71,
+      "credit_limit": 20000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 4,
+      "unpaid_ratio": 0.75,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "75% unpaid",
+          "impact": "negative",
+          "detail": "75% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "48272.75",
+          "impact": "negative",
+          "detail": "avg purchase is 48272.75"
+        }
+      ]
+    },
+    {
+      "customer_id": "ac41f8a4-6894-406c-8d2f-43620122af44",
+      "customer_name": "Koteshwor Auto Works",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 157278.71,
+      "credit_limit": 20000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 5,
+      "unpaid_ratio": 0.8,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "80% unpaid",
+          "impact": "negative",
+          "detail": "80% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "26215.70",
+          "impact": "negative",
+          "detail": "avg purchase is 26215.70"
+        }
+      ]
+    },
+    {
+      "customer_id": "ccda5afc-e0e0-44b0-93e8-24c4630525f3",
+      "customer_name": "Halesi Parts",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 147451.66,
+      "credit_limit": 50000.0,
+      "balance_ratio": 2.949,
+      "n_purchases": 10,
+      "unpaid_ratio": 0.3,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "30% unpaid",
+          "impact": "negative",
+          "detail": "30% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "41511.49",
+          "impact": "negative",
+          "detail": "avg purchase is 41511.49"
+        }
+      ]
+    },
+    {
+      "customer_id": "fe593ca1-0179-48b4-b567-459993d4b233",
+      "customer_name": "Solukhumbu Auto Work Shop",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 602097.81,
+      "credit_limit": 20000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 10,
+      "unpaid_ratio": 0.6,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "60% unpaid",
+          "impact": "negative",
+          "detail": "60% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "61441.12",
+          "impact": "negative",
+          "detail": "avg purchase is 61441.12"
+        }
+      ]
+    },
+    {
+      "customer_id": "20ed1e75-f2e0-49b3-b461-2de91f66c18b",
+      "customer_name": "Kumar Adhikari",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 16381.07,
+      "credit_limit": 10000.0,
+      "balance_ratio": 1.6381,
+      "n_purchases": 15,
+      "unpaid_ratio": 0.0667,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "7%",
+          "impact": "negative",
+          "detail": "Bought on credit 7% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "7% unpaid",
+          "impact": "negative",
+          "detail": "7% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "18789.47",
+          "impact": "negative",
+          "detail": "avg purchase is 18789.47"
+        }
+      ]
+    },
+    {
+      "customer_id": "6551183e-8d2d-4f1b-9dc5-e93d6833739e",
+      "customer_name": "Thankot Highway Garage",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 227493.95,
+      "credit_limit": 50000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 6,
+      "unpaid_ratio": 0.6667,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "67% unpaid",
+          "impact": "negative",
+          "detail": "67% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "34734.08",
+          "impact": "negative",
+          "detail": "avg purchase is 34734.08"
+        }
+      ]
+    },
+    {
+      "customer_id": "bc13cf51-7958-4dec-86a0-3245fcfc4565",
+      "customer_name": "Gongabu Bus Park Motors",
+      "credit_score": 3,
+      "grade": "F",
+      "decision": "Do not extend credit",
+      "max_recommended_credit": 0,
+      "color": "red",
+      "probability_bad": 0.9697,
+      "current_balance": 152922.04,
+      "credit_limit": 50000.0,
+      "balance_ratio": 3.0,
+      "n_purchases": 3,
+      "unpaid_ratio": 0.6667,
+      "explanations": [
+        {
+          "factor": "Credit usage frequency",
+          "value": "100%",
+          "impact": "negative",
+          "detail": "Bought on credit 100% of the time historically"
+        },
+        {
+          "factor": "Payment reliability (prior period)",
+          "value": "67% unpaid",
+          "impact": "negative",
+          "detail": "67% of invoices unpaid before the evaluation period"
+        },
+        {
+          "factor": "Avg Purchase",
+          "value": "52276.33",
+          "impact": "negative",
+          "detail": "avg purchase is 52276.33"
+        }
+      ]
+    }
+  ]
+}

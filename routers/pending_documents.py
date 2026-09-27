@@ -411,6 +411,19 @@ async def approve_pending_document(
             product_id = new_product["id"]
         resolved_items.append({**item, "product_id": product_id, "net_price": net_price, "gross_price": gross_price})
 
+    # 1b. If a supplier name was extracted but didn't fuzzy-match an existing
+    #     supplier, create a new supplier record — mirrors how new products
+    #     are auto-created above. Without this, supplier_id stays null forever
+    #     for any supplier that isn't already in the system.
+    supplier_id = draft.get("supplier_id")
+    supplier_name = (draft.get("supplier_name") or "").strip()
+    if not supplier_id and supplier_name:
+        new_supplier = supabase.table("suppliers").insert({
+            "store_id": store_id,
+            "name": supplier_name,
+        }).execute().data[0]
+        supplier_id = new_supplier["id"]
+
     # 2. Create the purchase + line items — subtotal/VAT computed on the
     #    NET (post-discount) amount, matching how the supplier bill itself
     #    computes its taxable amount.
@@ -427,7 +440,7 @@ async def approve_pending_document(
 
     purchase = supabase.table("purchases").insert({
         "store_id": store_id,
-        "supplier_id": draft.get("supplier_id"),
+        "supplier_id": supplier_id,
         "bill_number": draft.get("bill_number"),
         "purchase_date": draft.get("bill_date") or date.today().isoformat(),
         "subtotal": round(subtotal, 2),

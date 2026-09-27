@@ -1,0 +1,48 @@
+{
+  "model": "lightgbm_category_pooled_tweedie",
+  "version": "3.0",
+  "store_id": "58998cb1-3a7c-4961-abe5-09df4d28c8d9",
+  "trained_on": "2026-09-07",
+  "n_categories": 10,
+  "n_products": 1000,
+  "metrics": {
+    "n_train_rows": 410,
+    "n_val_rows": 40,
+    "pct_zero_actual": 0.0733,
+    "mae": 10.176,
+    "wmape": 0.7006,
+    "mae_nonzero_weeks": 10.13,
+    "wmape_nonzero_weeks": 0.5928,
+    "n_nonzero_val_rows": 34
+  },
+  "categories": [
+    "Bearings & Seals",
+    "Body Parts",
+    "Brake System",
+    "Clutch System",
+    "Drivetrain",
+    "Electrical",
+    "Engine Parts",
+    "Filters",
+    "Suspension",
+    "Uncategorized"
+  ],
+  "features": [
+    "week_of_year",
+    "month",
+    "quarter",
+    "is_monsoon",
+    "is_festival",
+    "is_q1",
+    "lag_1",
+    "lag_2",
+    "lag_4",
+    "lag_8",
+    "rolling_4w_mean",
+    "rolling_8w_mean",
+    "rolling_4w_std",
+    "trend",
+    "group_code"
+  ],
+  "note": "Forecast trained at category level (enough volume for a real signal) and allocated to products by historical sales share. Per-product 'confidence' reflects product_type (fast/slow mover) \u2014 low-confidence products rely primarily on the reorder_level threshold, not the demand forecast."
+}

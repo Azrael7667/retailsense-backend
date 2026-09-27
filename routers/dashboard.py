@@ -8,7 +8,7 @@ router = APIRouter()
 
 @router.get("/summary")
 async def dashboard_summary(user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     today = date.today()
     month_start = today.replace(day=1)

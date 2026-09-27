@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.get("/")
 async def list_customers(search: Optional[str] = None, user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     q = supabase.table("customers").select("*").eq("store_id", store_id)
     if search:
@@ -18,7 +18,7 @@ async def list_customers(search: Optional[str] = None, user=Depends(get_current_
 
 @router.post("/")
 async def create_customer(body: CustomerCreate, user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     data = body.model_dump()
     data["store_id"] = store_id
@@ -26,7 +26,7 @@ async def create_customer(body: CustomerCreate, user=Depends(get_current_user)):
 
 @router.get("/{customer_id}")
 async def get_customer(customer_id: str, user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     result = supabase.table("customers").select("*").eq("id", customer_id).eq("store_id", store_id).single().execute()
     if not result.data:
@@ -35,14 +35,14 @@ async def get_customer(customer_id: str, user=Depends(get_current_user)):
 
 @router.put("/{customer_id}")
 async def update_customer(customer_id: str, body: CustomerUpdate, user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     data = {k: v for k, v in body.model_dump().items() if v is not None}
     return supabase.table("customers").update(data).eq("id", customer_id).eq("store_id", store_id).execute().data[0]
 
 @router.delete("/{customer_id}")
 async def delete_customer(customer_id: str, user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     supabase.table("customers").delete().eq("id", customer_id).eq("store_id", store_id).execute()
     return {"message": "Customer deleted"}

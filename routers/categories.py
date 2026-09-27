@@ -13,21 +13,21 @@ class CategoryCreate(BaseModel):
 
 @router.get("/")
 async def list_categories(user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     result = supabase.table("categories").select("*").eq("store_id", store_id).execute()
     return result.data
 
 @router.post("/")
 async def create_category(body: CategoryCreate, user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     result = supabase.table("categories").insert({"store_id": store_id, **body.model_dump()}).execute()
     return result.data[0]
 
 @router.delete("/{category_id}")
 async def delete_category(category_id: str, user=Depends(get_current_user)):
-    supabase = get_supabase()
+    supabase = get_supabase(user.access_token)
     store_id = get_store_id(user.id)
     supabase.table("categories").delete().eq("id", category_id).eq("store_id", store_id).eq("is_system", False).execute()
     return {"message": "Category deleted"}

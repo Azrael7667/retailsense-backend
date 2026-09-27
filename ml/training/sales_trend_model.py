@@ -1,4 +1,3 @@
-                   
 import os
 import json
 import joblib
@@ -12,6 +11,8 @@ import optuna
 import warnings
 warnings.filterwarnings("ignore")
 optuna.logging.set_verbosity(optuna.logging.WARNING)
+
+from ml.utils.feature_engineering import add_nepali_holidays
 
 load_dotenv()
 
@@ -58,19 +59,6 @@ def fetch_data(store_id):
     return weekly
 
 
-def add_nepali_holidays():
-    return pd.DataFrame({
-        "holiday": ["Dashain","Dashain","Tihar","Tihar","Nepali_New_Year","Holi"],
-        "ds": pd.to_datetime([
-            "2024-10-07","2024-10-14",
-            "2024-10-28","2024-11-04",
-            "2024-04-08","2024-03-25",
-        ]),
-        "lower_window": [-1,-1,-1,-1,-1,-1],
-        "upper_window": [ 2, 1, 2, 1, 1, 1],
-    })
-
-
 def objective(trial, df):
     """Optuna objective — minimize MAE on last 4 weeks"""
     cps = trial.suggest_float("changepoint_prior_scale", 0.01, 0.5, log=True)
@@ -86,10 +74,10 @@ def objective(trial, df):
     try:
         m = Prophet(
             holidays                = add_nepali_holidays(),
-            yearly_seasonality      = True,
+            yearly_seasonality      = False,  # unreliable with <2yrs data, redundant with regressors below
             weekly_seasonality      = False,
             daily_seasonality       = False,
-            seasonality_mode        = "multiplicative",
+            seasonality_mode        = "additive",  # safer than multiplicative with limited data
             changepoint_prior_scale = cps,
             seasonality_prior_scale = sps,
             holidays_prior_scale    = hps,
@@ -106,7 +94,8 @@ def objective(trial, df):
         preds = fc.tail(4)["yhat"].clip(lower=0).values
         mae  = np.mean(np.abs(preds - valid["y"].values))
         return mae
-    except:
+    except Exception as e:
+        print(f"  Trial failed: {e}")
         return 1e9
 
 
@@ -120,7 +109,7 @@ def train_with_optuna(df, n_trials=30):
           f"sps={best['seasonality_prior_scale']:.1f}, "
           f"hps={best['holidays_prior_scale']:.1f}")
     print(f"  Best MAE: Rs {study.best_value:,.0f}")
-    return best
+    return best, study.best_value
 
 
 def train_final_model(df, best_params):
@@ -131,10 +120,10 @@ def train_final_model(df, best_params):
 
     model = Prophet(
         holidays                = add_nepali_holidays(),
-        yearly_seasonality      = True,
+        yearly_seasonality      = False,  # unreliable with <2yrs data, redundant with regressors below
         weekly_seasonality      = False,
         daily_seasonality       = False,
-        seasonality_mode        = "multiplicative",
+        seasonality_mode        = "additive",  # safer than multiplicative with limited data
         changepoint_prior_scale = best_params["changepoint_prior_scale"],
         seasonality_prior_scale = best_params["seasonality_prior_scale"],
         holidays_prior_scale    = best_params["holidays_prior_scale"],
@@ -221,10 +210,10 @@ def train(store_id=None):
     print(f"\nTraining Sales Trend Model for store: {store_id}")
     print("-" * 55)
 
-    df          = fetch_data(store_id)
-    best_params = train_with_optuna(df, n_trials=30)
-    model, train_df = train_final_model(df, best_params)
-    insights    = analyze_trends(df, model, train_df)
+    df                        = fetch_data(store_id)
+    best_params, holdout_mae  = train_with_optuna(df, n_trials=30)
+    model, train_df           = train_final_model(df, best_params)
+    insights                  = analyze_trends(df, model, train_df)
 
     # Save
     joblib.dump(model, os.path.join(MODEL_DIR, f"sales_trend_model_{store_id}.pkl"))
@@ -234,6 +223,7 @@ def train(store_id=None):
         "store_id":    store_id,
         "trained_on":  str(date.today()),
         "best_params": best_params,
+        "metrics":     {"mae_holdout_4wk": round(holdout_mae, 2)},
         "insights":    insights,
     }
     with open(os.path.join(MODEL_DIR, f"sales_trend_meta_{store_id}.json"), "w") as f:
