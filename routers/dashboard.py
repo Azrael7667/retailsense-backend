@@ -1,15 +1,13 @@
 from fastapi import APIRouter, Depends
-from middleware.auth_middleware import get_current_user
-from models.store_helper import get_store_id
+from middleware.auth_middleware import get_current_user, get_active_store_id
 from database import get_supabase
 from datetime import date, timedelta
 
 router = APIRouter()
 
 @router.get("/summary")
-async def dashboard_summary(user=Depends(get_current_user)):
+async def dashboard_summary(user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase(user.access_token)
-    store_id = get_store_id(user.id)
     today = date.today()
     month_start = today.replace(day=1)
 

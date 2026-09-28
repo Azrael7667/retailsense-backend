@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Query
-from middleware.auth_middleware import get_current_user_with_role
+from middleware.auth_middleware import get_active_store_id
 from database import get_supabase_admin
 from datetime import date
 from typing import Optional
@@ -13,10 +13,9 @@ router = APIRouter()
 async def profit_loss(
     start_date: date,
     end_date: date,
-    user=Depends(get_current_user_with_role)
+    store_id: str = Depends(get_active_store_id)
 ):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
 
     invoices = supabase.table("invoices").select("total").eq("store_id", store_id).eq("status", "paid").gte("invoice_date", str(start_date)).lte("invoice_date", str(end_date)).execute().data
     purchases = supabase.table("purchases").select("total").eq("store_id", store_id).gte("purchase_date", str(start_date)).lte("purchase_date", str(end_date)).execute().data
@@ -43,18 +42,23 @@ async def profit_loss(
 async def sales_summary(
     start_date: date,
     end_date: date,
-    user=Depends(get_current_user_with_role)
+    store_id: str = Depends(get_active_store_id)
 ):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
     invoices = supabase.table("invoices").select("invoice_date, total, status").eq("store_id", store_id).gte("invoice_date", str(start_date)).lte("invoice_date", str(end_date)).execute().data
     return {"invoices": invoices, "total": round(sum(i["total"] for i in invoices), 2), "count": len(invoices)}
 
 
 @router.get("/top-products")
-async def top_products(limit: int = 10, user=Depends(get_current_user_with_role)):
+async def top_products(limit: int = 10, store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    items = supabase.table("invoice_items").select("product_name, quantity, total").execute().data
+    # NOTE: this query was never scoped to store_id at all before — it read
+    # invoice_items across EVERY store. Fixed here by joining through
+    # invoices, which does carry store_id.
+    inv_ids = [i["id"] for i in supabase.table("invoices").select("id").eq("store_id", store_id).execute().data or []]
+    items = []
+    if inv_ids:
+        items = supabase.table("invoice_items").select("product_name, quantity, total").in_("invoice_id", inv_ids).execute().data or []
     agg = defaultdict(lambda: {"quantity": 0, "revenue": 0})
     for item in items:
         agg[item["product_name"]]["quantity"] += item["quantity"]
@@ -80,9 +84,8 @@ def _category_map(supabase, store_id):
 
 # ---------------- Sales Report ----------------
 @router.get("/sales")
-async def sales_report(start_date: date, end_date: date, user=Depends(get_current_user_with_role)):
+async def sales_report(start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
     cust_map = _customer_map(supabase, store_id)
 
     res = (
@@ -112,9 +115,8 @@ async def sales_report(start_date: date, end_date: date, user=Depends(get_curren
 
 # ---------------- Purchase Report ----------------
 @router.get("/purchase")
-async def purchase_report(start_date: date, end_date: date, user=Depends(get_current_user_with_role)):
+async def purchase_report(start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
     supp_map = _supplier_map(supabase, store_id)
 
     res = (
@@ -138,9 +140,8 @@ async def purchase_report(start_date: date, end_date: date, user=Depends(get_cur
 
 # ---------------- Day Book ----------------
 @router.get("/daybook")
-async def daybook_report(start_date: date, end_date: date, user=Depends(get_current_user_with_role)):
+async def daybook_report(start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
     cust_map = _customer_map(supabase, store_id)
     supp_map = _supplier_map(supabase, store_id)
 
@@ -158,15 +159,14 @@ async def daybook_report(start_date: date, end_date: date, user=Depends(get_curr
 
 # ---------------- All Transactions ----------------
 @router.get("/all-transactions")
-async def all_transactions_report(start_date: date, end_date: date, user=Depends(get_current_user_with_role)):
-    return await daybook_report(start_date, end_date, user)
+async def all_transactions_report(start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
+    return await daybook_report(start_date, end_date, store_id)
 
 
 # ---------------- Party Statement ----------------
 @router.get("/party-statement")
-async def party_statement_report(party_id: UUID, start_date: date, end_date: date, user=Depends(get_current_user_with_role)):
+async def party_statement_report(party_id: UUID, start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
 
     res = (
         supabase.table("invoices")
@@ -196,9 +196,8 @@ async def party_statement_report(party_id: UUID, start_date: date, end_date: dat
 
 # ---------------- All Party Report ----------------
 @router.get("/all-parties")
-async def all_parties_report(user=Depends(get_current_user_with_role)):
+async def all_parties_report(store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
 
     res = supabase.table("customers").select("name, phone, balance, credit_limit").eq("store_id", store_id).execute()
     rows = [{
@@ -212,9 +211,8 @@ async def all_parties_report(user=Depends(get_current_user_with_role)):
 
 # ---------------- Item List Report ----------------
 @router.get("/item-list")
-async def item_list_report(user=Depends(get_current_user_with_role)):
+async def item_list_report(store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
     cat_map = _category_map(supabase, store_id)
 
     res = supabase.table("products").select("sku, name, cost_price, selling_price, stock_quantity, category_id").eq("store_id", store_id).execute()
@@ -231,9 +229,8 @@ async def item_list_report(user=Depends(get_current_user_with_role)):
 
 # ---------------- Low Stock Summary ----------------
 @router.get("/low-stock")
-async def low_stock_report(user=Depends(get_current_user_with_role)):
+async def low_stock_report(store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
 
     res = supabase.table("products").select("sku, name, stock_quantity, reorder_level").eq("store_id", store_id).execute()
     rows = [
@@ -246,9 +243,8 @@ async def low_stock_report(user=Depends(get_current_user_with_role)):
 
 # ---------------- Stock Quantity Report ----------------
 @router.get("/stock-quantity")
-async def stock_quantity_report(start_date: date, end_date: date, user=Depends(get_current_user_with_role)):
+async def stock_quantity_report(start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
 
     products = supabase.table("products").select("id, sku, name, stock_quantity").eq("store_id", store_id).execute().data or []
 
@@ -285,9 +281,8 @@ async def stock_quantity_report(start_date: date, end_date: date, user=Depends(g
 
 # ---------------- Income Expense Report ----------------
 @router.get("/income-expense")
-async def income_expense_report(start_date: date, end_date: date, user=Depends(get_current_user_with_role)):
+async def income_expense_report(start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
 
     sales = supabase.table("invoices").select("invoice_date, total, invoice_number").eq("store_id", store_id).eq("status", "paid").gte("invoice_date", str(start_date)).lte("invoice_date", str(end_date)).execute().data or []
     expenses = supabase.table("expenses").select("expense_date, amount, category, description").eq("store_id", store_id).gte("expense_date", str(start_date)).lte("expense_date", str(end_date)).execute().data or []
@@ -303,9 +298,8 @@ async def income_expense_report(start_date: date, end_date: date, user=Depends(g
 
 # ---------------- Expense Category ----------------
 @router.get("/expense-category")
-async def expense_category_report(start_date: date, end_date: date, user=Depends(get_current_user_with_role)):
+async def expense_category_report(start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
-    store_id = user["store_id"]
 
     expenses = supabase.table("expenses").select("category, amount").eq("store_id", store_id).gte("expense_date", str(start_date)).lte("expense_date", str(end_date)).execute().data or []
 

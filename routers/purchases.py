@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from schemas.purchase import PurchaseCreate
-from middleware.auth_middleware import get_current_user
-from models.store_helper import get_store_id
+from middleware.auth_middleware import get_current_user, get_active_store_id
 from database import get_supabase
+from utils.doc_numbers import next_doc_number
 from datetime import date
 from typing import Optional
 
@@ -12,20 +12,18 @@ def _net_price(unit_price: float, discount_percent: float) -> float:
     disc = discount_percent or 0
     return round(unit_price * (1 - disc / 100.0), 4)
 
-def _generate_sequential_bill_number(supabase, store_id: str, purchase_date: str) -> str:
-    # Mirrors PurchaseCreate.jsx's client-side scheme before this migration:
-    # sequential per-store count, tagged with the purchase's OWN date's
-    # year-month (unlike invoices, which tag with today's real-world year).
-    # Same small race window between the count read and insert as before.
-    count_res = supabase.table("purchases").select("id", count="exact").eq("store_id", store_id).execute()
-    seq = (count_res.count or 0) + 1
-    ym = (purchase_date or str(date.today()))[:7].replace("-", "")
-    return f"BILL-{ym}-{str(seq).zfill(4)}"
+def _generate_sequential_bill_number(supabase, store_id: str) -> str:
+    # Skip any number already taken (e.g. someone typed it manually)
+    for _ in range(5):
+        number = next_doc_number(store_id, "purchase")
+        dup = supabase.table("purchases").select("id").eq("store_id", store_id).eq("bill_number", number).limit(1).execute()
+        if not dup.data:
+            return number
+    raise HTTPException(status_code=500, detail="Could not generate a unique bill number")
 
 @router.get("/{purchase_id}")
-async def get_purchase(purchase_id: str, user=Depends(get_current_user)):
+async def get_purchase(purchase_id: str, user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase(user.access_token)
-    store_id = get_store_id(user.id)
     purchase = supabase.table("purchases").select("*, suppliers(name, phone, address), stores(name, address, phone, vat_number)").eq("id", purchase_id).eq("store_id", store_id).single().execute()
     if not purchase.data:
         raise HTTPException(status_code=404, detail="Purchase not found")
@@ -37,10 +35,10 @@ async def get_purchase(purchase_id: str, user=Depends(get_current_user)):
 async def list_purchases(
     start_date: Optional[date] = None,
     end_date: Optional[date] = None,
-    user=Depends(get_current_user)
+    user=Depends(get_current_user),
+    store_id: str = Depends(get_active_store_id)
 ):
     supabase = get_supabase(user.access_token)
-    store_id = get_store_id(user.id)
     q = supabase.table("purchases").select("*, suppliers(name)").eq("store_id", store_id).order("purchase_date", desc=True)
     if start_date:
         q = q.gte("purchase_date", str(start_date))
@@ -50,9 +48,8 @@ async def list_purchases(
 
 
 @router.post("/")
-async def create_purchase(body: PurchaseCreate, user=Depends(get_current_user)):
+async def create_purchase(body: PurchaseCreate, user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase(user.access_token)
-    store_id = get_store_id(user.id)
 
     if body.bill_number_mode == "manual":
         if not body.bill_number or not body.bill_number.strip():
@@ -62,7 +59,7 @@ async def create_purchase(body: PurchaseCreate, user=Depends(get_current_user)):
         if dup.data:
             raise HTTPException(status_code=400, detail=f'Bill number "{bill_number}" already exists')
     else:
-        bill_number = _generate_sequential_bill_number(supabase, store_id, str(body.purchase_date))
+        bill_number = _generate_sequential_bill_number(supabase, store_id)
 
     subtotal = sum(item.quantity * _net_price(item.unit_price, item.discount_percent) for item in body.items)
     total    = round(subtotal - body.discount + body.tax + body.charges_amount + body.round_off_amount, 2)
@@ -115,10 +112,6 @@ async def create_purchase(body: PurchaseCreate, user=Depends(get_current_user)):
         })
     supabase.table("purchase_items").insert(line_items).execute()
 
-    # Add stock + roll cost price forward. cost_price is the NET (post-discount)
-    # price and list_price is the gross price, per the documented policy — this
-    # corrects PurchaseCreate.jsx's prior client-side behavior, which had been
-    # writing gross price into cost_price and never setting list_price at all.
     for item in body.items:
         if item.product_id:
             prod = supabase.table("products").select("stock_quantity, cost_price").eq("id", str(item.product_id)).single().execute()
@@ -136,9 +129,8 @@ async def create_purchase(body: PurchaseCreate, user=Depends(get_current_user)):
 
 
 @router.put("/{purchase_id}")
-async def update_purchase(purchase_id: str, body: PurchaseCreate, user=Depends(get_current_user)):
+async def update_purchase(purchase_id: str, body: PurchaseCreate, user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase(user.access_token)
-    store_id = get_store_id(user.id)
 
     existing = supabase.table("purchases").select("*").eq("id", purchase_id).eq("store_id", store_id).single().execute()
     if not existing.data:
@@ -147,12 +139,6 @@ async def update_purchase(purchase_id: str, body: PurchaseCreate, user=Depends(g
 
     old_items = supabase.table("purchase_items").select("*").eq("purchase_id", purchase_id).execute().data or []
 
-    # ---- 1. Reverse the OLD purchase's effects (mirrors delete_purchase) ----
-    # cost_price / previous_cost_price are NOT reverted here, same accepted
-    # limitation as delete_purchase — the rollforward only keeps one prior
-    # value, so a clean reversal isn't possible once later purchases have
-    # moved cost_price on. This is independent of the net-vs-gross fix above:
-    # reversal only ever undoes the stock QUANTITY effect, never cost_price.
     for item in old_items:
         if item["product_id"]:
             prod = supabase.table("products").select("stock_quantity").eq("id", item["product_id"]).single().execute()
@@ -168,10 +154,6 @@ async def update_purchase(purchase_id: str, body: PurchaseCreate, user=Depends(g
             supabase.table("suppliers").update({"balance": new_balance}).eq("id", old_pur["supplier_id"]).execute()
 
     supabase.table("purchase_items").delete().eq("purchase_id", purchase_id).execute()
-
-    # ---- 2. Apply the NEW purchase data (mirrors create_purchase). bill_number
-    # is intentionally NEVER touched here — body.bill_number_mode / bill_number
-    # are create-only fields and are ignored on edit. ----
 
     subtotal = sum(item.quantity * _net_price(item.unit_price, item.discount_percent) for item in body.items)
     total    = round(subtotal - body.discount + body.tax + body.charges_amount + body.round_off_amount, 2)
@@ -239,9 +221,8 @@ async def update_purchase(purchase_id: str, body: PurchaseCreate, user=Depends(g
 
 
 @router.delete("/{purchase_id}")
-async def delete_purchase(purchase_id: str, user=Depends(get_current_user)):
+async def delete_purchase(purchase_id: str, user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase(user.access_token)
-    store_id = get_store_id(user.id)
 
     purchase = supabase.table("purchases").select("*").eq("id", purchase_id).eq("store_id", store_id).single().execute()
     if not purchase.data:
@@ -250,15 +231,8 @@ async def delete_purchase(purchase_id: str, user=Depends(get_current_user)):
 
     purchase_items = supabase.table("purchase_items").select("*").eq("purchase_id", purchase_id).execute().data or []
 
-    # Remove payment_out allocations tied to this purchase (money already paid stays
-    # paid -- supplier balance was already reduced when that payment was applied; only
-    # the link goes away, mirroring delete_invoice's handling of payment_allocations)
     supabase.table("payment_out_allocations").delete().eq("purchase_id", purchase_id).execute()
 
-    # Restore stock: undo the original purchase's stock increase.
-    # NOTE: cost_price / previous_cost_price are intentionally NOT reverted here -- the
-    # cost-price rollforward only keeps one prior value, so a clean reversal isn't
-    # possible once later purchases have moved cost_price on. Accepted limitation.
     for item in purchase_items:
         if item["product_id"]:
             prod = supabase.table("products").select("stock_quantity").eq("id", item["product_id"]).single().execute()
@@ -266,7 +240,6 @@ async def delete_purchase(purchase_id: str, user=Depends(get_current_user)):
                 new_qty = prod.data["stock_quantity"] - item["quantity"]
                 supabase.table("products").update({"stock_quantity": new_qty}).eq("id", item["product_id"]).execute()
 
-    # Reverse this purchase's remaining contribution to supplier balance
     outstanding = round(pur["total"] - (pur["paid_amount"] or 0), 2)
     if pur.get("supplier_id") and outstanding != 0:
         sup = supabase.table("suppliers").select("balance").eq("id", pur["supplier_id"]).single().execute()

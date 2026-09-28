@@ -25,8 +25,9 @@ from routers import (
     classification,
     auth, products, categories, customers,
     suppliers, invoices, purchases, expenses, payments, payments_out, sales_returns,
+    purchase_returns,
     khata, reports, dashboard,
-    pending_documents, reminders,
+    pending_documents, reminders, platform_admin,
     ai_cash_flow, ai_inventory, ai_churn,
     ai_sales_trend, ai_anomaly, ai_credit
 )
@@ -45,11 +46,13 @@ app.include_router(expenses.router,   prefix="/api/expenses",   tags=["Expenses"
 app.include_router(payments.router,    prefix="/api/payments",   tags=["Payments"])
 app.include_router(payments_out.router, prefix="/api/payments-out", tags=["Payments Out"])
 app.include_router(sales_returns.router, prefix="/api/sales-returns", tags=["Sales Returns"])
+app.include_router(purchase_returns.router, prefix="/api/purchase-returns", tags=["Purchase Returns"])
 app.include_router(khata.router,      prefix="/api/khata",      tags=["Khata / Udharo"])
 app.include_router(reports.router,    prefix="/api/reports",    tags=["Reports"])
 app.include_router(dashboard.router,  prefix="/api/dashboard",  tags=["Dashboard"])
 app.include_router(pending_documents.router, prefix="/api/pending-documents", tags=["Pending Documents"])
 app.include_router(reminders.router,  prefix="/api/reminders",  tags=["Reminders"])
+app.include_router(platform_admin.router, prefix="/api/platform-admin", tags=["Platform Admin"])
 
 # AI routers — each gets its own unique prefix
 app.include_router(ai_cash_flow.router,   prefix="/api/ai/cashflow",   tags=["AI - Cash Flow"])

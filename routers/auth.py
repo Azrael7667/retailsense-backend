@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from database import get_supabase, get_supabase_admin
-from middleware.auth_middleware import require_role
+from middleware.auth_middleware import require_role, get_current_user, DEFAULT_PERMISSIONS
+from models.store_helper import get_user_stores
 from config import get_settings
 
 router = APIRouter()
@@ -15,13 +16,45 @@ class RegisterRequest(BaseModel):
     password: str
     full_name: str
     store_name: str
-    store_type: str   # grocery | clothing | electronics | pharmacy | general
+    store_type: str
 
 class InviteStaffRequest(BaseModel):
     email: str
     full_name: str
-    role: str            # accountant | auditor | staff  (never "owner" via invite)
+    role: str
     phone: str | None = None
+
+class CreateStoreRequest(BaseModel):
+    store_name: str
+    store_type: str
+    address: str | None = None
+    phone: str | None = None
+    vat_number: str | None = None
+
+class UpdatePermissionsRequest(BaseModel):
+    permissions: dict[str, bool]
+
+
+def default_permissions_for_role(role: str) -> dict:
+    """
+    Starting permissions for a newly invited staff member, before the owner
+    customizes anything. Mirrors the optional SQL backfill that re-applied
+    these for pre-existing accounts — kept in sync manually since that SQL
+    only ran once, on request.
+
+    Accountant gets everything (needs full financial + operational access).
+    Auditor gets every *_view permission plus all reports_* (reviews, never
+    creates/edits/deletes). Staff gets nothing until the owner grants it.
+    """
+    if role == "accountant":
+        return {k: True for k in DEFAULT_PERMISSIONS}
+    if role == "auditor":
+        return {
+            k: (True if (k.endswith("_view") or k.startswith("reports_")) else False)
+            for k in DEFAULT_PERMISSIONS
+        }
+    return dict(DEFAULT_PERMISSIONS)  # staff — everything off
+
 
 @router.post("/login")
 async def login(body: LoginRequest):
@@ -36,13 +69,11 @@ async def login(body: LoginRequest):
 async def register(body: RegisterRequest):
     supabase = get_supabase()
     try:
-        # 1. Create auth user
         res = supabase.auth.sign_up({"email": body.email, "password": body.password})
         user = res.user
         if not user:
             raise HTTPException(status_code=400, detail="Registration failed")
 
-        # 2. Create store
         store = supabase.table("stores").insert({
             "name": body.store_name,
             "store_type": body.store_type,
@@ -50,16 +81,22 @@ async def register(body: RegisterRequest):
         }).execute()
         store_id = store.data[0]["id"]
 
-        # 3. Create user profile
         supabase.table("users").insert({
             "id": user.id,
             "store_id": store_id,
             "full_name": body.full_name,
             "email": body.email,
             "role": "owner",
+            "permissions": {k: True for k in DEFAULT_PERMISSIONS},
         }).execute()
 
-        # 4. Seed default categories based on store type
+        supabase.table("store_members").insert({
+            "user_id": user.id,
+            "store_id": store_id,
+            "role": "owner",
+            "is_default": True,
+        }).execute()
+
         _seed_categories(store_id, body.store_type)
 
         return {"message": "Account created successfully", "store_id": store_id}
@@ -73,30 +110,51 @@ async def logout():
     return {"message": "Logged out"}
 
 
+@router.get("/my-stores")
+async def my_stores(current_user=Depends(get_current_user)):
+    stores = get_user_stores(current_user.id)
+    return {"stores": stores}
+
+
+@router.post("/create-store")
+async def create_store(body: CreateStoreRequest, current_user=Depends(get_current_user)):
+    supabase = get_supabase_admin()
+
+    existing = supabase.table("users").select("full_name").eq("id", current_user.id).limit(1).execute()
+    owner_name = existing.data[0]["full_name"] if existing.data else None
+
+    store = supabase.table("stores").insert({
+        "name": body.store_name,
+        "store_type": body.store_type,
+        "owner_name": owner_name,
+        "address": body.address,
+        "phone": body.phone,
+        "vat_number": body.vat_number,
+    }).execute()
+    store_id = store.data[0]["id"]
+
+    supabase.table("store_members").insert({
+        "user_id": current_user.id,
+        "store_id": store_id,
+        "role": "owner",
+        "is_default": False,
+    }).execute()
+
+    _seed_categories(store_id, body.store_type)
+
+    return {"message": "Store created", "store_id": store_id}
+
+
 VALID_INVITE_ROLES = {"accountant", "auditor", "staff"}
 
 @router.post("/invite-staff")
 async def invite_staff(body: InviteStaffRequest, current_user=Depends(require_role("owner"))):
-    """
-    Owner-only. Sends a real Supabase invite email (magic link) to the
-    staff member and creates their `users` row in the SAME store as the
-    calling owner. They click the link, land on /accept-invite in the
-    frontend, and set their own password there — no temp password ever
-    exists or needs to be relayed manually.
-
-    NOTE: uses Supabase's built-in email service (no custom SMTP
-    configured yet) — this is rate-limited to a handful of emails/hour,
-    fine for now but worth moving to real SMTP before onboarding many
-    staff at once.
-    """
     if body.role not in VALID_INVITE_ROLES:
         raise HTTPException(status_code=400, detail=f"role must be one of {sorted(VALID_INVITE_ROLES)}")
 
     supabase = get_supabase_admin()
     settings = get_settings()
 
-    # First allowed origin doubles as our frontend base URL for the
-    # redirect target after the user clicks the emailed invite link.
     frontend_base = settings.allowed_origins.split(",")[0].strip()
     redirect_to = f"{frontend_base}/accept-invite"
 
@@ -123,9 +181,16 @@ async def invite_staff(body: InviteStaffRequest, current_user=Depends(require_ro
             "phone":      body.phone,
             "is_active":  True,
             "invited_by": current_user["id"],
+            "permissions": default_permissions_for_role(body.role),
+        }).execute()
+
+        supabase.table("store_members").insert({
+            "user_id":    new_user.id,
+            "store_id":   current_user["store_id"],
+            "role":       body.role,
+            "is_default": True,
         }).execute()
     except Exception as e:
-        # Roll back the orphaned auth user if the profile insert fails
         supabase.auth.admin.delete_user(new_user.id)
         raise HTTPException(status_code=400, detail=f"Could not save staff profile: {e}")
 
@@ -137,18 +202,49 @@ async def invite_staff(body: InviteStaffRequest, current_user=Depends(require_ro
 
 @router.get("/staff")
 async def list_staff(current_user=Depends(require_role("owner"))):
-    """Owner-only. Lists everyone in the owner's store."""
     supabase = get_supabase_admin()
     res = supabase.table("users") \
-        .select("id, full_name, email, role, phone, is_active, created_at") \
+        .select("id, full_name, email, role, phone, is_active, created_at, permissions") \
         .eq("store_id", current_user["store_id"]) \
         .order("created_at").execute()
-    return {"staff": res.data}
+    staff = []
+    for row in res.data:
+        row = dict(row)
+        if row["role"] == "owner":
+            row["permissions"] = {k: True for k in DEFAULT_PERMISSIONS}
+        else:
+            row["permissions"] = {**DEFAULT_PERMISSIONS, **(row.get("permissions") or {})}
+        staff.append(row)
+    return {"staff": staff}
+
+
+@router.patch("/staff/{staff_id}/permissions")
+async def update_staff_permissions(
+    staff_id: str,
+    body: UpdatePermissionsRequest,
+    current_user=Depends(require_role("owner")),
+):
+    supabase = get_supabase_admin()
+    target = supabase.table("users").select("id, store_id, role, permissions") \
+        .eq("id", staff_id).single().execute()
+    if not target.data or target.data["store_id"] != current_user["store_id"]:
+        raise HTTPException(status_code=404, detail="Staff member not found")
+    if target.data["role"] == "owner":
+        raise HTTPException(status_code=400, detail="The owner always has full access — nothing to toggle")
+
+    unknown_keys = set(body.permissions) - set(DEFAULT_PERMISSIONS)
+    if unknown_keys:
+        raise HTTPException(status_code=400, detail=f"Unknown permission(s): {sorted(unknown_keys)}")
+
+    current_permissions = {**DEFAULT_PERMISSIONS, **(target.data.get("permissions") or {})}
+    merged = {**current_permissions, **body.permissions}
+
+    updated = supabase.table("users").update({"permissions": merged}).eq("id", staff_id).execute().data[0]
+    return updated
 
 
 @router.patch("/staff/{staff_id}/deactivate")
 async def deactivate_staff(staff_id: str, current_user=Depends(require_role("owner"))):
-    """Owner-only. Deactivates a staff member (soft — doesn't delete their history)."""
     if staff_id == current_user["id"]:
         raise HTTPException(status_code=400, detail="You cannot deactivate your own account")
 
@@ -163,17 +259,6 @@ async def deactivate_staff(staff_id: str, current_user=Depends(require_role("own
 
 @router.delete("/staff/{staff_id}")
 async def delete_staff(staff_id: str, current_user=Depends(require_role("owner"))):
-    """
-    Owner-only. Permanently removes a staff member — deletes their
-    Supabase Auth account (so they can never log in again, even if
-    re-invited later with a fresh flow) and their `users` profile row.
-
-    This is a hard delete, unlike /deactivate. If the staff member has
-    activity_log entries or other records referencing their user id,
-    those references will either cascade or block deletion depending
-    on how the FK is set up — if this errors with a foreign key
-    violation, deactivate instead of delete for that person.
-    """
     if staff_id == current_user["id"]:
         raise HTTPException(status_code=400, detail="You cannot delete your own account")
 
@@ -192,8 +277,6 @@ async def delete_staff(staff_id: str, current_user=Depends(require_role("owner")
     try:
         supabase.auth.admin.delete_user(staff_id)
     except Exception as e:
-        # Profile row is already gone at this point; auth cleanup failing
-        # isn't fatal but is worth surfacing rather than silently swallowing.
         return {"message": "Staff profile deleted, but auth account cleanup failed", "warning": str(e)}
 
     return {"message": "Staff member deleted"}

@@ -10,7 +10,7 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Body
 from pydantic import BaseModel
 
 from database import get_supabase_admin
-from middleware.auth_middleware import require_role
+from middleware.auth_middleware import require_role, get_active_store_id
 from config import get_settings
 from utils.nepali_date import parse_bs_string_to_ad
 
@@ -239,12 +239,12 @@ def _net_price(unit_price: float, discount_percent: float) -> float:
 async def upload_purchase_bill(
     file: UploadFile = File(...),
     current_user=Depends(require_role("owner", "accountant")),
+    store_id: str = Depends(get_active_store_id),
 ):
     if file.content_type not in ALLOWED_CONTENT_TYPES:
         raise HTTPException(status_code=400, detail="Only JPEG, PNG, or WEBP images are supported right now")
 
     supabase = get_supabase_admin()
-    store_id = current_user["store_id"]
 
     image_bytes = await file.read()
     ext = file.content_type.split("/")[-1]
@@ -296,11 +296,12 @@ async def list_pending_documents(
     doc_type: str = "purchase_bill",
     status: Optional[str] = None,
     current_user=Depends(require_role("owner", "accountant")),
+    store_id: str = Depends(get_active_store_id),
 ):
     supabase = get_supabase_admin()
     q = supabase.table("pending_documents") \
         .select("*") \
-        .eq("store_id", current_user["store_id"]) \
+        .eq("store_id", store_id) \
         .eq("doc_type", doc_type) \
         .order("created_at", desc=True)
     if status:
@@ -312,10 +313,11 @@ async def list_pending_documents(
 async def get_pending_document(
     doc_id: str,
     current_user=Depends(require_role("owner", "accountant")),
+    store_id: str = Depends(get_active_store_id),
 ):
     supabase = get_supabase_admin()
     row = supabase.table("pending_documents").select("*") \
-        .eq("id", doc_id).eq("store_id", current_user["store_id"]) \
+        .eq("id", doc_id).eq("store_id", store_id) \
         .single().execute()
     if not row.data:
         raise HTTPException(status_code=404, detail="Not found")
@@ -335,10 +337,11 @@ async def update_pending_document(
     doc_id: str,
     extracted_data: Dict[str, Any] = Body(..., embed=True),
     current_user=Depends(require_role("owner", "accountant")),
+    store_id: str = Depends(get_active_store_id),
 ):
     supabase = get_supabase_admin()
     existing = supabase.table("pending_documents").select("id, status") \
-        .eq("id", doc_id).eq("store_id", current_user["store_id"]) \
+        .eq("id", doc_id).eq("store_id", store_id) \
         .single().execute()
     if not existing.data:
         raise HTTPException(status_code=404, detail="Not found")
@@ -361,9 +364,9 @@ async def update_pending_document(
 async def approve_pending_document(
     doc_id: str,
     current_user=Depends(require_role("owner", "accountant")),
+    store_id: str = Depends(get_active_store_id),
 ):
     supabase = get_supabase_admin()
-    store_id = current_user["store_id"]
 
     doc = supabase.table("pending_documents").select("*") \
         .eq("id", doc_id).eq("store_id", store_id).single().execute()
@@ -498,10 +501,11 @@ async def approve_pending_document(
 async def reject_pending_document(
     doc_id: str,
     current_user=Depends(require_role("owner", "accountant")),
+    store_id: str = Depends(get_active_store_id),
 ):
     supabase = get_supabase_admin()
     existing = supabase.table("pending_documents").select("id, status") \
-        .eq("id", doc_id).eq("store_id", current_user["store_id"]) \
+        .eq("id", doc_id).eq("store_id", store_id) \
         .single().execute()
     if not existing.data:
         raise HTTPException(status_code=404, detail="Not found")
