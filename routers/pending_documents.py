@@ -20,9 +20,9 @@ from google.genai import types
 router = APIRouter()
 
 BUCKET = "purchase-bills"
-GEMINI_MODEL = "gemini-3.6-flash"  # pinned — "flash-latest" was drifting/timing out as of Aug 2026 model transition
-MATCH_THRESHOLD = 0.90  # raised from 0.72 — 0.72 wrongly matched "Oil Filter" to "Air Filter" at 0.80
-DEFAULT_VAT_PERCENT = 13  # Nepal's standard VAT rate — used unless the bill clearly shows something else
+GEMINI_MODEL = "gemini-3.6-flash"  # pinned, "flash-latest" was drifting/timing out as of Aug 2026 model transition
+MATCH_THRESHOLD = 0.90  # raised from 0.72, 0.72 wrongly matched "Oil Filter" to "Air Filter" at 0.80
+DEFAULT_VAT_PERCENT = 13  # Nepal's standard VAT rate, used unless the bill clearly shows something else
 
 ALLOWED_CONTENT_TYPES = {"image/jpeg", "image/png", "image/webp"}
 
@@ -32,31 +32,39 @@ ALLOWED_CONTENT_TYPES = {"image/jpeg", "image/png", "image/webp"}
 # ----------------------------------------------------------------
 
 EXTRACTION_PROMPT = """You are reading a photo of a supplier purchase bill/invoice for a retail shop in Nepal.
-Extract the following as strict JSON, with no markdown formatting, no commentary — just the JSON object:
+Extract the following as strict JSON, with no markdown formatting, no commentary, just the JSON object:
 
 {
   "supplier_name": string or null,
+  "supplier_address": string or null (the supplier's address as printed at the top of the bill),
+  "supplier_pan": string or null (the supplier's PAN / VAT number as printed, digits only),
   "bill_number": string or null,
+  "invoice_type": string or null (e.g. "Cash" or "Credit", as printed next to "Invoice Type"),
   "bill_date": string in YYYY-MM-DD format, or null if unreadable,
-  "bill_date_calendar": either "AD" or "BS" — which calendar system the date on the
+  "bill_date_calendar": either "AD" or "BS", which calendar system the date on the
     bill is actually written in. Nepali bills very often use the Bikram Sambat (BS)
     calendar, which runs roughly 56-57 years ahead of AD (e.g. BS 2081 corresponds
     to AD 2024-2025). If the bill shows a 4-digit year in the 2080s while the actual
     date is clearly recent, it is almost certainly BS, not AD. Look for the word
     "Miti" (a common Nepali label for date) as a strong signal the date is BS.
+  "paper_box": [ymin, xmin, ymax, xmax], the bounding box of the paper bill itself
+    inside the photo, as integers from 0 to 1000 relative to the full image (0,0 is
+    the top-left corner of the photo, 1000,1000 the bottom-right). Include only the
+    sheet of paper, not the table, folder or hands around it. Use null if you cannot
+    tell where the paper is.
   "items": [
     {
       "name": string,
       "part_number": string or null (the supplier's part/SKU code for this item,
-        often in a column labeled "PART NO.", "Item Code", or similar — do not
+        often in a column labeled "PART NO.", "Item Code", or similar, do not
         confuse this with the line number),
-      "unit": string or null (e.g. "Pcs", "Box", "Ltr", "Kg" — read exactly what
+      "unit": string or null (e.g. "Pcs", "Box", "Ltr", "Kg", read exactly what
         the bill shows, do not guess or default to a value if the column is blank),
       "quantity": number,
       "unit_price": number,
       "discount_percent": number or null (read from a column labeled "Disc %",
         "Disc.", "Discount", or similar, if present on this line. Report exactly
-        what the column shows — do NOT subtract it from unit_price yourself; the
+        what the column shows, do NOT subtract it from unit_price yourself; the
         application applies it during review/approval.)
     }
   ],
@@ -72,19 +80,19 @@ Rules:
 
 def extract_bill_data(image_bytes: bytes, mime_type: str) -> dict:
     """
-    Calls Gemini with a short retry loop — the free-tier -latest alias
+    Calls Gemini with a short retry loop, the free-tier -latest alias
     occasionally returns 503 UNAVAILABLE / 504 DEADLINE_EXCEEDED under load,
     and that's usually transient (a few seconds to a couple minutes), not a
     real failure.
 
-    Runs synchronously/blocking by design — the route calls this via
+    Runs synchronously/blocking by design, the route calls this via
     asyncio.to_thread so it doesn't freeze the event loop.
     """
     settings = get_settings()
     client = genai.Client(api_key=settings.gemini_api_key)
 
     last_error = None
-    delays = [2, 5, 15]  # seconds between attempts — short backoff, 4 tries total
+    delays = [2, 5, 15]  # seconds between attempts, short backoff, 4 tries total
 
     for attempt, delay in enumerate([0] + delays):
         if delay:
@@ -131,6 +139,22 @@ def fuzzy_match(name: str, candidates: List[dict]) -> Optional[dict]:
     return None
 
 
+def _clean_box(box) -> Optional[List[int]]:
+    """Validates the AI's paper bounding box: [ymin, xmin, ymax, xmax] on a 0-1000 scale."""
+    try:
+        if not isinstance(box, (list, tuple)) or len(box) != 4:
+            return None
+        ymin, xmin, ymax, xmax = [int(round(float(v))) for v in box]
+    except (TypeError, ValueError):
+        return None
+    ymin, xmin = max(0, ymin), max(0, xmin)
+    ymax, xmax = min(1000, ymax), min(1000, xmax)
+    # must be a sensible size (at least 20% of each side)
+    if ymax - ymin < 200 or xmax - xmin < 200:
+        return None
+    return [ymin, xmin, ymax, xmax]
+
+
 def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
     """
     Takes raw Gemini output and enriches it with product/supplier matching,
@@ -169,7 +193,7 @@ def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
         supplier_match = fuzzy_match(supplier_name, suppliers)
 
     # Convert BS dates to AD before this ever reaches the frontend or gets
-    # saved as a real purchase_date — Postgres only understands AD dates,
+    # saved as a real purchase_date. Postgres only understands AD dates,
     # and Gemini is instructed to flag when a bill uses the BS calendar
     # (very common on Nepali supplier bills).
     raw_date = extracted.get("bill_date")
@@ -181,10 +205,10 @@ def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
         converted = parse_bs_string_to_ad(raw_date)
         if converted:
             bill_date_ad = converted.isoformat()
-            date_note = f"Date converted from BS {raw_date} to AD {bill_date_ad} — verify before approving."
+            date_note = f"Date converted from BS {raw_date} to AD {bill_date_ad}. Verify before approving."
         else:
             bill_date_ad = None
-            date_note = f"Bill showed BS date '{raw_date}' but it could not be converted — please enter the date manually."
+            date_note = f"Bill showed BS date '{raw_date}' but it could not be converted. Please enter the date manually."
 
     notes = extracted.get("notes")
     if date_note:
@@ -193,10 +217,14 @@ def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
     return {
         "supplier_name": supplier_name or None,
         "supplier_id": supplier_match["id"] if supplier_match else None,
+        "supplier_address": (extracted.get("supplier_address") or "").strip() or None,
+        "supplier_pan": (str(extracted.get("supplier_pan") or "")).strip() or None,
+        "invoice_type": (extracted.get("invoice_type") or "").strip() or None,
         "bill_number": extracted.get("bill_number"),
         "bill_date": bill_date_ad,
         "bill_date_raw": raw_date,
         "bill_date_calendar": calendar,
+        "paper_box": _clean_box(extracted.get("paper_box")),
         "items": items_out,
         "notes": notes,
         # VAT is bill-level, not per-item. Defaulted here; reviewer can edit
@@ -209,11 +237,11 @@ def check_duplicate_bill_number(bill_number: Optional[str], store_id: str, supab
     """
     Raises ValueError if a purchase with this bill number already exists
     for this store. Called right after extraction, before the document is
-    marked ready_for_review — so a duplicate never even reaches the review
+    marked ready_for_review, so a duplicate never even reaches the review
     screen; it goes straight to 'failed' with a clear message.
     """
     if not bill_number or not bill_number.strip():
-        return  # nothing to check — let it through, reviewer can catch it manually
+        return  # nothing to check, let it through, reviewer can catch it manually
     existing = supabase.table("purchases") \
         .select("id") \
         .eq("store_id", store_id) \
@@ -357,7 +385,7 @@ async def update_pending_document(
 
 
 # ----------------------------------------------------------------
-# Approve — creates the real purchase (+ new products) + stock update
+# Approve, creates the real purchase (+ new products) + stock update
 # ----------------------------------------------------------------
 
 @router.post("/{doc_id}/approve")
@@ -380,7 +408,7 @@ async def approve_pending_document(
     if not items:
         raise HTTPException(status_code=400, detail="No items to approve")
 
-    # Re-check for duplicates here too — the reviewer may have edited the
+    # Re-check for duplicates here too, the reviewer may have edited the
     # bill number since upload, or a race could've let two scans through.
     try:
         check_duplicate_bill_number(draft.get("bill_number"), store_id, supabase)
@@ -415,19 +443,21 @@ async def approve_pending_document(
         resolved_items.append({**item, "product_id": product_id, "net_price": net_price, "gross_price": gross_price})
 
     # 1b. If a supplier name was extracted but didn't fuzzy-match an existing
-    #     supplier, create a new supplier record — mirrors how new products
+    #     supplier, create a new supplier record, mirrors how new products
     #     are auto-created above. Without this, supplier_id stays null forever
     #     for any supplier that isn't already in the system.
     supplier_id = draft.get("supplier_id")
     supplier_name = (draft.get("supplier_name") or "").strip()
     if not supplier_id and supplier_name:
-        new_supplier = supabase.table("suppliers").insert({
-            "store_id": store_id,
-            "name": supplier_name,
-        }).execute().data[0]
+        new_supplier_row = {"store_id": store_id, "name": supplier_name}
+        if (draft.get("supplier_address") or "").strip():
+            new_supplier_row["address"] = draft["supplier_address"].strip()
+        if (draft.get("supplier_pan") or "").strip():
+            new_supplier_row["pan_number"] = draft["supplier_pan"].strip()
+        new_supplier = supabase.table("suppliers").insert(new_supplier_row).execute().data[0]
         supplier_id = new_supplier["id"]
 
-    # 2. Create the purchase + line items — subtotal/VAT computed on the
+    # 2. Create the purchase + line items, subtotal/VAT computed on the
     #    NET (post-discount) amount, matching how the supplier bill itself
     #    computes its taxable amount.
     gross_subtotal = sum((i["quantity"] or 0) * i["gross_price"] for i in resolved_items)
@@ -470,7 +500,7 @@ async def approve_pending_document(
 
     # 3. Add stock + roll cost price forward (net cost becomes the new
     #    cost_price; whatever it was before is kept in previous_cost_price
-    #    purely for reference — doesn't affect stock valuation math).
+    #    purely for reference, doesn't affect stock valuation math).
     for i in resolved_items:
         prod = supabase.table("products").select("stock_quantity, cost_price").eq("id", i["product_id"]).single().execute()
         if prod.data:
