@@ -67,41 +67,90 @@ async def login(body: LoginRequest):
 
 @router.post("/register")
 async def register(body: RegisterRequest):
-    supabase = get_supabase()
-    try:
-        res = supabase.auth.sign_up({"email": body.email, "password": body.password})
-        user = res.user
-        if not user:
-            raise HTTPException(status_code=400, detail="Registration failed")
+    """
+    Public signup. Runs entirely with the service-role client so it does not
+    depend on a session existing (email confirmation) or on the stores RLS
+    policies. The auth user is created already-confirmed so the frontend can
+    sign in straight away. If any step fails, everything created so far is
+    rolled back so no orphaned auth users or stores are left behind.
+    """
+    email = body.email.strip().lower()
+    full_name = body.full_name.strip()
+    store_name = body.store_name.strip()
+    store_type = (body.store_type or "general").strip().lower()
 
+    if not email or not full_name or not store_name:
+        raise HTTPException(status_code=400, detail="Name, store name and email are required")
+    if len(body.password) < 6:
+        raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
+    if store_type not in CATEGORY_PRESETS:
+        store_type = "general"
+
+    supabase = get_supabase_admin()
+    user_id = None
+    store_id = None
+
+    # 1. Auth user (already confirmed)
+    try:
+        created = supabase.auth.admin.create_user({
+            "email": email,
+            "password": body.password,
+            "email_confirm": True,
+            "user_metadata": {"full_name": full_name},
+        })
+        if not created.user:
+            raise HTTPException(status_code=400, detail="Registration failed")
+        user_id = created.user.id
+    except HTTPException:
+        raise
+    except Exception as e:
+        msg = str(e)
+        if "already" in msg.lower() or "registered" in msg.lower():
+            raise HTTPException(status_code=400, detail="An account with this email already exists")
+        raise HTTPException(status_code=400, detail=f"Could not create account: {msg}")
+
+    # 2. Store, profile, membership, categories — roll back everything on failure
+    try:
         store = supabase.table("stores").insert({
-            "name": body.store_name,
-            "store_type": body.store_type,
-            "owner_name": body.full_name,
+            "name": store_name,
+            "store_type": store_type,
+            "owner_name": full_name,
         }).execute()
         store_id = store.data[0]["id"]
 
         supabase.table("users").insert({
-            "id": user.id,
+            "id": user_id,
             "store_id": store_id,
-            "full_name": body.full_name,
-            "email": body.email,
+            "full_name": full_name,
+            "email": email,
             "role": "owner",
             "permissions": {k: True for k in DEFAULT_PERMISSIONS},
         }).execute()
 
         supabase.table("store_members").insert({
-            "user_id": user.id,
+            "user_id": user_id,
             "store_id": store_id,
             "role": "owner",
             "is_default": True,
         }).execute()
 
-        _seed_categories(store_id, body.store_type)
+        _seed_categories(store_id, store_type)
 
         return {"message": "Account created successfully", "store_id": store_id}
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        # Best-effort cleanup, child rows first
+        for cleanup in (
+            lambda: supabase.table("categories").delete().eq("store_id", store_id).execute() if store_id else None,
+            lambda: supabase.table("store_members").delete().eq("user_id", user_id).execute(),
+            lambda: supabase.table("users").delete().eq("id", user_id).execute(),
+            lambda: supabase.table("stores").delete().eq("id", store_id).execute() if store_id else None,
+            lambda: supabase.auth.admin.delete_user(user_id),
+        ):
+            try:
+                cleanup()
+            except Exception:
+                pass
+        raise HTTPException(status_code=400, detail=f"Registration failed: {e}")
 
 @router.post("/logout")
 async def logout():
@@ -290,7 +339,8 @@ CATEGORY_PRESETS = {
 }
 
 def _seed_categories(store_id: str, store_type: str):
-    supabase = get_supabase()
+    # Admin client: this runs during signup, before the user has a session
+    supabase = get_supabase_admin()
     names = CATEGORY_PRESETS.get(store_type, CATEGORY_PRESETS["general"])
     rows = [{"store_id": store_id, "name": n, "is_system": True} for n in names]
     supabase.table("categories").insert(rows).execute()
