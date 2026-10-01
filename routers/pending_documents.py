@@ -14,6 +14,7 @@ from middleware.auth_middleware import require_role, get_active_store_id
 from config import get_settings
 from utils.nepali_date import parse_bs_string_to_ad
 
+from services.ocr.pipeline import extract_with_engine
 from google import genai
 from google.genai import types
 
@@ -185,6 +186,8 @@ def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
             "unit_price": item.get("unit_price") or 0,
             "discount_percent": item.get("discount_percent") or 0,  # now applied to totals at approve time
             "match_confidence": match["match_confidence"] if match else None,
+            "needs_review": bool(item.get("needs_review")),
+            "review_reason": item.get("review_reason"),
         })
 
     supplier_name = (extracted.get("supplier_name") or "").strip()
@@ -296,7 +299,7 @@ async def upload_purchase_bill(
     doc_id = row["id"]
 
     try:
-        raw_extracted = await asyncio.to_thread(extract_bill_data, image_bytes, file.content_type)
+        raw_extracted = await asyncio.to_thread(extract_with_engine, image_bytes, file.content_type, extract_bill_data)
 
         # Block duplicates immediately, before this ever reaches review.
         check_duplicate_bill_number(raw_extracted.get("bill_number"), store_id, supabase)
