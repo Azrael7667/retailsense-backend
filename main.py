@@ -29,7 +29,8 @@ from routers import (
     khata, reports, dashboard,
     pending_documents, reminders, platform_admin,
     ai_cash_flow, ai_inventory, ai_churn,
-    ai_sales_trend, ai_anomaly, ai_credit
+    ai_sales_trend, ai_anomaly, ai_credit,
+    ocr
 )
 
 # Core routers
@@ -51,6 +52,7 @@ app.include_router(khata.router,      prefix="/api/khata",      tags=["Khata / U
 app.include_router(reports.router,    prefix="/api/reports",    tags=["Reports"])
 app.include_router(dashboard.router,  prefix="/api/dashboard",  tags=["Dashboard"])
 app.include_router(pending_documents.router, prefix="/api/pending-documents", tags=["Pending Documents"])
+app.include_router(ocr.router, prefix="/api/ocr", tags=["OCR"])
 app.include_router(reminders.router,  prefix="/api/reminders",  tags=["Reminders"])
 app.include_router(platform_admin.router, prefix="/api/platform-admin", tags=["Platform Admin"])
 
