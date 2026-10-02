@@ -1,3 +1,4 @@
+import re
 from typing import Any, Dict, List
 
 
@@ -8,6 +9,31 @@ def _pct(it: Dict) -> float:
     if amt and net is not None and 0 < amt - net < amt:
         return round((amt - net) / amt * 100, 2)
     return 0.0
+
+
+def _clean_name(n):
+    """Drop short lowercase OCR junk at the start or end of a supplier name."""
+    if not n:
+        return n
+    toks = n.split()
+    while len(toks) > 2 and toks[-1].islower() and len(toks[-1]) <= 4:
+        toks.pop()
+    while len(toks) > 2 and toks[0].islower() and len(toks[0]) <= 4:
+        toks.pop(0)
+    return " ".join(toks)
+
+
+def _friendly(s: str) -> str:
+    m = re.match(r"items_sum_matches_(?:taxable|total): rows sum ([0-9.]+), (?:taxable|total) ([0-9.]+)", s)
+    if m:
+        a, b = float(m.group(1)), float(m.group(2))
+        return (f"Item amounts add up to Rs {a:,.2f} but the bill says Rs {b:,.2f} "
+                f"(difference Rs {abs(b - a):,.2f}). An item may be missing or misread.")
+    if s.startswith("amount_in_words"):
+        return "The amount in words could not be read, so the total is not double-checked."
+    if s.startswith("supplier_pan"):
+        return "Supplier PAN was not read."
+    return s
 
 
 def _reasons(it: Dict) -> List[str]:
@@ -42,11 +68,14 @@ def to_gemini_shape(val: Dict[str, Any], ocr: Dict[str, Any]) -> Dict[str, Any]:
 
     notes = [f"Read by self-hosted OCR (Tesseract), confidence {ocr['confidence']}%. "
              "Check every flagged item against the paper bill."]
-    notes += [n for n in val.get("needs_review", []) if not n.startswith("row ")]
+    if f.get("net_amount") is not None:
+        notes.append(f"Bill total printed on the paper: Rs {f['net_amount']:,.2f}. Compare it with the Total below.")
+    notes.append("The bill number cannot be verified automatically: compare it with the paper.")
+    notes += [_friendly(n) for n in val.get("needs_review", []) if not n.startswith("row ")]
     notes += val.get("corrections", [])
 
     return {
-        "supplier_name": f.get("supplier_name"),
+        "supplier_name": _clean_name(f.get("supplier_name")),
         "supplier_address": None,
         "supplier_pan": f.get("supplier_pan"),
         "bill_number": f.get("bill_no"),

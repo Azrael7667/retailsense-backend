@@ -441,3 +441,35 @@ def parse_items(lines: List[str]) -> List[Dict]:
                 rows[-1].append(l)
         return [_build_sip_item(r) for r in rows]
     return _parse_items_generic(lines)
+
+
+# ------------------------------------------------ rows with "qty Pcs rate amount" (BNH style)
+UNIT_QTY = re.compile(
+    r"(?<![0-9.,])([0-9]{1,4}(?:\.[0-9]{1,2})?)\s*"
+    r"(?:Pcs|Pes|Pc|Nos|No|Sets|Set|Box|Ltr|Kg|Mtr|Pair)\b\s*"
+    r"([0-9][0-9.,]*[.,][0-9]{2})(?![0-9])", re.I | A)
+
+_orig_build_item = _build_item
+
+
+def _build_item(lines):
+    item = _orig_build_item(lines)
+    text = " ".join(lines)
+    m = UNIT_QTY.search(text)
+    if not m:
+        return item
+    q, rate = float(m.group(1)), to_amount(m.group(2))
+    if q <= 0 or rate <= 0:
+        return item
+    if (item["qty"] is not None and item["rate"] is not None and item["amount"] is not None
+            and abs(item["qty"] * item["rate"] - item["amount"]) <= 0.06):
+        return item                      # already consistent, leave it alone
+    expected = round(q * rate, 2)
+    tail = [_num(t) for t in text[m.end():].split()]
+    tail = [v for v in tail if v is not None]
+    read = max(tail) if tail else None
+    note = None if (read is not None and abs(read - expected) <= 0.005) else "amount rebuilt from qty x rate"
+    item.update(qty=int(q) if q == int(q) else q, rate=rate, amount=expected,
+                discount=None, disc_pct=None, net_amount=expected, net_derived=False,
+                repair_note=note, needs_review=note is not None)
+    return item

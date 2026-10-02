@@ -40,8 +40,10 @@ _STOP_W = re.compile(r"[0-9]|\b(?:Total|Rounded|Net|Vat|Taxable|Only)\b", re.I)
 def _word_tokens(chunk: str) -> List[str]:
     toks: List[str] = []
     for t in re.findall(r"[a-z]+", chunk.lower()):
-        if t in IGNORE:
+        if t in IGNORE or t in ("palse", "pais", "paisha"):
             continue
+        if t in ("ond", "nd", "aand", "an"):
+            t = "and"
         if t not in VOCAB:
             c = difflib.get_close_matches(t, VOCAB, n=1, cutoff=0.67)
             if not c:
@@ -54,8 +56,10 @@ def _word_tokens(chunk: str) -> List[str]:
 def words_amounts(text: str) -> List[float]:
     # Candidate numeric values of the amount-in-words text (tolerates OCR typos).
     m = re.search(r"Words(.{0,250})", text, re.I | re.S)
-    if not m:
-        return []
+    if not m:  # no "Words" label (BNH): use the text after "Rs."
+        m = re.search(r"\b(?:N?Rs|NPR|Rupees)\b\.?(.{0,250})", text, re.I | re.S)
+        if not m:
+            return []
     win = m.group(1)
     mk = re.search(r"\b(?:N?Rs|NPR|Rupees)\b\.?", win, re.I)
     chunk = _STOP_W.split(win[mk.end():] if mk else win, 1)[0]
