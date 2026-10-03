@@ -1,0 +1,11 @@
+# Environment for training only (kept apart from the backend, so the two never fight over library versions).
+# Tested with: numpy 2.1 to 2.5, pandas 2.3 to 3.0, prophet 1.4, lightgbm 4.7, shap 0.52, scikit-learn 1.9, optuna 5.0
+numpy>=2.1
+pandas>=2.2
+scikit-learn>=1.5
+lightgbm>=4.3
+shap>=0.46
+prophet>=1.2.1
+optuna>=3.6
+statsmodels>=0.14
+joblib>=1.4

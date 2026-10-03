@@ -11,3 +11,4 @@ ml/models_saved/*.h5
 dist/
 build/
 .pytest_cache/
+ml/logs/
