@@ -1,0 +1,19 @@
+{
+ "trained_on": "2026-10-03",
+ "python": "3.13.15",
+ "versions": {
+  "numpy": "2.1.3",
+  "pandas": "2.3.3",
+  "optuna": "5.0.0",
+  "prophet": "1.4.0",
+  "lightgbm": "4.6.0",
+  "shap": "0.52.0"
+ },
+ "data": {
+  "from": "2025-10-04",
+  "to": "2026-10-03",
+  "invoices": 1100,
+  "customers_with_invoices": 51,
+  "products_active": 1300
+ }
+}

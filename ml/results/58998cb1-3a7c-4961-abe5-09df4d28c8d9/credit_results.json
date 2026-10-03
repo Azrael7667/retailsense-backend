@@ -1,0 +1,2078 @@
+{
+ "status": "success",
+ "model": "Logistic Regression",
+ "trained_on": "2026-10-03",
+ "data_through": "2026-10-03",
+ "metrics": {
+  "lgbm": {
+   "auc": 0.9466,
+   "accuracy": 0.8222,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "auc_std": 0.0885
+  },
+  "lr_baseline": {
+   "auc": 0.965,
+   "accuracy": 0.9178,
+   "precision": 0.75,
+   "recall": 0.79,
+   "f1": 0.7313,
+   "auc_std": 0.0756
+  },
+  "validation": "45 labelled customers, repeated stratified cross-validation",
+  "bad_credit_rate": 0.178,
+  "bad_definition": "At least 30% of the value bought after 2026-04-06 still unpaid"
+ },
+ "summary": {
+  "total_customers": 62,
+  "bad_credit": 9,
+  "grade_breakdown": {
+   "A": 39,
+   "B": 1,
+   "C": 13,
+   "D": 0,
+   "F": 9
+  }
+ },
+ "scores": [
+  {
+   "customer_id": "fe593ca1-0179-48b4-b567-459993d4b233",
+   "customer_name": "Customer 024",
+   "credit_score": 3,
+   "grade": "F",
+   "decision": "Do not give credit",
+   "max_recommended_credit": 0,
+   "color": "red",
+   "probability_bad": 0.9738,
+   "current_balance": 602097.81,
+   "credit_limit": 20000.0,
+   "balance_ratio": 30.105,
+   "n_purchases": 7,
+   "unpaid_ratio": 0.917,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 425,303",
+     "impact": "negative",
+     "detail": "Bought in the last 180 days: Rs 425,303"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 80,548",
+     "impact": "negative",
+     "detail": "Largest bill: Rs 80,548"
+    }
+   ]
+  },
+  {
+   "customer_id": "612c0905-3191-4e7b-a718-d6ca88fbff97",
+   "customer_name": "Customer 008",
+   "credit_score": 9,
+   "grade": "F",
+   "decision": "Do not give credit",
+   "max_recommended_credit": 0,
+   "color": "red",
+   "probability_bad": 0.9092,
+   "current_balance": 368413.61,
+   "credit_limit": 50000.0,
+   "balance_ratio": 7.368,
+   "n_purchases": 5,
+   "unpaid_ratio": 0.913,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 267,243",
+     "impact": "negative",
+     "detail": "Bought in the last 180 days: Rs 267,243"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 78,954",
+     "impact": "negative",
+     "detail": "Largest bill: Rs 78,954"
+    }
+   ]
+  },
+  {
+   "customer_id": "7ac5a254-b09e-430a-82c0-ba1787cdd270",
+   "customer_name": "Customer 012",
+   "credit_score": 11,
+   "grade": "F",
+   "decision": "Do not give credit",
+   "max_recommended_credit": 0,
+   "color": "red",
+   "probability_bad": 0.8903,
+   "current_balance": 413302.63,
+   "credit_limit": 50000.0,
+   "balance_ratio": 8.266,
+   "n_purchases": 8,
+   "unpaid_ratio": 0.331,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 388,394",
+     "impact": "negative",
+     "detail": "Bought in the last 180 days: Rs 388,394"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 82,740",
+     "impact": "negative",
+     "detail": "Largest bill: Rs 82,740"
+    }
+   ]
+  },
+  {
+   "customer_id": "65327aa5-8bfe-48c5-a567-05a68d6942c9",
+   "customer_name": "Customer 009",
+   "credit_score": 15,
+   "grade": "F",
+   "decision": "Do not give credit",
+   "max_recommended_credit": 0,
+   "color": "red",
+   "probability_bad": 0.8458,
+   "current_balance": 398899.77,
+   "credit_limit": 20000.0,
+   "balance_ratio": 19.945,
+   "n_purchases": 2,
+   "unpaid_ratio": 1.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of the bought value left unpaid: 100%"
+    },
+    {
+     "factor": "Average bill",
+     "value": "Rs 54,745",
+     "impact": "negative",
+     "detail": "Average bill: Rs 54,745"
+    }
+   ]
+  },
+  {
+   "customer_id": "4d07bb51-dfc4-43c4-8bb4-f142c147bbbd",
+   "customer_name": "Customer 005",
+   "credit_score": 21,
+   "grade": "F",
+   "decision": "Do not give credit",
+   "max_recommended_credit": 0,
+   "color": "red",
+   "probability_bad": 0.7896,
+   "current_balance": 309333.94,
+   "credit_limit": 30000.0,
+   "balance_ratio": 10.311,
+   "n_purchases": 3,
+   "unpaid_ratio": 1.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of the bought value left unpaid: 100%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 72,594",
+     "impact": "negative",
+     "detail": "Largest bill: Rs 72,594"
+    }
+   ]
+  },
+  {
+   "customer_id": "6551183e-8d2d-4f1b-9dc5-e93d6833739e",
+   "customer_name": "Customer 010",
+   "credit_score": 21,
+   "grade": "F",
+   "decision": "Do not give credit",
+   "max_recommended_credit": 0,
+   "color": "red",
+   "probability_bad": 0.7865,
+   "current_balance": 227493.95,
+   "credit_limit": 50000.0,
+   "balance_ratio": 4.55,
+   "n_purchases": 5,
+   "unpaid_ratio": 0.95,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "95%",
+     "impact": "negative",
+     "detail": "Share of the bought value left unpaid: 95%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 62,992",
+     "impact": "negative",
+     "detail": "Largest bill: Rs 62,992"
+    }
+   ]
+  },
+  {
+   "customer_id": "ccda5afc-e0e0-44b0-93e8-24c4630525f3",
+   "customer_name": "Customer 020",
+   "credit_score": 21,
+   "grade": "F",
+   "decision": "Do not give credit",
+   "max_recommended_credit": 0,
+   "color": "red",
+   "probability_bad": 0.7916,
+   "current_balance": 147451.66,
+   "credit_limit": 50000.0,
+   "balance_ratio": 2.949,
+   "n_purchases": 7,
+   "unpaid_ratio": 0.486,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 268,256",
+     "impact": "negative",
+     "detail": "Bought in the last 180 days: Rs 268,256"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 79,671",
+     "impact": "negative",
+     "detail": "Largest bill: Rs 79,671"
+    }
+   ]
+  },
+  {
+   "customer_id": "c99b516c-001a-4526-a1ee-ceb2d99f7873",
+   "customer_name": "Customer 018",
+   "credit_score": 26,
+   "grade": "F",
+   "decision": "Do not give credit",
+   "max_recommended_credit": 0,
+   "color": "red",
+   "probability_bad": 0.7402,
+   "current_balance": 401983.13,
+   "credit_limit": 30000.0,
+   "balance_ratio": 13.399,
+   "n_purchases": 3,
+   "unpaid_ratio": 1.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of the bought value left unpaid: 100%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 62,846",
+     "impact": "negative",
+     "detail": "Largest bill: Rs 62,846"
+    }
+   ]
+  },
+  {
+   "customer_id": "6dac9405-8cf1-4327-b3f1-07ac6e4d03b9",
+   "customer_name": "Customer 011",
+   "credit_score": 30,
+   "grade": "F",
+   "decision": "Do not give credit",
+   "max_recommended_credit": 0,
+   "color": "red",
+   "probability_bad": 0.6955,
+   "current_balance": 170175.91,
+   "credit_limit": 50000.0,
+   "balance_ratio": 3.404,
+   "n_purchases": 6,
+   "unpaid_ratio": 0.189,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 274,296",
+     "impact": "negative",
+     "detail": "Bought in the last 180 days: Rs 274,296"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "83%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 83%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 69,112",
+     "impact": "negative",
+     "detail": "Largest bill: Rs 69,112"
+    }
+   ]
+  },
+  {
+   "customer_id": "016861e7-21b4-48f0-8c46-d817c983e668",
+   "customer_name": "Customer 026",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 5000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "4b035025-f10f-474f-8611-0851d0a6d72e",
+   "customer_name": "Customer 033",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 5000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "4ebcb469-7f7e-4770-9634-6e56e605a9c9",
+   "customer_name": "Customer 006",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 5000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "796e154c-d98e-4b54-95c1-5c0870b8f7ed",
+   "customer_name": "Customer 037",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 5000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "7b7af518-e8ab-48b9-8d84-184160feb195",
+   "customer_name": "Customer 038",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 5000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "81669fa4-52de-498a-86c1-5516a239617f",
+   "customer_name": "Customer 013",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 2000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 5000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "85b2f277-ca26-4ba1-8b22-a09a487dab29",
+   "customer_name": "Customer 039",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 5000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "975ed7df-732a-4c89-91e9-be4eb8854618",
+   "customer_name": "Customer 042",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 5000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "a09d18b9-38cf-48b1-8b1c-01882535175e",
+   "customer_name": "Customer 045",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 2000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 5000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "a3baa312-2f86-4cf2-bba8-2d88fc460714",
+   "customer_name": "Customer 015",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 5000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "f7de5fb0-11fe-453d-962b-128f524688d9",
+   "customer_name": "Customer 023",
+   "credit_score": 50,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 2000,
+   "color": "yellow",
+   "probability_bad": 0.5,
+   "current_balance": 0.0,
+   "credit_limit": 5000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 0,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "No recent purchases",
+     "value": "none in 180 days",
+     "impact": "neutral",
+     "detail": "Not enough recent history to judge"
+    }
+   ]
+  },
+  {
+   "customer_id": "f0f81089-d629-4ee4-8563-d0a20e719f25",
+   "customer_name": "Customer 021",
+   "credit_score": 54,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 10000,
+   "color": "yellow",
+   "probability_bad": 0.4614,
+   "current_balance": 156297.71,
+   "credit_limit": 20000.0,
+   "balance_ratio": 7.815,
+   "n_purchases": 2,
+   "unpaid_ratio": 1.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of the bought value left unpaid: 100%"
+    },
+    {
+     "factor": "Days since last purchase",
+     "value": "119 days",
+     "impact": "positive",
+     "detail": "Days since last purchase: 119 days"
+    }
+   ]
+  },
+  {
+   "customer_id": "1f62191f-1805-466d-b320-fa295c1c45e7",
+   "customer_name": "Customer 002",
+   "credit_score": 62,
+   "grade": "C",
+   "decision": "Review before giving credit",
+   "max_recommended_credit": 10000,
+   "color": "yellow",
+   "probability_bad": 0.3793,
+   "current_balance": 141148.75,
+   "credit_limit": 20000.0,
+   "balance_ratio": 7.057,
+   "n_purchases": 2,
+   "unpaid_ratio": 0.19,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "2",
+     "impact": "negative",
+     "detail": "Purchases in the last 180 days: 2"
+    },
+    {
+     "factor": "Average bill",
+     "value": "Rs 45,516",
+     "impact": "negative",
+     "detail": "Average bill: Rs 45,516"
+    }
+   ]
+  },
+  {
+   "customer_id": "343886cf-0560-4e09-9579-546ebb181b6b",
+   "customer_name": "Customer 003",
+   "credit_score": 74,
+   "grade": "B",
+   "decision": "Approve with a limit",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.263,
+   "current_balance": 77169.37,
+   "credit_limit": 20000.0,
+   "balance_ratio": 3.858,
+   "n_purchases": 4,
+   "unpaid_ratio": 0.61,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "61%",
+     "impact": "negative",
+     "detail": "Share of the bought value left unpaid: 61%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "39 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 39 days"
+    }
+   ]
+  },
+  {
+   "customer_id": "ac41f8a4-6894-406c-8d2f-43620122af44",
+   "customer_name": "Customer 016",
+   "credit_score": 82,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 40000,
+   "color": "green",
+   "probability_bad": 0.1831,
+   "current_balance": 157278.71,
+   "credit_limit": 20000.0,
+   "balance_ratio": 7.864,
+   "n_purchases": 2,
+   "unpaid_ratio": 1.0,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "68 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 68 days"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of the bought value left unpaid: 100%"
+    }
+   ]
+  },
+  {
+   "customer_id": "bc13cf51-7958-4dec-86a0-3245fcfc4565",
+   "customer_name": "Customer 017",
+   "credit_score": 88,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 100000,
+   "color": "green",
+   "probability_bad": 0.1245,
+   "current_balance": 152922.04,
+   "credit_limit": 50000.0,
+   "balance_ratio": 3.058,
+   "n_purchases": 1,
+   "unpaid_ratio": 0.794,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Days since last purchase",
+     "value": "165 days",
+     "impact": "positive",
+     "detail": "Days since last purchase: 165 days"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 18,937",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 18,937"
+    }
+   ]
+  },
+  {
+   "customer_id": "00fb83c7-ee14-4acb-b44f-255fd5a6060b",
+   "customer_name": "Customer 001",
+   "credit_score": 95,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 100000,
+   "color": "green",
+   "probability_bad": 0.0496,
+   "current_balance": 222608.74,
+   "credit_limit": 50000.0,
+   "balance_ratio": 4.452,
+   "n_purchases": 2,
+   "unpaid_ratio": 0.398,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "148 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 148 days"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of bills left unpaid: 100%"
+    },
+    {
+     "factor": "Average bill",
+     "value": "Rs 59,261",
+     "impact": "negative",
+     "detail": "Average bill: Rs 59,261"
+    }
+   ]
+  },
+  {
+   "customer_id": "6f4c6894-c382-4198-87ac-fc93f39b36dc",
+   "customer_name": "Customer 035",
+   "credit_score": 95,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 10000,
+   "color": "green",
+   "probability_bad": 0.0451,
+   "current_balance": 19424.64,
+   "credit_limit": 5000.0,
+   "balance_ratio": 3.885,
+   "n_purchases": 7,
+   "unpaid_ratio": 0.161,
+   "explanations": [
+    {
+     "factor": "Largest bill",
+     "value": "Rs 21,406",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 21,406"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "20 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 20 days"
+    },
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "2",
+     "impact": "negative",
+     "detail": "Purchases in the last 90 days: 2"
+    }
+   ]
+  },
+  {
+   "customer_id": "a8ae0b42-0ab0-47fb-b6ea-c910073d4c34",
+   "customer_name": "Customer 047",
+   "credit_score": 95,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 10000,
+   "color": "green",
+   "probability_bad": 0.0504,
+   "current_balance": 0.0,
+   "credit_limit": 5000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 14,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 272,442",
+     "impact": "negative",
+     "detail": "Bought in the last 180 days: Rs 272,442"
+    },
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "14",
+     "impact": "positive",
+     "detail": "Purchases in the last 180 days: 14"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "9 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 9 days"
+    }
+   ]
+  },
+  {
+   "customer_id": "044f8d81-7014-4e91-bc50-4393b745e111",
+   "customer_name": "Customer 027",
+   "credit_score": 96,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0437,
+   "current_balance": 16455.27,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 6,
+   "unpaid_ratio": 0.152,
+   "explanations": [
+    {
+     "factor": "Days since last purchase",
+     "value": "135 days",
+     "impact": "positive",
+     "detail": "Days since last purchase: 135 days"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "7 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 7 days"
+    },
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "0",
+     "impact": "negative",
+     "detail": "Purchases in the last 90 days: 0"
+    }
+   ]
+  },
+  {
+   "customer_id": "20ed1e75-f2e0-49b3-b461-2de91f66c18b",
+   "customer_name": "Customer 031",
+   "credit_score": 96,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0352,
+   "current_balance": 16381.07,
+   "credit_limit": 10000.0,
+   "balance_ratio": 1.638,
+   "n_purchases": 8,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "5",
+     "impact": "positive",
+     "detail": "Purchases in the last 90 days: 5"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of the bought value left unpaid: 0%"
+    }
+   ]
+  },
+  {
+   "customer_id": "5b0d6551-f8f8-43f7-a125-01396d4b57e1",
+   "customer_name": "Customer 053",
+   "credit_score": 96,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0356,
+   "current_balance": 8026.43,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 11,
+   "unpaid_ratio": 0.046,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "10 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 10 days"
+    },
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "11",
+     "impact": "positive",
+     "detail": "Purchases in the last 180 days: 11"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 173,753",
+     "impact": "negative",
+     "detail": "Bought in the last 180 days: Rs 173,753"
+    }
+   ]
+  },
+  {
+   "customer_id": "607fa15f-067b-49ae-81bf-4351dbae4636",
+   "customer_name": "Customer 054",
+   "credit_score": 96,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0364,
+   "current_balance": 22883.94,
+   "credit_limit": 10000.0,
+   "balance_ratio": 2.288,
+   "n_purchases": 10,
+   "unpaid_ratio": 0.154,
+   "explanations": [
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "10",
+     "impact": "positive",
+     "detail": "Purchases in the last 180 days: 10"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "17 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 17 days"
+    },
+    {
+     "factor": "Average bill",
+     "value": "Rs 14,840",
+     "impact": "positive",
+     "detail": "Average bill: Rs 14,840"
+    }
+   ]
+  },
+  {
+   "customer_id": "1de152c3-fe34-4839-8b50-62db14c47b36",
+   "customer_name": "Customer 030",
+   "credit_score": 97,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0302,
+   "current_balance": 30656.16,
+   "credit_limit": 10000.0,
+   "balance_ratio": 3.066,
+   "n_purchases": 6,
+   "unpaid_ratio": 0.11,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 93,869",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 93,869"
+    },
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "2",
+     "impact": "negative",
+     "detail": "Purchases in the last 90 days: 2"
+    },
+    {
+     "factor": "Average bill",
+     "value": "Rs 15,645",
+     "impact": "positive",
+     "detail": "Average bill: Rs 15,645"
+    }
+   ]
+  },
+  {
+   "customer_id": "3f7d980d-1e47-46e6-8d2b-0e1f68e17d61",
+   "customer_name": "Customer 032",
+   "credit_score": 97,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0288,
+   "current_balance": 24200.4,
+   "credit_limit": 10000.0,
+   "balance_ratio": 2.42,
+   "n_purchases": 9,
+   "unpaid_ratio": 0.203,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "18 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 18 days"
+    },
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "9",
+     "impact": "positive",
+     "detail": "Purchases in the last 180 days: 9"
+    },
+    {
+     "factor": "Average bill",
+     "value": "Rs 13,238",
+     "impact": "positive",
+     "detail": "Average bill: Rs 13,238"
+    }
+   ]
+  },
+  {
+   "customer_id": "54c23a66-1b44-4812-b885-4a6ba8da6207",
+   "customer_name": "Customer 034",
+   "credit_score": 97,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0262,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 7,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of the bought value left unpaid: 0%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 23,212",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 23,212"
+    }
+   ]
+  },
+  {
+   "customer_id": "5d06412f-6612-45f8-a027-c0ad02558ccb",
+   "customer_name": "Customer 007",
+   "credit_score": 97,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0253,
+   "current_balance": 0.0,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 6,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 105,347",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 105,347"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of the bought value left unpaid: 0%"
+    }
+   ]
+  },
+  {
+   "customer_id": "759a1514-31fb-43e8-9e01-13dc4139cca1",
+   "customer_name": "Customer 036",
+   "credit_score": 97,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.031,
+   "current_balance": 23073.44,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 7,
+   "unpaid_ratio": 0.211,
+   "explanations": [
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "6",
+     "impact": "positive",
+     "detail": "Purchases in the last 90 days: 6"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "17 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 17 days"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 109,349",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 109,349"
+    }
+   ]
+  },
+  {
+   "customer_id": "8c539dea-d8a3-4cbd-94cb-d5f200673e8f",
+   "customer_name": "Customer 041",
+   "credit_score": 97,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0331,
+   "current_balance": 16868.47,
+   "credit_limit": 10000.0,
+   "balance_ratio": 1.687,
+   "n_purchases": 7,
+   "unpaid_ratio": 0.138,
+   "explanations": [
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "6",
+     "impact": "positive",
+     "detail": "Purchases in the last 90 days: 6"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "18 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 18 days"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "14%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 14%"
+    }
+   ]
+  },
+  {
+   "customer_id": "9d30472d-04c6-4286-8f27-4d8f321480fd",
+   "customer_name": "Customer 055",
+   "credit_score": 97,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0255,
+   "current_balance": 9694.87,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.969,
+   "n_purchases": 8,
+   "unpaid_ratio": 0.077,
+   "explanations": [
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "5",
+     "impact": "positive",
+     "detail": "Purchases in the last 90 days: 5"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "19 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 19 days"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "12%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 12%"
+    }
+   ]
+  },
+  {
+   "customer_id": "a2dc1b6d-4dda-4b1b-bd0e-01d102c3aab3",
+   "customer_name": "Customer 046",
+   "credit_score": 97,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0281,
+   "current_balance": 9027.56,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.903,
+   "n_purchases": 10,
+   "unpaid_ratio": 0.049,
+   "explanations": [
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "7",
+     "impact": "positive",
+     "detail": "Purchases in the last 90 days: 7"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "10 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 10 days"
+    },
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "10",
+     "impact": "positive",
+     "detail": "Purchases in the last 180 days: 10"
+    }
+   ]
+  },
+  {
+   "customer_id": "17d625b1-1d0e-433e-afa8-bc25c94db2d9",
+   "customer_name": "Customer 029",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0229,
+   "current_balance": 18729.38,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 5,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "40 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 40 days"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 105,218",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 105,218"
+    }
+   ]
+  },
+  {
+   "customer_id": "2ce10ebb-175f-4692-a07a-27a135bb03a1",
+   "customer_name": "Customer 051",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 10000,
+   "color": "green",
+   "probability_bad": 0.0205,
+   "current_balance": 24507.56,
+   "credit_limit": 5000.0,
+   "balance_ratio": 4.902,
+   "n_purchases": 4,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 77,873",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 77,873"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "4",
+     "impact": "negative",
+     "detail": "Purchases in the last 180 days: 4"
+    }
+   ]
+  },
+  {
+   "customer_id": "3b9e5900-54c8-4bad-b013-75b594f80dc0",
+   "customer_name": "Customer 052",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 10000,
+   "color": "green",
+   "probability_bad": 0.0213,
+   "current_balance": 20947.17,
+   "credit_limit": 5000.0,
+   "balance_ratio": 4.189,
+   "n_purchases": 7,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 104,464",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 104,464"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "19 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 19 days"
+    }
+   ]
+  },
+  {
+   "customer_id": "9a36bf01-6f25-423f-b60e-3247795eb527",
+   "customer_name": "Customer 044",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.024,
+   "current_balance": 1885.2,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 5,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "1",
+     "impact": "negative",
+     "detail": "Purchases in the last 90 days: 1"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 88,427",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 88,427"
+    }
+   ]
+  },
+  {
+   "customer_id": "b05232a0-84fd-4912-9126-386e53357847",
+   "customer_name": "Customer 048",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 10000,
+   "color": "green",
+   "probability_bad": 0.0214,
+   "current_balance": 0.0,
+   "credit_limit": 5000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 7,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "5",
+     "impact": "positive",
+     "detail": "Purchases in the last 90 days: 5"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of the bought value left unpaid: 0%"
+    }
+   ]
+  },
+  {
+   "customer_id": "c6819847-2e28-48f5-a3fd-d215b1e2289f",
+   "customer_name": "Customer 056",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0205,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 6,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of the bought value left unpaid: 0%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 23,499",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 23,499"
+    }
+   ]
+  },
+  {
+   "customer_id": "c85fbcc0-0f04-41fb-bab9-fa05e50b03aa",
+   "customer_name": "Customer 049",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0185,
+   "current_balance": 0.0,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 5,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 78,436",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 78,436"
+    },
+    {
+     "factor": "Days since last purchase",
+     "value": "79 days",
+     "impact": "positive",
+     "detail": "Days since last purchase: 79 days"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    }
+   ]
+  },
+  {
+   "customer_id": "cc913a9a-4bfc-4b74-afbe-b763bd5e3eab",
+   "customer_name": "Customer 019",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 10000,
+   "color": "green",
+   "probability_bad": 0.0231,
+   "current_balance": 19466.8,
+   "credit_limit": 5000.0,
+   "balance_ratio": 3.893,
+   "n_purchases": 6,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 95,417",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 95,417"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 22,398",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 22,398"
+    }
+   ]
+  },
+  {
+   "customer_id": "e26928a2-81e1-4f6f-be2f-ddb791eebc94",
+   "customer_name": "Customer 057",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0202,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 9,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "18 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 18 days"
+    },
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "5",
+     "impact": "positive",
+     "detail": "Purchases in the last 90 days: 5"
+    }
+   ]
+  },
+  {
+   "customer_id": "ee14ea2d-8347-4267-9572-8182a992da04",
+   "customer_name": "Customer 058",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.025,
+   "current_balance": 0.0,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 9,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "16 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 16 days"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 22,010",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 22,010"
+    }
+   ]
+  },
+  {
+   "customer_id": "f231dded-c41a-421b-a984-6c1fc470ed37",
+   "customer_name": "Customer 059",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0152,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 8,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "12 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 12 days"
+    },
+    {
+     "factor": "Days since last purchase",
+     "value": "79 days",
+     "impact": "positive",
+     "detail": "Days since last purchase: 79 days"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    }
+   ]
+  },
+  {
+   "customer_id": "f43fa3de-bfb7-44a6-843a-d819f15dfa0f",
+   "customer_name": "Customer 022",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0234,
+   "current_balance": 13795.22,
+   "credit_limit": 10000.0,
+   "balance_ratio": 1.38,
+   "n_purchases": 9,
+   "unpaid_ratio": 0.083,
+   "explanations": [
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "7",
+     "impact": "positive",
+     "detail": "Purchases in the last 90 days: 7"
+    },
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "9",
+     "impact": "positive",
+     "detail": "Purchases in the last 180 days: 9"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 22,662",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 22,662"
+    }
+   ]
+  },
+  {
+   "customer_id": "f4d323de-74d4-4ab0-a12d-b90bc5d5e73e",
+   "customer_name": "Customer 050",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0174,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 1,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 5,085",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 5,085"
+    },
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "1",
+     "impact": "negative",
+     "detail": "Purchases in the last 180 days: 1"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 5,085",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 5,085"
+    }
+   ]
+  },
+  {
+   "customer_id": "fcb44dc2-56f6-4da5-8888-11a8d3119068",
+   "customer_name": "Customer 060",
+   "credit_score": 98,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 10000,
+   "color": "green",
+   "probability_bad": 0.02,
+   "current_balance": 0.0,
+   "credit_limit": 5000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 8,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Share of the bought value left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of the bought value left unpaid: 0%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 23,331",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 23,331"
+    }
+   ]
+  },
+  {
+   "customer_id": "12a24ff0-5200-4384-97d1-2ae868062a33",
+   "customer_name": "Customer 028",
+   "credit_score": 99,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 10000,
+   "color": "green",
+   "probability_bad": 0.0139,
+   "current_balance": 0.0,
+   "credit_limit": 5000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 7,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 79,152",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 79,152"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 17,351",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 17,351"
+    }
+   ]
+  },
+  {
+   "customer_id": "49025b5b-6fcb-43fc-a580-c525781bc45d",
+   "customer_name": "Customer 004",
+   "credit_score": 99,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 10000,
+   "color": "green",
+   "probability_bad": 0.0145,
+   "current_balance": 9862.58,
+   "credit_limit": 5000.0,
+   "balance_ratio": 1.973,
+   "n_purchases": 3,
+   "unpaid_ratio": 0.227,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "63 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 63 days"
+    },
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 38,614",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 38,614"
+    },
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "3",
+     "impact": "negative",
+     "detail": "Purchases in the last 180 days: 3"
+    }
+   ]
+  },
+  {
+   "customer_id": "88275062-cccb-481f-a5a5-eb586a8ee4fc",
+   "customer_name": "Customer 040",
+   "credit_score": 99,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0099,
+   "current_balance": 0.0,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 5,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 67,408",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 67,408"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "41 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 41 days"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    }
+   ]
+  },
+  {
+   "customer_id": "8900dd6f-ed59-41d3-afdb-1f9f03a69310",
+   "customer_name": "Customer 014",
+   "credit_score": 99,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0106,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 5,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 60,157",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 60,157"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "40 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 40 days"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    }
+   ]
+  },
+  {
+   "customer_id": "97cb4bc2-a941-452c-9f37-865c2f38136e",
+   "customer_name": "Customer 043",
+   "credit_score": 99,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0147,
+   "current_balance": 0.0,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 8,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 87,027",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 87,027"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 18,874",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 18,874"
+    }
+   ]
+  },
+  {
+   "customer_id": "fea2711a-714a-4f15-9ab8-ac5fbba035c9",
+   "customer_name": "Customer 061",
+   "credit_score": 99,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0149,
+   "current_balance": 4000.2,
+   "credit_limit": 10000.0,
+   "balance_ratio": 0.4,
+   "n_purchases": 11,
+   "unpaid_ratio": 0.026,
+   "explanations": [
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "7",
+     "impact": "positive",
+     "detail": "Purchases in the last 90 days: 7"
+    },
+    {
+     "factor": "Purchases in the last 180 days",
+     "value": "11",
+     "impact": "positive",
+     "detail": "Purchases in the last 180 days: 11"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "15 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 15 days"
+    }
+   ]
+  },
+  {
+   "customer_id": "ff0ae6da-3475-44de-acc8-b03c81a1e500",
+   "customer_name": "Customer 025",
+   "credit_score": 99,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0122,
+   "current_balance": 19882.32,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 9,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Purchases in the last 90 days",
+     "value": "7",
+     "impact": "positive",
+     "detail": "Purchases in the last 90 days: 7"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 20,917",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 20,917"
+    }
+   ]
+  },
+  {
+   "customer_id": "ff9c938d-050f-476a-9def-7044fe79e2bc",
+   "customer_name": "Customer 062",
+   "credit_score": 99,
+   "grade": "A",
+   "decision": "Approve",
+   "max_recommended_credit": 20000,
+   "color": "green",
+   "probability_bad": 0.0108,
+   "current_balance": 0.0,
+   "credit_limit": 0.0,
+   "balance_ratio": 0.0,
+   "n_purchases": 5,
+   "unpaid_ratio": 0.0,
+   "explanations": [
+    {
+     "factor": "Bought in the last 180 days",
+     "value": "Rs 51,130",
+     "impact": "positive",
+     "detail": "Bought in the last 180 days: Rs 51,130"
+    },
+    {
+     "factor": "Largest bill",
+     "value": "Rs 15,112",
+     "impact": "positive",
+     "detail": "Largest bill: Rs 15,112"
+    },
+    {
+     "factor": "Share of bills left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of bills left unpaid: 0%"
+    }
+   ]
+  }
+ ]
+}

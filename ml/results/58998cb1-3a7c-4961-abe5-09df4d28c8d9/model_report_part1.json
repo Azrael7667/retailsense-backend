@@ -1,0 +1,17 @@
+{
+ "trained_on": "2026-10-03",
+ "python": "3.13.15",
+ "versions": {
+  "numpy": "2.1.3",
+  "pandas": "2.3.3",
+  "optuna": "5.0.0",
+  "prophet": "1.4.0"
+ },
+ "data": {
+  "invoices_rows": 1100,
+  "invoices_sha256_16": "0206dc36df2ad021",
+  "from": "2025-10-04",
+  "to": "2026-10-03",
+  "weeks_used": 52
+ }
+}
