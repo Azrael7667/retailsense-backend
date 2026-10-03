@@ -156,6 +156,30 @@ def _clean_box(box) -> Optional[List[int]]:
     return [ymin, xmin, ymax, xmax]
 
 
+def _digits(v) -> str:
+    return "".join(ch for ch in str(v or "") if ch.isdigit())
+
+
+def match_supplier_by_pan(pan, suppliers):
+    """Returns (supplier, exact). Exact PAN first, else the one supplier whose PAN differs by a single digit."""
+    p = _digits(pan)
+    if len(p) != 9:
+        return None, False
+    near = []
+    for sp in suppliers:
+        q = _digits(sp.get("pan_number"))
+        if len(q) != 9:
+            continue
+        diff = sum(1 for a, b in zip(p, q) if a != b)
+        if diff == 0:
+            return sp, True
+        if diff == 1:
+            near.append(sp)
+    if len(near) == 1:
+        return near[0], False
+    return None, False
+
+
 def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
     """
     Takes raw Gemini output and enriches it with product/supplier matching,
@@ -167,7 +191,7 @@ def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
         .execute().data or []
 
     suppliers = supabase.table("suppliers") \
-        .select("id, name") \
+        .select("id, name, pan_number") \
         .eq("store_id", store_id) \
         .execute().data or []
 
@@ -192,7 +216,15 @@ def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
 
     supplier_name = (extracted.get("supplier_name") or "").strip()
     supplier_match = None
-    if supplier_name:
+    pan_note = None
+    pan_hit, pan_exact = match_supplier_by_pan(extracted.get("supplier_pan"), suppliers)
+    if pan_hit:
+        supplier_match = pan_hit
+        supplier_name = pan_hit["name"]
+        if not pan_exact:
+            pan_note = (f"Supplier chosen by a PAN that differs by one digit from the bill's reading "
+                        f"({extracted.get('supplier_pan')}). Confirm it is {pan_hit['name']}.")
+    elif supplier_name:
         supplier_match = fuzzy_match(supplier_name, suppliers)
 
     # Convert BS dates to AD before this ever reaches the frontend or gets
@@ -216,6 +248,8 @@ def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
     notes = extracted.get("notes")
     if date_note:
         notes = f"{notes}\n{date_note}" if notes else date_note
+    if pan_note:
+        notes = f"{notes}\n{pan_note}" if notes else pan_note
 
     return {
         "supplier_name": supplier_name or None,
@@ -236,24 +270,36 @@ def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
     }
 
 
-def check_duplicate_bill_number(bill_number: Optional[str], store_id: str, supabase) -> None:
+def _norm_bill(v) -> str:
+    return "".join(ch for ch in str(v or "").lower() if ch.isalnum())
+
+
+def check_duplicate_bill_number(bill_number: Optional[str], store_id: str, supabase, supplier_id=None) -> None:
     """
-    Raises ValueError if a purchase with this bill number already exists
-    for this store. Called right after extraction, before the document is
-    marked ready_for_review, so a duplicate never even reaches the review
-    screen; it goes straight to 'failed' with a clear message.
+    Raises ValueError if a purchase with the same bill number (ignoring case and
+    punctuation, so SI0265 equals SI/0265) already exists for this store. If a
+    supplier is known, only that supplier's purchases count, because two suppliers
+    can legitimately issue the same invoice number.
     """
-    if not bill_number or not bill_number.strip():
-        return  # nothing to check, let it through, reviewer can catch it manually
-    existing = supabase.table("purchases") \
-        .select("id") \
-        .eq("store_id", store_id) \
-        .eq("bill_number", bill_number.strip()) \
-        .limit(1) \
-        .execute().data
-    if existing:
+    target = _norm_bill(bill_number)
+    if not target:
+        return
+    rows, page = [], 0
+    while True:
+        part = supabase.table("purchases").select("id, bill_number, supplier_id") \
+            .eq("store_id", store_id).range(page * 1000, (page + 1) * 1000 - 1).execute().data or []
+        rows.extend(part)
+        if len(part) < 1000:
+            break
+        page += 1
+    for r in rows:
+        if _norm_bill(r.get("bill_number")) != target:
+            continue
+        if supplier_id and r.get("supplier_id") and r["supplier_id"] != supplier_id:
+            continue
         raise ValueError(
-            f"A purchase with bill number '{bill_number.strip()}' has already been recorded for this store."
+            f"A purchase with bill number '{str(bill_number).strip()}' has already been recorded"
+            f"{' for this supplier' if supplier_id else ''}."
         )
 
 
@@ -301,10 +347,10 @@ async def upload_purchase_bill(
     try:
         raw_extracted = await asyncio.to_thread(extract_with_engine, image_bytes, file.content_type, extract_bill_data)
 
-        # Block duplicates immediately, before this ever reaches review.
-        check_duplicate_bill_number(raw_extracted.get("bill_number"), store_id, supabase)
-
         draft = build_review_draft(raw_extracted, store_id, supabase)
+
+        # Block duplicates immediately, before this ever reaches review.
+        check_duplicate_bill_number(draft.get("bill_number"), store_id, supabase, draft.get("supplier_id"))
         updated = supabase.table("pending_documents").update({
             "status": "ready_for_review",
             "extracted_data": draft,
@@ -414,7 +460,7 @@ async def approve_pending_document(
     # Re-check for duplicates here too, the reviewer may have edited the
     # bill number since upload, or a race could've let two scans through.
     try:
-        check_duplicate_bill_number(draft.get("bill_number"), store_id, supabase)
+        check_duplicate_bill_number(draft.get("bill_number"), store_id, supabase, draft.get("supplier_id"))
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -474,6 +520,14 @@ async def approve_pending_document(
     tax = round(subtotal * (vat_percent / 100.0), 2)
     total = round(subtotal + tax, 2)
 
+    paid_full = draft.get("paid_full") is not False
+    try:
+        paid_amount = total if paid_full else float(draft.get("paid_amount") or 0)
+    except (TypeError, ValueError):
+        paid_amount = 0.0
+    paid_amount = round(min(max(paid_amount, 0.0), total), 2)
+    pay_status = "paid" if paid_amount >= total else ("partial" if paid_amount > 0 else "unpaid")
+
     purchase = supabase.table("purchases").insert({
         "store_id": store_id,
         "supplier_id": supplier_id,
@@ -483,10 +537,18 @@ async def approve_pending_document(
         "discount_total": discount_total,
         "tax": tax,
         "total": total,
-        "paid_amount": total,
-        "status": "paid",
+        "paid_amount": paid_amount,
+        "status": pay_status,
         "notes": draft.get("notes") or f"Created from scanned bill (supplier: {draft.get('supplier_name') or 'unknown'})",
     }).execute().data[0]
+
+    unpaid = round(total - paid_amount, 2)
+    if supplier_id and unpaid > 0:
+        sup = supabase.table("suppliers").select("balance").eq("id", supplier_id).single().execute()
+        if sup.data:
+            supabase.table("suppliers").update(
+                {"balance": round((sup.data["balance"] or 0) + unpaid, 2)}
+            ).eq("id", supplier_id).execute()
 
     supabase.table("purchase_items").insert([
         {
@@ -550,3 +612,50 @@ async def reject_pending_document(
     }).eq("id", doc_id).execute()
 
     return {"message": "Document rejected"}
+
+
+
+# ----------------------------------------------------------------
+# Remove scans from the list
+# ----------------------------------------------------------------
+
+@router.delete("/failed")   # declared before "/{doc_id}" so the word 'failed' is never read as an id
+async def clear_failed_documents(
+    older_than_hours: float = 0,
+    current_user=Depends(require_role("owner", "accountant")),
+    store_id: str = Depends(get_active_store_id),
+):
+    """Delete this shop's failed scans (all of them, or only those older than N hours). A failed scan holds no bill data."""
+    from datetime import datetime as _dt, timedelta, timezone
+    supabase = get_supabase_admin()
+    rows = supabase.table("pending_documents").select("id, created_at") \
+        .eq("store_id", store_id).eq("status", "failed").execute().data or []
+    if older_than_hours > 0:
+        cutoff = _dt.now(timezone.utc) - timedelta(hours=older_than_hours)
+        def _old(r):
+            try:
+                t = _dt.fromisoformat(str(r["created_at"]).replace("Z", "+00:00"))
+                return (t if t.tzinfo else t.replace(tzinfo=timezone.utc)) < cutoff
+            except Exception:
+                return False
+        rows = [r for r in rows if _old(r)]
+    ids = [r["id"] for r in rows]
+    for k in range(0, len(ids), 100):
+        supabase.table("pending_documents").delete().in_("id", ids[k:k + 100]).eq("store_id", store_id).execute()
+    return {"deleted": len(ids)}
+
+
+@router.delete("/{doc_id}")
+async def delete_pending_document(
+    doc_id: str,
+    current_user=Depends(require_role("owner", "accountant")),
+    store_id: str = Depends(get_active_store_id),
+):
+    """Remove one scan from the list. If it was approved, the purchase it created stays untouched."""
+    supabase = get_supabase_admin()
+    existing = supabase.table("pending_documents").select("id") \
+        .eq("id", doc_id).eq("store_id", store_id).limit(1).execute().data
+    if not existing:
+        raise HTTPException(status_code=404, detail="Not found")
+    supabase.table("pending_documents").delete().eq("id", doc_id).eq("store_id", store_id).execute()
+    return {"message": "Scan removed"}
