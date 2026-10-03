@@ -1,7 +1,7 @@
 {
  "status": "success",
  "model": "Isolation Forest",
- "trained_on": "2026-10-03",
+ "trained_on": "2026-10-04",
  "data_through": "2026-10-03",
  "metrics": {
   "validation": "fake mistakes hidden in a copy of the data (synthetic injection), share found among the top 3% flagged",

@@ -1,7 +1,7 @@
 {
  "status": "success",
  "model": "LightGBM + SHAP",
- "trained_on": "2026-10-03",
+ "trained_on": "2026-10-04",
  "data_through": "2026-10-03",
  "churn_definition": "No purchase in 60 days",
  "metrics": {

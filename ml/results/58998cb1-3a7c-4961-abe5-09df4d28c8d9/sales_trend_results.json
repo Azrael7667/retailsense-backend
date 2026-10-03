@@ -1,7 +1,7 @@
 {
  "status": "success",
  "model": "Prophet + Optuna",
- "trained_on": "2026-10-03",
+ "trained_on": "2026-10-04",
  "data_through": "2026-10-03",
  "best_params": {
   "seasonality_prior_scale": 1.0,
@@ -28,50 +28,50 @@
   {
    "week": "2026-10-10",
    "revenue": 390166.67,
-   "revenue_lower": 345057.58,
-   "revenue_upper": 438257.27
+   "revenue_lower": 345112.36,
+   "revenue_upper": 436062.5
   },
   {
    "week": "2026-10-17",
    "revenue": 389852.35,
-   "revenue_lower": 344351.56,
-   "revenue_upper": 435815.82
+   "revenue_lower": 343172.12,
+   "revenue_upper": 439802.53
   },
   {
    "week": "2026-10-24",
    "revenue": 389538.04,
-   "revenue_lower": 342172.86,
-   "revenue_upper": 438469.17
+   "revenue_lower": 340433.16,
+   "revenue_upper": 433859.75
   },
   {
    "week": "2026-10-31",
    "revenue": 389223.73,
-   "revenue_lower": 340039.58,
-   "revenue_upper": 436615.85
+   "revenue_lower": 342901.98,
+   "revenue_upper": 441921.9
   },
   {
    "week": "2026-11-07",
    "revenue": 388909.42,
-   "revenue_lower": 343461.63,
-   "revenue_upper": 432726.48
+   "revenue_lower": 341720.62,
+   "revenue_upper": 435370.0
   },
   {
    "week": "2026-11-14",
    "revenue": 388595.11,
-   "revenue_lower": 343158.47,
-   "revenue_upper": 436992.45
+   "revenue_lower": 340491.96,
+   "revenue_upper": 437214.22
   },
   {
    "week": "2026-11-21",
    "revenue": 388280.79,
-   "revenue_lower": 335875.8,
-   "revenue_upper": 437902.38
+   "revenue_lower": 337748.43,
+   "revenue_upper": 432082.33
   },
   {
    "week": "2026-11-28",
    "revenue": 387966.48,
-   "revenue_lower": 339536.88,
-   "revenue_upper": 435875.13
+   "revenue_lower": 343082.63,
+   "revenue_upper": 432678.22
   }
  ],
  "historical": [

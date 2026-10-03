@@ -2883,7 +2883,7 @@ parameters:
 [num_iterations: 150]
 [learning_rate: 0.05]
 [num_leaves: 6]
-[num_threads: 2]
+[num_threads: 6]
 [seed: 42]
 [deterministic: 0]
 [force_col_wise: 0]
@@ -2990,6 +2990,7 @@ parameters:
 [machines: ]
 [gpu_platform_id: -1]
 [gpu_device_id: -1]
+[gpu_device_id_list: ]
 [gpu_use_dp: 0]
 [num_gpu: 1]
 

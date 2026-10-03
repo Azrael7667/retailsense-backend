@@ -1,0 +1,62 @@
+{
+ "run_at": "2026-10-04T05:09:01",
+ "data_through": "2026-10-03",
+ "helpers": {
+  "sales_trend": {
+   "status": "ok",
+   "detail": "",
+   "seconds": 14.2
+  },
+  "cash_flow": {
+   "status": "ok",
+   "detail": "",
+   "seconds": 0.2
+  },
+  "comparison": {
+   "status": "ok",
+   "detail": "",
+   "seconds": 1.8
+  },
+  "churn": {
+   "status": "ok",
+   "detail": "",
+   "seconds": 0.5
+  },
+  "credit": {
+   "status": "ok",
+   "detail": "",
+   "seconds": 1.1
+  },
+  "restock": {
+   "status": "ok",
+   "detail": "",
+   "seconds": 0.4
+  },
+  "anomaly": {
+   "status": "ok",
+   "detail": "",
+   "seconds": 0.5
+  },
+  "report": {
+   "status": "ok",
+   "detail": "",
+   "seconds": 0.0
+  }
+ },
+ "published": [
+  "sales_trend_model.json",
+  "sales_trend_results.json",
+  "cash_flow_results.json",
+  "cash_flow_revenue_model.json",
+  "model_comparison_weekly_revenue.json",
+  "churn_lightgbm.txt",
+  "churn_results.json",
+  "credit_logistic_regression.json",
+  "credit_results.json",
+  "restock_lightgbm.txt",
+  "restock_results.json",
+  "anomaly_isolation_forest.joblib",
+  "anomaly_results.json",
+  "model_report.json"
+ ]
+}
