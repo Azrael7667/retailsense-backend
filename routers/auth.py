@@ -194,10 +194,29 @@ async def create_store(body: CreateStoreRequest, current_user=Depends(get_curren
     return {"message": "Store created", "store_id": store_id}
 
 
+from middleware.auth_middleware import get_active_store_id, get_current_user_with_role
+
 VALID_INVITE_ROLES = {"accountant", "auditor", "staff"}
 
+async def owner_of_active_shop(
+    user: dict = Depends(get_current_user_with_role),
+    store_id: str = Depends(get_active_store_id),
+):
+    """Only the owner of the SELECTED shop may manage its staff. The returned user carries that shop as store_id."""
+    supabase = get_supabase_admin()
+    rows = supabase.table("store_members").select("role").eq("user_id", user["id"]).eq("store_id", store_id).limit(1).execute().data
+    if not rows or rows[0]["role"] != "owner":
+        raise HTTPException(status_code=403, detail="Only the owner of this shop can manage its staff")
+    return {**user, "store_id": store_id}
+
+
+def _membership(supabase, user_id: str, store_id: str):
+    rows = supabase.table("store_members").select("role").eq("user_id", user_id).eq("store_id", store_id).limit(1).execute().data
+    return rows[0] if rows else None
+
+
 @router.post("/invite-staff")
-async def invite_staff(body: InviteStaffRequest, current_user=Depends(require_role("owner"))):
+async def invite_staff(body: InviteStaffRequest, current_user=Depends(owner_of_active_shop)):
     if body.role not in VALID_INVITE_ROLES:
         raise HTTPException(status_code=400, detail=f"role must be one of {sorted(VALID_INVITE_ROLES)}")
 
@@ -250,15 +269,20 @@ async def invite_staff(body: InviteStaffRequest, current_user=Depends(require_ro
 
 
 @router.get("/staff")
-async def list_staff(current_user=Depends(require_role("owner"))):
+async def list_staff(current_user=Depends(owner_of_active_shop)):
     supabase = get_supabase_admin()
+    members = supabase.table("store_members").select("user_id, role").eq("store_id", current_user["store_id"]).execute().data or []
+    role_here = {m["user_id"]: m["role"] for m in members}
+    if not role_here:
+        return {"staff": []}
     res = supabase.table("users") \
         .select("id, full_name, email, role, phone, is_active, created_at, permissions") \
-        .eq("store_id", current_user["store_id"]) \
+        .in_("id", list(role_here)) \
         .order("created_at").execute()
     staff = []
     for row in res.data:
         row = dict(row)
+        row["role"] = role_here.get(row["id"], row["role"])          # the role in THIS shop
         if row["role"] == "owner":
             row["permissions"] = {k: True for k in DEFAULT_PERMISSIONS}
         else:
@@ -271,15 +295,15 @@ async def list_staff(current_user=Depends(require_role("owner"))):
 async def update_staff_permissions(
     staff_id: str,
     body: UpdatePermissionsRequest,
-    current_user=Depends(require_role("owner")),
+    current_user=Depends(owner_of_active_shop),
 ):
     supabase = get_supabase_admin()
-    target = supabase.table("users").select("id, store_id, role, permissions") \
-        .eq("id", staff_id).single().execute()
-    if not target.data or target.data["store_id"] != current_user["store_id"]:
+    member = _membership(supabase, staff_id, current_user["store_id"])
+    target = supabase.table("users").select("id, role, permissions").eq("id", staff_id).single().execute()
+    if not member or not target.data:
         raise HTTPException(status_code=404, detail="Staff member not found")
-    if target.data["role"] == "owner":
-        raise HTTPException(status_code=400, detail="The owner always has full access — nothing to toggle")
+    if member["role"] == "owner":
+        raise HTTPException(status_code=400, detail="The owner always has full access, nothing to toggle")
 
     unknown_keys = set(body.permissions) - set(DEFAULT_PERMISSIONS)
     if unknown_keys:
@@ -293,35 +317,51 @@ async def update_staff_permissions(
 
 
 @router.patch("/staff/{staff_id}/deactivate")
-async def deactivate_staff(staff_id: str, current_user=Depends(require_role("owner"))):
+async def deactivate_staff(staff_id: str, current_user=Depends(owner_of_active_shop)):
     if staff_id == current_user["id"]:
         raise HTTPException(status_code=400, detail="You cannot deactivate your own account")
 
     supabase = get_supabase_admin()
-    target = supabase.table("users").select("id, store_id").eq("id", staff_id).single().execute()
-    if not target.data or target.data["store_id"] != current_user["store_id"]:
+    member = _membership(supabase, staff_id, current_user["store_id"])
+    if not member:
         raise HTTPException(status_code=404, detail="Staff member not found")
+    if member["role"] == "owner":
+        raise HTTPException(status_code=400, detail="Cannot deactivate the store owner")
 
     supabase.table("users").update({"is_active": False}).eq("id", staff_id).execute()
     return {"message": "Staff member deactivated"}
 
 
 @router.delete("/staff/{staff_id}")
-async def delete_staff(staff_id: str, current_user=Depends(require_role("owner"))):
+async def delete_staff(staff_id: str, current_user=Depends(owner_of_active_shop)):
     if staff_id == current_user["id"]:
         raise HTTPException(status_code=400, detail="You cannot delete your own account")
 
     supabase = get_supabase_admin()
-    target = supabase.table("users").select("id, store_id, role").eq("id", staff_id).single().execute()
-    if not target.data or target.data["store_id"] != current_user["store_id"]:
+    shop = current_user["store_id"]
+    memberships = supabase.table("store_members").select("store_id, role").eq("user_id", staff_id).execute().data or []
+    here = next((m for m in memberships if m["store_id"] == shop), None)
+    if not here:
         raise HTTPException(status_code=404, detail="Staff member not found")
-    if target.data["role"] == "owner":
+    if here["role"] == "owner":
         raise HTTPException(status_code=400, detail="Cannot delete the store owner")
 
+    others = [m for m in memberships if m["store_id"] != shop]
+    if others:
+        # they also work in another shop: only remove them from this one and keep their account
+        supabase.table("store_members").delete().eq("user_id", staff_id).eq("store_id", shop).execute()
+        home = supabase.table("users").select("store_id").eq("id", staff_id).single().execute().data
+        if home and home["store_id"] == shop:
+            supabase.table("users").update({"store_id": others[0]["store_id"]}).eq("id", staff_id).execute()
+        return {"message": "Staff member removed from this shop"}
+
+    # their only shop: remove the whole account, as before
+    supabase.table("store_members").delete().eq("user_id", staff_id).eq("store_id", shop).execute()
     try:
         supabase.table("users").delete().eq("id", staff_id).execute()
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Could not delete staff profile (they may have linked records — try deactivating instead): {e}")
+        supabase.table("store_members").insert({"user_id": staff_id, "store_id": shop, "role": here["role"], "is_default": True}).execute()
+        raise HTTPException(status_code=400, detail=f"Could not delete staff profile (they may have linked records, try deactivating instead): {e}")
 
     try:
         supabase.auth.admin.delete_user(staff_id)
