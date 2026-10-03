@@ -1,6 +1,7 @@
 """Helper to get store_id for the authenticated user."""
 from fastapi import HTTPException
 from database import get_supabase_admin
+from services.activity_ctx import note
 
 def get_store_id(user_id: str, requested_store_id: str | None = None) -> str:
     """
@@ -27,13 +28,16 @@ def get_store_id(user_id: str, requested_store_id: str | None = None) -> str:
             .limit(1).execute()
         if not membership.data:
             raise HTTPException(status_code=403, detail="You don't have access to this store")
+        note(user_id, requested_store_id)
         return requested_store_id
 
     # Original behavior, unchanged — every existing router keeps working.
     result = supabase.table("users").select("store_id").eq("id", user_id).single().execute()
     if not result.data:
         raise ValueError("User has no associated store")
-    return result.data["store_id"]
+    home = result.data["store_id"]
+    note(user_id, home)
+    return home
 
 
 def get_user_stores(user_id: str) -> list[dict]:
