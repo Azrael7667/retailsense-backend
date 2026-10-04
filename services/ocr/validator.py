@@ -227,3 +227,54 @@ def validate_bill(fields: Dict[str, Any], items: List[Dict], text: str) -> Dict[
         "fields": f,
         "items": items,
     }
+
+
+# --- net amount patch v3 ---
+import re as _re3
+
+_AMT_V3 = _re3.compile(r"\d{1,3}(?:,\d{2,3})+\.\d{2}|\d+\.\d{2}")
+
+
+def _net_printed_v3(text):
+    for line in text.splitlines():
+        if _re3.search(r"net\s*(?:total|amount)|grand\s*total", line, _re3.I):
+            amts = _AMT_V3.findall(line)
+            if amts:
+                return float(amts[-1].replace(",", ""))
+    return None
+
+
+def _net_derived_v3(f):
+    vat, tax, tot = f.get("vat_amount"), f.get("taxable_amount"), f.get("total_amount")
+    if not vat:
+        return None
+    base = tax or (tot if tot and abs(tot * 0.13 - vat) <= 0.05 else None)
+    if base and abs(base * 0.13 - vat) <= 0.05:
+        return round(base + vat, 2)
+    return None
+
+
+_validate_bill_orig = validate_bill
+
+
+def validate_bill(fields, items, text):
+    val = _validate_bill_orig(fields, items, text)
+    try:
+        f = val["fields"]
+        cur = f.get("net_amount")
+        corr = val.setdefault("corrections", [])
+        from_words = any("net_amount missing" in c for c in corr)
+        if cur and cur > 0 and not from_words:
+            return val
+        a, b = _net_printed_v3(text), _net_derived_v3(f)
+        if a and b:
+            new = a if abs(a - b) <= 1.0 else None
+        else:
+            new = a or b
+        if new and new != cur:
+            f["net_amount"] = new
+            corr.append(f"net_amount {cur} -> {new} (printed Net Total line / taxable + VAT)")
+    except Exception:
+        pass
+    return val
+# --- end net amount patch v3 ---

@@ -473,3 +473,92 @@ def _build_item(lines):
                 discount=None, disc_pct=None, net_amount=expected, net_derived=False,
                 repair_note=note, needs_review=note is not None)
     return item
+
+
+# --- bill_no/pan patch v1 ---
+import re as _re
+
+_SB_RE = _re.compile(r"\b([A-Z]{2,5}(?:-[A-Z]{2})?[- ]SB-\d{2,3}/\d{2,3})[-.\s]?(\d{2,5})\b")
+_MV_RE = _re.compile(r"(?<![A-Za-z0-9])[S$5][I1l|](\d{5}-\d{2}/\d{2})\b")
+_SI_RE = _re.compile(r"Invoice\s*No\.?[\s:;.|]*[S$][It1l|]?/?\s*(\d{4})\b", _re.I)
+_PAN9 = _re.compile(r"(?<![\d.,])(\d{9})(?![\d.,]\d)")
+
+
+def _bill_no_v1(text):
+    m = _SB_RE.search(text)
+    if m:
+        return f"{m.group(1)}-{m.group(2)}"
+    m = _MV_RE.search(text)
+    if m:
+        return "SI" + m.group(1)
+    m = _SI_RE.search(text)
+    if m:
+        return "SI/" + m.group(1)
+    return None
+
+
+def _pan_v1(text, exclude):
+    for line in text.splitlines():
+        if _re.search(r"\b(?:PAN|VAT)\b", line, _re.I):
+            for m in _PAN9.finditer(line):
+                if m.group(1) not in exclude:
+                    return m.group(1)
+    return None
+
+
+_parse_bill_orig = parse_bill
+
+
+def parse_bill(text):
+    out = _parse_bill_orig(text)
+    try:
+        f = out["fields"] if isinstance(out, dict) and "fields" in out else out
+        new_no = _bill_no_v1(text)
+        if new_no:
+            f["bill_no"] = new_no
+        if not f.get("supplier_pan"):
+            p = _pan_v1(text, {str(f.get("customer_pan") or "")})
+            if p:
+                f["supplier_pan"] = p
+    except Exception:
+        pass
+    return out
+# --- end bill_no/pan patch v1 ---
+
+
+# --- items filter patch v2 ---
+_HDR_WORDS_V2 = _re.compile(r"\b(?:PAN|VAT|E-?mail|Phone|Fax|Tel|Invoice|Challan|Customer|Address|Date|Miti)\b", _re.I)
+
+
+def _junk_item_v2(it):
+    # a row with no quantity, rate or amount that looks like a header line
+    if any(it.get(k) not in (None, "", 0, 0.0) for k in ("qty", "rate", "amount")):
+        return False
+    pn = str(it.get("part_no") or "")
+    desc = str(it.get("description") or "").strip()
+    if not desc:
+        return True
+    if _HDR_WORDS_V2.search(desc):
+        return True
+    if _re.fullmatch(r"\d{9,}", pn):
+        return True
+    return False
+
+
+_parse_bill_v1 = parse_bill
+
+
+def parse_bill(text):
+    out = _parse_bill_v1(text)
+    try:
+        if isinstance(out, dict) and isinstance(out.get("items"), list):
+            out["items"] = [it for it in out["items"] if not _junk_item_v2(it)]
+    except Exception:
+        pass
+    return out
+# --- end items filter patch v2 ---
+
+
+# --- head patch v4: table header can also say "Particulars" ---
+HEAD = _re.compile(r"escription|Part[il1]culars", _re.I | A)
+# --- end head patch v4 ---
