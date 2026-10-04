@@ -278,3 +278,23 @@ def validate_bill(fields, items, text):
         pass
     return val
 # --- end net amount patch v3 ---
+
+
+# --- clean_desc patch v6: keep mixed-case names when the old rule would blank them ---
+_clean_desc_v6_orig = clean_desc
+
+
+def clean_desc(d):
+    out = _clean_desc_v6_orig(d)
+    if out:
+        return out
+    keep = []
+    for t in (d or "").split():
+        if re.fullmatch(r"[A-Za-z0-9()\-/.,&]+", t):
+            keep.append(t)
+        else:
+            break
+    s = " ".join(keep)
+    s = re.sub(r"\(\s*\)", "", s)
+    return re.sub(r"\s+", " ", s).strip(" -.,")
+# --- end clean_desc patch v6 ---

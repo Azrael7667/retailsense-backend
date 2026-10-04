@@ -562,3 +562,86 @@ def parse_bill(text):
 # --- head patch v4: table header can also say "Particulars" ---
 HEAD = _re.compile(r"escription|Part[il1]culars", _re.I | A)
 # --- end head patch v4 ---
+
+
+# --- row repair patch v5: item name from the row text, qty/rate recovered from amount ---
+import re as _re
+
+_UNIT_V5 = r"(?:Pcs|Pes|Pc|Nos|No|Sets|Set|Box|Ltr|Kg|Mtr|Pair|Doz|[^\x00-\x7f]{1,3})"
+_NUM_V5 = r"([0-9][0-9.,]*[.,][0-9]{2})(?![0-9])"
+_MONEY_TOK_V5 = _re.compile(r"^[\$S|]?\d[\d,]*[.,]\d{1,2}$", _re.I)
+_ROW_V5 = _re.compile(
+    r"(?<![0-9.,])([0-9]{1,5}(?:\.[0-9]{1,2})?)\s*" + _UNIT_V5
+    + r"(?![A-Za-z])\s*[\$S|]?\s*" + _NUM_V5 + r"(?:\s+" + _NUM_V5 + r")?",
+    _re.I,
+)
+
+
+def _f_v5(s):
+    if _re.fullmatch(r"\d+,\d{1,2}", s):
+        return float(s.replace(",", "."))
+    return float(s.replace(",", ""))
+
+
+def _tail_junk_v5(t):
+    return (
+        _MONEY_TOK_V5.match(t)
+        or _re.fullmatch(_UNIT_V5, t, _re.I)
+        or t.lower() in ("amount", "rate", "qty", "unit", "|", "=", "-", "~")
+    )
+
+
+def _desc_from_row_v5(line):
+    toks = line.split()
+    while toks and _tail_junk_v5(toks[-1]):
+        toks.pop()
+    for i in range(min(5, len(toks) - 1)):
+        if _re.fullmatch(r"\d{4,8}", toks[i]) and all(len(t) <= 3 for t in toks[:i]):
+            toks = toks[i + 1:]
+            break
+    d = " ".join(toks).strip(" |-=~.")
+    if len(d) >= 4 and len(_re.findall(r"[A-Za-z]", d)) >= 3:
+        return d
+    return None
+
+
+_build_item_v5_orig = _build_item
+
+
+def _build_item(lines):
+    item = _build_item_v5_orig(lines)
+    try:
+        first = lines[0] if lines else ""
+        d = (item.get("description") or "").strip()
+        if not d or d == str(item.get("part_no") or ""):
+            nd = _desc_from_row_v5(first)
+            if nd:
+                item["description"] = nd
+        if not item.get("qty") or not item.get("rate"):
+            m = _ROW_V5.search(first)
+            if m:
+                q, r = _f_v5(m.group(1)), _f_v5(m.group(2))
+                a = _f_v5(m.group(3)) if m.group(3) else None
+                new_rate = None
+                if a is None:
+                    new_rate, a = r, round(q * r, 2)
+                elif q and a and abs(q * r - a) <= max(1.0, 0.005 * a):
+                    new_rate = r
+                elif q and a:
+                    cand = round(a / q, 2)
+                    if f"{cand:.2f}".endswith(f"{r:.2f}"):
+                        new_rate = cand
+                if new_rate and q and a:
+                    item["qty"] = int(q) if q == int(q) else q
+                    item["rate"] = new_rate
+                    item["amount"] = a
+                    item["net_amount"] = a
+                    item["needs_review"] = True
+                    for k, v in list(item.items()):
+                        if isinstance(v, str) and "not read" in v.lower():
+                            item[k] = ""
+    except Exception as e:
+        import logging
+        logging.getLogger("uvicorn.error").warning("row repair patch v5 failed: %r", e)
+    return item
+# --- end row repair patch v5 ---
