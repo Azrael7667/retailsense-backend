@@ -1,33 +1,28 @@
 """
 Bikram Sambat (BS) <-> Gregorian (AD) date conversion.
 
-Previously used a hand-maintained lookup table (BS_CALENDAR_DATA) that turned
-out to have silent day-count errors accumulating into a real drift (BS year
-2063 alone summed to 364 days instead of 365 - and there were more errors
-elsewhere, since the total observed drift by 2083 was 5 days, not 1).
+History: a hand-maintained lookup table drifted by days, and was replaced by `samaya`.
+Testing against dates printed side by side (BS and AD) on 19 real supplier bills showed `samaya`
+is one day late for BS 2083 months 5 and 6 (Bhadra and Ashwin), and a day-by-day comparison with a
+second library showed the two disagree on many other months between BS 2070 and 2095.
+The bills agree with `nepali-datetime`, so that library is used here.
 
-Replaced with `samaya` (pip install samaya) - an actively maintained library
-with verified calendar data for BS 2000-2099. Same function signatures as
-before (bs_to_ad, parse_bs_string_to_ad) so nothing else in the app needs to
-change - only this file's internals differ.
+Same function signatures as before (bs_to_ad, parse_bs_string_to_ad).
 """
 
-from datetime import date, datetime
+from datetime import date
 from typing import Optional
 
-from samaya import bs_to_ad as _samaya_bs_to_ad
+import nepali_datetime
 
 
 def bs_to_ad(bs_year: int, bs_month: int, bs_day: int) -> Optional[date]:
     """
     Converts a BS date (year, month, day) to an AD date.
-    Returns None if the date is invalid or outside samaya's supported
-    range (BS 2000-2099).
+    Returns None if the date is invalid or outside the library's supported range (BS 1975-2100).
     """
     try:
-        bs_string = f"{bs_year:04d}-{bs_month:02d}-{bs_day:02d}"
-        ad_string = _samaya_bs_to_ad(bs_string)  # returns 'YYYY-MM-DD' or similar
-        return datetime.strptime(str(ad_string).strip(), "%Y-%m-%d").date()
+        return nepali_datetime.date(int(bs_year), int(bs_month), int(bs_day)).to_datetime_date()
     except Exception:
         return None
 

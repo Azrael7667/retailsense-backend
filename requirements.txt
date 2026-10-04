@@ -21,3 +21,5 @@ pillow==12.2.0
 pytesseract==0.3.13
 python-multipart==0.0.9
 opencv-python-headless==4.10.0.84
+
+nepali-datetime==1.0.8.5
