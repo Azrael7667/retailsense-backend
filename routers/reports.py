@@ -88,17 +88,17 @@ async def sales_report(start_date: date, end_date: date, store_id: str = Depends
     supabase = get_supabase_admin()
     cust_map = _customer_map(supabase, store_id)
 
-    res = (
+    data = _all(lambda: (
         supabase.table("invoices")
         .select("invoice_number, invoice_date, total, paid_amount, status, customer_id")
         .eq("store_id", store_id)
         .gte("invoice_date", str(start_date))
         .lte("invoice_date", str(end_date))
         .order("invoice_date", desc=True)
-        .execute()
-    )
+        .order("id")
+    ))
     rows = []
-    for r in res.data or []:
+    for r in data:
         total = r.get("total") or 0
         paid = r.get("paid_amount") or 0
         rows.append({
@@ -119,22 +119,22 @@ async def purchase_report(start_date: date, end_date: date, store_id: str = Depe
     supabase = get_supabase_admin()
     supp_map = _supplier_map(supabase, store_id)
 
-    res = (
+    data = _all(lambda: (
         supabase.table("purchases")
         .select("bill_number, purchase_date, total, status, supplier_id")
         .eq("store_id", store_id)
         .gte("purchase_date", str(start_date))
         .lte("purchase_date", str(end_date))
         .order("purchase_date", desc=True)
-        .execute()
-    )
+        .order("id")
+    ))
     rows = [{
         "bill_number": r.get("bill_number"),
         "date": r.get("purchase_date"),
         "supplier_name": supp_map.get(r.get("supplier_id"), "-"),
         "total": r.get("total"),
         "status": r.get("status"),
-    } for r in (res.data or [])]
+    } for r in data]
     return {"rows": rows}
 
 
@@ -215,7 +215,7 @@ async def item_list_report(store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
     cat_map = _category_map(supabase, store_id)
 
-    res = supabase.table("products").select("sku, name, cost_price, selling_price, stock_quantity, category_id").eq("store_id", store_id).execute()
+    data = _all(lambda: supabase.table("products").select("sku, name, cost_price, selling_price, stock_quantity, category_id").eq("store_id", store_id).order("id"))
     rows = [{
         "sku": r.get("sku"),
         "name": r.get("name"),
@@ -223,7 +223,7 @@ async def item_list_report(store_id: str = Depends(get_active_store_id)):
         "cost_price": r.get("cost_price"),
         "selling_price": r.get("selling_price"),
         "stock_quantity": r.get("stock_quantity"),
-    } for r in (res.data or [])]
+    } for r in data]
     return {"rows": rows}
 
 
@@ -232,10 +232,10 @@ async def item_list_report(store_id: str = Depends(get_active_store_id)):
 async def low_stock_report(store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
 
-    res = supabase.table("products").select("sku, name, stock_quantity, reorder_level").eq("store_id", store_id).execute()
+    data = _all(lambda: supabase.table("products").select("sku, name, stock_quantity, reorder_level").eq("store_id", store_id).order("id"))
     rows = [
         {"sku": r.get("sku"), "name": r.get("name"), "stock_quantity": r.get("stock_quantity"), "reorder_level": r.get("reorder_level")}
-        for r in (res.data or [])
+        for r in data
         if (r.get("stock_quantity") or 0) <= (r.get("reorder_level") or 0)
     ]
     return {"rows": rows}
@@ -246,21 +246,21 @@ async def low_stock_report(store_id: str = Depends(get_active_store_id)):
 async def stock_quantity_report(start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase_admin()
 
-    products = supabase.table("products").select("id, sku, name, stock_quantity").eq("store_id", store_id).execute().data or []
+    products = _all(lambda: supabase.table("products").select("id, sku, name, stock_quantity").eq("store_id", store_id).order("id"))
 
-    inv_ids = [i["id"] for i in supabase.table("invoices").select("id").eq("store_id", store_id).gte("invoice_date", str(start_date)).lte("invoice_date", str(end_date)).execute().data or []]
-    pur_ids = [p["id"] for p in supabase.table("purchases").select("id").eq("store_id", store_id).gte("purchase_date", str(start_date)).lte("purchase_date", str(end_date)).execute().data or []]
+    inv_ids = [i["id"] for i in _all(lambda: supabase.table("invoices").select("id").eq("store_id", store_id).gte("invoice_date", str(start_date)).lte("invoice_date", str(end_date)).order("id"))]
+    pur_ids = [p["id"] for p in _all(lambda: supabase.table("purchases").select("id").eq("store_id", store_id).gte("purchase_date", str(start_date)).lte("purchase_date", str(end_date)).order("id"))]
 
     sold_by_product = defaultdict(float)
     purchased_by_product = defaultdict(float)
 
     if inv_ids:
-        for it in supabase.table("invoice_items").select("product_id, quantity").in_("invoice_id", inv_ids).execute().data or []:
+        for it in _items_chunked(supabase, "invoice_items", "invoice_id", "product_id, quantity", inv_ids):
             if it.get("product_id"):
                 sold_by_product[it["product_id"]] += it.get("quantity") or 0
 
     if pur_ids:
-        for it in supabase.table("purchase_items").select("product_id, quantity").in_("purchase_id", pur_ids).execute().data or []:
+        for it in _items_chunked(supabase, "purchase_items", "purchase_id", "product_id, quantity", pur_ids):
             if it.get("product_id"):
                 purchased_by_product[it["product_id"]] += it.get("quantity") or 0
 
@@ -312,3 +312,251 @@ async def expense_category_report(start_date: date, end_date: date, store_id: st
     rows = [{"category": k, "count": v["count"], "total": round(v["total"], 2)} for k, v in agg.items()]
     rows.sort(key=lambda x: x["total"], reverse=True)
     return {"rows": rows}
+
+
+# ---------------- paging helper (Supabase caps one request at 1000 rows) ----------------
+def _all(build):
+    rows, page = [], 0
+    while True:
+        data = build().range(page * 1000, (page + 1) * 1000 - 1).execute().data or []
+        rows.extend(data)
+        if len(data) < 1000:
+            break
+        page += 1
+    return rows
+
+
+def _id_map(supabase, table, col, ids):
+    out, ids = {}, list({i for i in ids if i})
+    for k in range(0, len(ids), 200):
+        res = supabase.table(table).select(f"id, {col}").in_("id", ids[k:k + 200]).execute().data or []
+        out.update({r["id"]: r[col] for r in res})
+    return out
+
+
+# ---------------- Sales Return Report ----------------
+@router.get("/sales-return")
+async def sales_return_report(start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
+    supabase = get_supabase_admin()
+    cust_map = _customer_map(supabase, store_id)
+    data = _all(lambda: supabase.table("sales_returns")
+                .select("return_number, return_date, invoice_id, customer_id, reason, total_refund_amount, credit_applied_amount, cash_refunded_amount")
+                .eq("store_id", store_id)
+                .gte("return_date", str(start_date)).lte("return_date", str(end_date))
+                .order("return_date", desc=True))
+    inv_map = _id_map(supabase, "invoices", "invoice_number", [r.get("invoice_id") for r in data])
+    return {"rows": [{
+        "return_number": r.get("return_number"),
+        "date": r.get("return_date"),
+        "customer_name": cust_map.get(r.get("customer_id"), "Walk-in"),
+        "invoice_number": inv_map.get(r.get("invoice_id")),
+        "total_refund_amount": r.get("total_refund_amount") or 0,
+        "credit_applied_amount": r.get("credit_applied_amount") or 0,
+        "cash_refunded_amount": r.get("cash_refunded_amount") or 0,
+        "reason": r.get("reason"),
+    } for r in data]}
+
+
+# ---------------- Purchase Return Report ----------------
+@router.get("/purchase-return")
+async def purchase_return_report(start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
+    supabase = get_supabase_admin()
+    supp_map = _supplier_map(supabase, store_id)
+    data = _all(lambda: supabase.table("purchase_returns")
+                .select("return_number, return_date, purchase_id, supplier_id, reason, total_return_amount, credit_applied_amount, cash_refunded_amount")
+                .eq("store_id", store_id)
+                .gte("return_date", str(start_date)).lte("return_date", str(end_date))
+                .order("return_date", desc=True))
+    bill_map = _id_map(supabase, "purchases", "bill_number", [r.get("purchase_id") for r in data])
+    return {"rows": [{
+        "return_number": r.get("return_number"),
+        "date": r.get("return_date"),
+        "supplier_name": supp_map.get(r.get("supplier_id"), "-"),
+        "bill_number": bill_map.get(r.get("purchase_id")),
+        "total_return_amount": r.get("total_return_amount") or 0,
+        "credit_applied_amount": r.get("credit_applied_amount") or 0,
+        "cash_refunded_amount": r.get("cash_refunded_amount") or 0,
+        "reason": r.get("reason"),
+    } for r in data]}
+
+
+
+def _items_chunked(supabase, table, fk, cols, ids):
+    """Fetch line items for many parent ids: 100 ids per request (URL limit), paged past the 1000-row cap."""
+    out = []
+    for k in range(0, len(ids), 100):
+        chunk = ids[k:k + 100]
+        out.extend(_all(lambda: supabase.table(table).select(cols).in_(fk, chunk).order("id")))
+    return out
+
+
+# ---------------- Item Details Report ----------------
+def _by_ids(supabase, table, cols, ids, extra=None):
+    out, ids = [], list({i for i in ids if i})
+    for k in range(0, len(ids), 100):
+        q = supabase.table(table).select(cols).in_("id", ids[k:k + 100])
+        if extra:
+            q = extra(q)
+        out.extend(q.execute().data or [])
+    return out
+
+
+@router.get("/item-details")
+async def item_details_report(product_id: str, start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
+    from fastapi import HTTPException
+    supabase = get_supabase_admin()
+    found = supabase.table("products").select("id, sku, name, unit, cost_price, selling_price, stock_quantity, reorder_level, category_id").eq("id", product_id).eq("store_id", store_id).limit(1).execute().data or []
+    if not found:
+        raise HTTPException(status_code=404, detail="Item not found")
+    p = found[0]
+    cat = _category_map(supabase, store_id).get(p.get("category_id"), "-")
+    cust_map = _customer_map(supabase, store_id)
+    supp_map = _supplier_map(supabase, store_id)
+
+    def in_range(col):
+        return lambda q: q.eq("store_id", store_id).gte(col, str(start_date)).lte(col, str(end_date))
+
+    rows = []
+
+    s_items = _all(lambda: supabase.table("invoice_items").select("invoice_id, quantity, unit_price, total").eq("product_id", product_id).order("id"))
+    invs = {r["id"]: r for r in _by_ids(supabase, "invoices", "id, invoice_number, invoice_date, customer_id", [i["invoice_id"] for i in s_items], in_range("invoice_date"))}
+    for it in s_items:
+        inv = invs.get(it["invoice_id"])
+        if inv:
+            rows.append({"date": inv["invoice_date"], "type": "Sale", "reference": inv["invoice_number"],
+                         "party_name": cust_map.get(inv.get("customer_id"), "Walk-in"),
+                         "qty_in": 0, "qty_out": it.get("quantity") or 0,
+                         "rate": it.get("unit_price") or 0, "amount": it.get("total") or 0})
+
+    b_items = _all(lambda: supabase.table("purchase_items").select("purchase_id, quantity, unit_price, discount_percent, total").eq("product_id", product_id).order("id"))
+    purs = {r["id"]: r for r in _by_ids(supabase, "purchases", "id, bill_number, purchase_date, supplier_id", [i["purchase_id"] for i in b_items], in_range("purchase_date"))}
+    for it in b_items:
+        pu = purs.get(it["purchase_id"])
+        if pu:
+            net = round((it.get("unit_price") or 0) * (1 - (it.get("discount_percent") or 0) / 100.0), 2)
+            rows.append({"date": pu["purchase_date"], "type": "Purchase", "reference": pu["bill_number"],
+                         "party_name": supp_map.get(pu.get("supplier_id"), "-"),
+                         "qty_in": it.get("quantity") or 0, "qty_out": 0,
+                         "rate": net, "amount": it.get("total") or 0})
+
+    sr_items = _all(lambda: supabase.table("sales_return_items").select("return_id, quantity_returned, unit_price, line_refund_amount, restock_flag").eq("product_id", product_id).order("id"))
+    srs = {r["id"]: r for r in _by_ids(supabase, "sales_returns", "id, return_number, return_date, customer_id", [i["return_id"] for i in sr_items], in_range("return_date"))}
+    for it in sr_items:
+        r = srs.get(it["return_id"])
+        if r:
+            q = it.get("quantity_returned") or 0
+            rows.append({"date": r["return_date"], "type": "Sales Return", "reference": r["return_number"],
+                         "party_name": cust_map.get(r.get("customer_id"), "Walk-in"),
+                         "qty_in": q if it.get("restock_flag") else 0, "qty_out": 0,
+                         "rate": it.get("unit_price") or 0, "amount": it.get("line_refund_amount") or 0})
+
+    pr_items = _all(lambda: supabase.table("purchase_return_items").select("return_id, quantity_returned, unit_price, line_return_amount").eq("product_id", product_id).order("id"))
+    prs = {r["id"]: r for r in _by_ids(supabase, "purchase_returns", "id, return_number, return_date, supplier_id", [i["return_id"] for i in pr_items], in_range("return_date"))}
+    for it in pr_items:
+        r = prs.get(it["return_id"])
+        if r:
+            rows.append({"date": r["return_date"], "type": "Purchase Return", "reference": r["return_number"],
+                         "party_name": supp_map.get(r.get("supplier_id"), "-"),
+                         "qty_in": 0, "qty_out": it.get("quantity_returned") or 0,
+                         "rate": it.get("unit_price") or 0, "amount": it.get("line_return_amount") or 0})
+
+    rows.sort(key=lambda r: r["date"] or "", reverse=True)
+
+    def tot(t, k):
+        return round(sum(r[k] for r in rows if r["type"] == t), 2)
+
+    return {
+        "item": {**p, "category": cat},
+        "rows": rows,
+        "summary": {
+            "purchased_qty": tot("Purchase", "qty_in"), "sold_qty": tot("Sale", "qty_out"),
+            "sales_return_qty": tot("Sales Return", "qty_in"), "purchase_return_qty": tot("Purchase Return", "qty_out"),
+            "purchased_amount": tot("Purchase", "amount"), "sold_amount": tot("Sale", "amount"),
+        },
+    }
+
+
+# ---------------- Item Details Report ----------------
+def _by_ids(supabase, table, cols, ids, extra=None):
+    out, ids = [], list({i for i in ids if i})
+    for k in range(0, len(ids), 100):
+        q = supabase.table(table).select(cols).in_("id", ids[k:k + 100])
+        if extra:
+            q = extra(q)
+        out.extend(q.execute().data or [])
+    return out
+
+
+@router.get("/item-details")
+async def item_details_report(product_id: str, start_date: date, end_date: date, store_id: str = Depends(get_active_store_id)):
+    from fastapi import HTTPException
+    supabase = get_supabase_admin()
+    found = supabase.table("products").select("id, sku, name, unit, cost_price, selling_price, stock_quantity, reorder_level, category_id").eq("id", product_id).eq("store_id", store_id).limit(1).execute().data or []
+    if not found:
+        raise HTTPException(status_code=404, detail="Item not found")
+    p = found[0]
+    cat = _category_map(supabase, store_id).get(p.get("category_id"), "-")
+    cust_map = _customer_map(supabase, store_id)
+    supp_map = _supplier_map(supabase, store_id)
+
+    def in_range(col):
+        return lambda q: q.eq("store_id", store_id).gte(col, str(start_date)).lte(col, str(end_date))
+
+    rows = []
+
+    s_items = _all(lambda: supabase.table("invoice_items").select("invoice_id, quantity, unit_price, total").eq("product_id", product_id).order("id"))
+    invs = {r["id"]: r for r in _by_ids(supabase, "invoices", "id, invoice_number, invoice_date, customer_id", [i["invoice_id"] for i in s_items], in_range("invoice_date"))}
+    for it in s_items:
+        inv = invs.get(it["invoice_id"])
+        if inv:
+            rows.append({"date": inv["invoice_date"], "type": "Sale", "reference": inv["invoice_number"],
+                         "party_name": cust_map.get(inv.get("customer_id"), "Walk-in"),
+                         "qty_in": 0, "qty_out": it.get("quantity") or 0,
+                         "rate": it.get("unit_price") or 0, "amount": it.get("total") or 0})
+
+    b_items = _all(lambda: supabase.table("purchase_items").select("purchase_id, quantity, unit_price, discount_percent, total").eq("product_id", product_id).order("id"))
+    purs = {r["id"]: r for r in _by_ids(supabase, "purchases", "id, bill_number, purchase_date, supplier_id", [i["purchase_id"] for i in b_items], in_range("purchase_date"))}
+    for it in b_items:
+        pu = purs.get(it["purchase_id"])
+        if pu:
+            net = round((it.get("unit_price") or 0) * (1 - (it.get("discount_percent") or 0) / 100.0), 2)
+            rows.append({"date": pu["purchase_date"], "type": "Purchase", "reference": pu["bill_number"],
+                         "party_name": supp_map.get(pu.get("supplier_id"), "-"),
+                         "qty_in": it.get("quantity") or 0, "qty_out": 0,
+                         "rate": net, "amount": it.get("total") or 0})
+
+    sr_items = _all(lambda: supabase.table("sales_return_items").select("return_id, quantity_returned, unit_price, line_refund_amount, restock_flag").eq("product_id", product_id).order("id"))
+    srs = {r["id"]: r for r in _by_ids(supabase, "sales_returns", "id, return_number, return_date, customer_id", [i["return_id"] for i in sr_items], in_range("return_date"))}
+    for it in sr_items:
+        r = srs.get(it["return_id"])
+        if r:
+            q = it.get("quantity_returned") or 0
+            rows.append({"date": r["return_date"], "type": "Sales Return", "reference": r["return_number"],
+                         "party_name": cust_map.get(r.get("customer_id"), "Walk-in"),
+                         "qty_in": q if it.get("restock_flag") else 0, "qty_out": 0,
+                         "rate": it.get("unit_price") or 0, "amount": it.get("line_refund_amount") or 0})
+
+    pr_items = _all(lambda: supabase.table("purchase_return_items").select("return_id, quantity_returned, unit_price, line_return_amount").eq("product_id", product_id).order("id"))
+    prs = {r["id"]: r for r in _by_ids(supabase, "purchase_returns", "id, return_number, return_date, supplier_id", [i["return_id"] for i in pr_items], in_range("return_date"))}
+    for it in pr_items:
+        r = prs.get(it["return_id"])
+        if r:
+            rows.append({"date": r["return_date"], "type": "Purchase Return", "reference": r["return_number"],
+                         "party_name": supp_map.get(r.get("supplier_id"), "-"),
+                         "qty_in": 0, "qty_out": it.get("quantity_returned") or 0,
+                         "rate": it.get("unit_price") or 0, "amount": it.get("line_return_amount") or 0})
+
+    rows.sort(key=lambda r: r["date"] or "", reverse=True)
+
+    def tot(t, k):
+        return round(sum(r[k] for r in rows if r["type"] == t), 2)
+
+    return {
+        "item": {**p, "category": cat},
+        "rows": rows,
+        "summary": {
+            "purchased_qty": tot("Purchase", "qty_in"), "sold_qty": tot("Sale", "qty_out"),
+            "sales_return_qty": tot("Sales Return", "qty_in"), "purchase_return_qty": tot("Purchase Return", "qty_out"),
+            "purchased_amount": tot("Purchase", "amount"), "sold_amount": tot("Sale", "amount"),
+        },
+    }

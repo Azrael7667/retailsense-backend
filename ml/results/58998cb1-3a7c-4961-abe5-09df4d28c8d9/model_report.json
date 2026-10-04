@@ -1,0 +1,22 @@
+{
+ "trained_on": "2026-10-04",
+ "python": "3.12.3",
+ "versions": {
+  "numpy": "2.5.3",
+  "pandas": "3.0.6",
+  "optuna": "5.0.0",
+  "prophet": "1.4.0",
+  "lightgbm": "4.7.0",
+  "shap": "0.52.0",
+  "scikit-learn": "1.9.1"
+ },
+ "data": {
+  "from": "2025-10-04",
+  "to": "2026-10-03",
+  "invoices": 1100,
+  "invoices_sha256_16": "0206dc36df2ad021",
+  "weeks_used": 52,
+  "customers_with_invoices": 51,
+  "products_active": 1300
+ }
+}

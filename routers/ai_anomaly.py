@@ -1,48 +1,33 @@
-import os, json
-from fastapi import APIRouter, HTTPException, BackgroundTasks
-import sys
+from fastapi import APIRouter, Depends
 
-router    = APIRouter()
-MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "ml", "models_saved")
-STORE_ID  = "58998cb1-3a7c-4961-abe5-09df4d28c8d9"
+from middleware.auth_middleware import get_active_store_id, get_current_user
+from services import ai_results as ai
 
-def load_data():
-    meta_path = os.path.join(MODEL_DIR, f"anomaly_meta_{STORE_ID}.json")
-    res_path  = os.path.join(MODEL_DIR, f"anomaly_results_{STORE_ID}.json")
-    if not os.path.exists(meta_path): return None, None
-    with open(meta_path) as f: meta = json.load(f)
-    with open(res_path) as f:  res  = json.load(f)
-    return meta, res
+router = APIRouter()
 
-@router.get("/anomaly-detection")
-async def anomaly_detection(only_anomalies: bool = True):
-    meta, res = load_data()
-    if not meta:
-        raise HTTPException(status_code=404, detail="Model not trained yet.")
-    results = res.get("results", [])
-    if only_anomalies: results = [r for r in results if r["is_anomaly"]]
-    return {
-        "status": "success", "model": "Isolation Forest",
-        "trained_on": meta.get("trained_on"),
-        "summary": {
-            "total_transactions": meta.get("n_transactions"),
-            "anomalies_detected": meta.get("n_anomalies"),
-            "anomaly_rate":       meta.get("anomaly_rate"),
-        },
-        "anomalies": results,
-    }
-
-@router.post("/anomaly-detection/train")
-async def train_anomaly(background_tasks: BackgroundTasks):
-    def run():
-        sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-        from ml.training.anomaly_model import train
-        train(STORE_ID)
-    background_tasks.add_task(run)
-    return {"status": "training_started"}
 
 @router.get("/anomaly-detection/status")
-async def anomaly_status():
-    meta, _ = load_data()
-    if not meta: return {"trained": False}
-    return {"trained": True, "trained_on": meta.get("trained_on"), "n_anomalies": meta.get("n_anomalies")}
+async def anomaly_status(user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
+    return ai.status("anomaly", store_id)
+
+
+@router.get("/anomaly-detection")
+async def anomaly_detection(user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
+    d = ai.require("anomaly", store_id)
+    info = ai.invoice_customers([a["invoice_id"] for a in d["anomalies"]], store_id)
+    names = ai.customers(store_id)
+    anoms = []
+    for a in d["anomalies"]:
+        x, row = dict(a), info.get(a["invoice_id"])
+        if row:
+            x["invoice_number"] = row.get("invoice_number") or x.get("invoice_number")
+            c = names.get(row.get("customer_id"))
+            x["customer_name"] = c["name"] if c else "Walk-in customer"
+        anoms.append(x)
+    return {**{k: v for k, v in d.items() if k != "anomalies"}, "anomalies": anoms}
+
+
+@router.post("/anomaly-detection/train")
+async def train_anomaly(user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
+    ai.require("anomaly", store_id)
+    return ai.TRAIN_MESSAGE

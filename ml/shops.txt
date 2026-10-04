@@ -1,0 +1,2 @@
+# One shop per line: the store id, then an optional note. Lines starting with # are ignored.
+58998cb1-3a7c-4961-abe5-09df4d28c8d9   # Bijeta Auto Parts

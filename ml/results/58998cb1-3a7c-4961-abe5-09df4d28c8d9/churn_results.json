@@ -1,0 +1,1665 @@
+{
+ "status": "success",
+ "model": "LightGBM + SHAP",
+ "trained_on": "2026-10-04",
+ "data_through": "2026-10-03",
+ "churn_definition": "No purchase in 60 days",
+ "metrics": {
+  "definition": "No purchase in the 60 days after the cut-off date",
+  "train_rows": 244,
+  "test_rows": 350,
+  "test_churn_rate": 0.134,
+  "test_period": "2026-05-08 to 2026-07-31",
+  "auc": 0.642,
+  "average_precision": 0.21,
+  "precision_at_0.5": 0.278,
+  "recall_at_0.5": 0.106,
+  "baseline_auc_recency_only": 0.652,
+  "baseline_auc_logistic_regression": 0.683
+ },
+ "thresholds": {
+  "high": 0.5,
+  "medium": 0.25
+ },
+ "summary": {
+  "total_customers": 51,
+  "high_risk": 3,
+  "medium_risk": 7,
+  "low_risk": 41,
+  "already_lapsed": 6
+ },
+ "predictions": [
+  {
+   "customer_id": "fe593ca1-0179-48b4-b567-459993d4b233",
+   "customer_name": "Customer 024",
+   "churn_probability": 0.6305,
+   "churn_percent": 63.1,
+   "risk_level": "high",
+   "is_churned": false,
+   "recency_days": 49,
+   "frequency": 12,
+   "monetary_total": 733751.08,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "70%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 70%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 59,670",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 59,670"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "22 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 22 days"
+    }
+   ],
+   "action": "Call this customer this week and ask what they need."
+  },
+  {
+   "customer_id": "343886cf-0560-4e09-9579-546ebb181b6b",
+   "customer_name": "Customer 003",
+   "churn_probability": 0.619,
+   "churn_percent": 61.9,
+   "risk_level": "high",
+   "is_churned": false,
+   "recency_days": 39,
+   "frequency": 6,
+   "monetary_total": 154171.1,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "81%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 81%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 60,192",
+     "impact": "negative",
+     "detail": "Spent in the last 90 days: Rs 60,192"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 30,096",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 30,096"
+    }
+   ],
+   "action": "Call this customer this week and ask what they need."
+  },
+  {
+   "customer_id": "6551183e-8d2d-4f1b-9dc5-e93d6833739e",
+   "customer_name": "Customer 010",
+   "churn_probability": 0.5026,
+   "churn_percent": 50.3,
+   "risk_level": "high",
+   "is_churned": false,
+   "recency_days": 57,
+   "frequency": 7,
+   "monetary_total": 271396.31,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 100%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 62,992",
+     "impact": "negative",
+     "detail": "Spent in the last 90 days: Rs 62,992"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 62,992",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 62,992"
+    }
+   ],
+   "action": "Call this customer this week and ask what they need."
+  },
+  {
+   "customer_id": "612c0905-3191-4e7b-a718-d6ca88fbff97",
+   "customer_name": "Customer 008",
+   "churn_probability": 0.4934,
+   "churn_percent": 49.3,
+   "risk_level": "medium",
+   "is_churned": false,
+   "recency_days": 51,
+   "frequency": 7,
+   "monetary_total": 391649.17,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 100%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 60,962",
+     "impact": "negative",
+     "detail": "Spent in the last 90 days: Rs 60,962"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 60,962",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 60,962"
+    }
+   ],
+   "action": "Send a reminder or a small offer before they drift away."
+  },
+  {
+   "customer_id": "4d07bb51-dfc4-43c4-8bb4-f142c147bbbd",
+   "customer_name": "Customer 005",
+   "churn_probability": 0.4891,
+   "churn_percent": 48.9,
+   "risk_level": "medium",
+   "is_churned": false,
+   "recency_days": 23,
+   "frequency": 6,
+   "monetary_total": 361691.11,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 100%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 48,965",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 48,965"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "30 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 30 days"
+    }
+   ],
+   "action": "Send a reminder or a small offer before they drift away."
+  },
+  {
+   "customer_id": "ccda5afc-e0e0-44b0-93e8-24c4630525f3",
+   "customer_name": "Customer 020",
+   "churn_probability": 0.4264,
+   "churn_percent": 42.6,
+   "risk_level": "medium",
+   "is_churned": true,
+   "recency_days": 88,
+   "frequency": 10,
+   "monetary_total": 415114.9,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 100%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 19,946",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 19,946"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Usual days between purchases: not enough history"
+    }
+   ],
+   "action": "Send a reminder or a small offer before they drift away."
+  },
+  {
+   "customer_id": "ac41f8a4-6894-406c-8d2f-43620122af44",
+   "customer_name": "Customer 016",
+   "churn_probability": 0.3709,
+   "churn_percent": 37.1,
+   "risk_level": "medium",
+   "is_churned": false,
+   "recency_days": 41,
+   "frequency": 6,
+   "monetary_total": 163162.7,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 100%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 32,084",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 32,084"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Usual days between purchases: not enough history"
+    }
+   ],
+   "action": "Send a reminder or a small offer before they drift away."
+  },
+  {
+   "customer_id": "65327aa5-8bfe-48c5-a567-05a68d6942c9",
+   "customer_name": "Customer 009",
+   "churn_probability": 0.3392,
+   "churn_percent": 33.9,
+   "risk_level": "medium",
+   "is_churned": false,
+   "recency_days": 43,
+   "frequency": 9,
+   "monetary_total": 427963.22,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 100%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "10 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 10 days"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 54,745",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 54,745"
+    }
+   ],
+   "action": "Send a reminder or a small offer before they drift away."
+  },
+  {
+   "customer_id": "c99b516c-001a-4526-a1ee-ceb2d99f7873",
+   "customer_name": "Customer 018",
+   "churn_probability": 0.3282,
+   "churn_percent": 32.8,
+   "risk_level": "medium",
+   "is_churned": false,
+   "recency_days": 2,
+   "frequency": 10,
+   "monetary_total": 401983.13,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "100%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 100%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 43,375",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 43,375"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "30 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 30 days"
+    }
+   ],
+   "action": "Send a reminder or a small offer before they drift away."
+  },
+  {
+   "customer_id": "7ac5a254-b09e-430a-82c0-ba1787cdd270",
+   "customer_name": "Customer 012",
+   "churn_probability": 0.327,
+   "churn_percent": 32.7,
+   "risk_level": "medium",
+   "is_churned": false,
+   "recency_days": 15,
+   "frequency": 15,
+   "monetary_total": 752752.4,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "20 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 20 days"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "46%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 46%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 38,866",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 38,866"
+    }
+   ],
+   "action": "Send a reminder or a small offer before they drift away."
+  },
+  {
+   "customer_id": "f43fa3de-bfb7-44a6-843a-d819f15dfa0f",
+   "customer_name": "Customer 022",
+   "churn_probability": 0.2139,
+   "churn_percent": 21.4,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 1,
+   "frequency": 21,
+   "monetary_total": 369292.42,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 18,097",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 18,097"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "11%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 11%"
+    },
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "0.1x the usual gap",
+     "impact": "negative",
+     "detail": "Time since last purchase compared with the usual gap: 0.1x the usual gap"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "759a1514-31fb-43e8-9e01-13dc4139cca1",
+   "customer_name": "Customer 036",
+   "churn_probability": 0.2077,
+   "churn_percent": 20.8,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 14,
+   "frequency": 11,
+   "monetary_total": 171367.16,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "15 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 15 days"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "26%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 26%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 14,990",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 14,990"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "8c539dea-d8a3-4cbd-94cb-d5f200673e8f",
+   "customer_name": "Customer 041",
+   "churn_probability": 0.2064,
+   "churn_percent": 20.6,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 11,
+   "frequency": 12,
+   "monetary_total": 198553.89,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "16 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 16 days"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "16%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 16%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 17,675",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 17,675"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "b05232a0-84fd-4912-9126-386e53357847",
+   "customer_name": "Customer 048",
+   "churn_probability": 0.167,
+   "churn_percent": 16.7,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 1,
+   "frequency": 14,
+   "monetary_total": 216723.66,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 16,625",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 16,625"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "20 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 20 days"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "20ed1e75-f2e0-49b3-b461-2de91f66c18b",
+   "customer_name": "Customer 031",
+   "churn_probability": 0.1336,
+   "churn_percent": 13.4,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 1,
+   "frequency": 18,
+   "monetary_total": 334890.83,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "0.0x the usual gap",
+     "impact": "negative",
+     "detail": "Time since last purchase compared with the usual gap: 0.0x the usual gap"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 19,405",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 19,405"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "54c23a66-1b44-4812-b885-4a6ba8da6207",
+   "customer_name": "Customer 034",
+   "churn_probability": 0.1308,
+   "churn_percent": 13.1,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 1,
+   "frequency": 17,
+   "monetary_total": 274164.51,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 51,447",
+     "impact": "negative",
+     "detail": "Spent in the last 90 days: Rs 51,447"
+    },
+    {
+     "factor": "Purchases in the last 30 days",
+     "value": "3",
+     "impact": "negative",
+     "detail": "Purchases in the last 30 days: 3"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "9d30472d-04c6-4286-8f27-4d8f321480fd",
+   "customer_name": "Customer 055",
+   "churn_probability": 0.125,
+   "churn_percent": 12.5,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 21,
+   "frequency": 15,
+   "monetary_total": 242155.01,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "16 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 16 days"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "11%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 11%"
+    },
+    {
+     "factor": "Purchases in the last 30 days",
+     "value": "2",
+     "impact": "negative",
+     "detail": "Purchases in the last 30 days: 2"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "00fb83c7-ee14-4acb-b44f-255fd5a6060b",
+   "customer_name": "Customer 001",
+   "churn_probability": 0.1248,
+   "churn_percent": 12.5,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 25,
+   "frequency": 6,
+   "monetary_total": 350043.55,
+   "explanations": [
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 58,227",
+     "impact": "negative",
+     "detail": "Spent in the last 90 days: Rs 58,227"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 58,227",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 58,227"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Usual days between purchases: not enough history"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "1de152c3-fe34-4839-8b50-62db14c47b36",
+   "customer_name": "Customer 030",
+   "churn_probability": 0.0969,
+   "churn_percent": 9.7,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 44,
+   "frequency": 16,
+   "monetary_total": 242054.84,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 18,289",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 18,289"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 36,578",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 36,578"
+    },
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "4.4x the usual gap",
+     "impact": "negative",
+     "detail": "Time since last purchase compared with the usual gap: 4.4x the usual gap"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "a8ae0b42-0ab0-47fb-b6ea-c910073d4c34",
+   "customer_name": "Customer 047",
+   "churn_probability": 0.084,
+   "churn_percent": 8.4,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 32,
+   "frequency": 21,
+   "monetary_total": 374125.48,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 21,676",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 21,676"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "13 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 13 days"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "6dac9405-8cf1-4327-b3f1-07ac6e4d03b9",
+   "customer_name": "Customer 011",
+   "churn_probability": 0.071,
+   "churn_percent": 7.1,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 8,
+   "frequency": 9,
+   "monetary_total": 413338.76,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "7%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 7%"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 50,995",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 50,995"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "24 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 24 days"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "a2dc1b6d-4dda-4b1b-bd0e-01d102c3aab3",
+   "customer_name": "Customer 046",
+   "churn_probability": 0.0632,
+   "churn_percent": 6.3,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 22,
+   "frequency": 18,
+   "monetary_total": 303848.27,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 18,806",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 18,806"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "10 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 10 days"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "7%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 7%"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "c85fbcc0-0f04-41fb-bab9-fa05e50b03aa",
+   "customer_name": "Customer 049",
+   "churn_probability": 0.0595,
+   "churn_percent": 5.9,
+   "risk_level": "low",
+   "is_churned": true,
+   "recency_days": 79,
+   "frequency": 17,
+   "monetary_total": 251334.13,
+   "explanations": [
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "7.2x the usual gap",
+     "impact": "negative",
+     "detail": "Time since last purchase compared with the usual gap: 7.2x the usual gap"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 31,802",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 31,802"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "1f62191f-1805-466d-b320-fa295c1c45e7",
+   "customer_name": "Customer 002",
+   "churn_probability": 0.0579,
+   "churn_percent": 5.8,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 9,
+   "frequency": 5,
+   "monetary_total": 277239.92,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "19%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 19%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "41 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 41 days"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 45,516",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 45,516"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "49025b5b-6fcb-43fc-a580-c525781bc45d",
+   "customer_name": "Customer 004",
+   "churn_probability": 0.055,
+   "churn_percent": 5.5,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 4,
+   "frequency": 9,
+   "monetary_total": 134814.15,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 11,149",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 11,149"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "39%",
+     "impact": "negative",
+     "detail": "Share of recent purchases left unpaid: 39%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "60 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 60 days"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "88275062-cccb-481f-a5a5-eb586a8ee4fc",
+   "customer_name": "Customer 040",
+   "churn_probability": 0.0535,
+   "churn_percent": 5.3,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 2,
+   "frequency": 10,
+   "monetary_total": 143998.64,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 13,692",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 13,692"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 54,770",
+     "impact": "negative",
+     "detail": "Spent in the last 90 days: Rs 54,770"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "044f8d81-7014-4e91-bc50-4393b745e111",
+   "customer_name": "Customer 027",
+   "churn_probability": 0.0525,
+   "churn_percent": 5.3,
+   "risk_level": "low",
+   "is_churned": true,
+   "recency_days": 135,
+   "frequency": 14,
+   "monetary_total": 223678.46,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Usual days between purchases: not enough history"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): not enough history"
+    },
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Time since last purchase compared with the usual gap: not enough history"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "bc13cf51-7958-4dec-86a0-3245fcfc4565",
+   "customer_name": "Customer 017",
+   "churn_probability": 0.0525,
+   "churn_percent": 5.3,
+   "risk_level": "low",
+   "is_churned": true,
+   "recency_days": 165,
+   "frequency": 3,
+   "monetary_total": 156828.99,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Usual days between purchases: not enough history"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): not enough history"
+    },
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Time since last purchase compared with the usual gap: not enough history"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "f0f81089-d629-4ee4-8563-d0a20e719f25",
+   "customer_name": "Customer 021",
+   "churn_probability": 0.0525,
+   "churn_percent": 5.3,
+   "risk_level": "low",
+   "is_churned": true,
+   "recency_days": 119,
+   "frequency": 4,
+   "monetary_total": 193090.99,
+   "explanations": [
+    {
+     "factor": "Usual days between purchases",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Usual days between purchases: not enough history"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): not enough history"
+    },
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Time since last purchase compared with the usual gap: not enough history"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "2ce10ebb-175f-4692-a07a-27a135bb03a1",
+   "customer_name": "Customer 051",
+   "churn_probability": 0.0487,
+   "churn_percent": 4.9,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 29,
+   "frequency": 13,
+   "monetary_total": 198285.01,
+   "explanations": [
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 35,171",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 35,171"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "19 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 19 days"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "fea2711a-714a-4f15-9ab8-ac5fbba035c9",
+   "customer_name": "Customer 061",
+   "churn_probability": 0.0469,
+   "churn_percent": 4.7,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 11,
+   "frequency": 15,
+   "monetary_total": 223348.06,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 12,971",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 12,971"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "12 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 12 days"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "ff0ae6da-3475-44de-acc8-b03c81a1e500",
+   "customer_name": "Customer 025",
+   "churn_probability": 0.0452,
+   "churn_percent": 4.5,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 26,
+   "frequency": 15,
+   "monetary_total": 244823.65,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "10 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 10 days"
+    },
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "2.6x the usual gap",
+     "impact": "positive",
+     "detail": "Time since last purchase compared with the usual gap: 2.6x the usual gap"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "c6819847-2e28-48f5-a3fd-d215b1e2289f",
+   "customer_name": "Customer 056",
+   "churn_probability": 0.0446,
+   "churn_percent": 4.5,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 30,
+   "frequency": 12,
+   "monetary_total": 206360.5,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "13 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 13 days"
+    },
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 19,460",
+     "impact": "negative",
+     "detail": "Average bill (last 90 days): Rs 19,460"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "5d06412f-6612-45f8-a027-c0ad02558ccb",
+   "customer_name": "Customer 007",
+   "churn_probability": 0.0441,
+   "churn_percent": 4.4,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 16,
+   "frequency": 19,
+   "monetary_total": 299785.25,
+   "explanations": [
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 45,766",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 45,766"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "24 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 24 days"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "607fa15f-067b-49ae-81bf-4351dbae4636",
+   "customer_name": "Customer 054",
+   "churn_probability": 0.0414,
+   "churn_percent": 4.1,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 27,
+   "frequency": 20,
+   "monetary_total": 313612.42,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 12,471",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 12,471"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "16 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 16 days"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "15%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 15%"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "97cb4bc2-a941-452c-9f37-865c2f38136e",
+   "customer_name": "Customer 043",
+   "churn_probability": 0.0392,
+   "churn_percent": 3.9,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 6,
+   "frequency": 13,
+   "monetary_total": 174449.99,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 9,155",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 9,155"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "14 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 14 days"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "fcb44dc2-56f6-4da5-8888-11a8d3119068",
+   "customer_name": "Customer 060",
+   "churn_probability": 0.0388,
+   "churn_percent": 3.9,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 16,
+   "frequency": 16,
+   "monetary_total": 248558.1,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 14,194",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 14,194"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 56,774",
+     "impact": "negative",
+     "detail": "Spent in the last 90 days: Rs 56,774"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "9a36bf01-6f25-423f-b60e-3247795eb527",
+   "customer_name": "Customer 044",
+   "churn_probability": 0.0364,
+   "churn_percent": 3.6,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 35,
+   "frequency": 16,
+   "monetary_total": 269287.5,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Usual days between purchases: not enough history"
+    },
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Time since last purchase compared with the usual gap: not enough history"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "f231dded-c41a-421b-a984-6c1fc470ed37",
+   "customer_name": "Customer 059",
+   "churn_probability": 0.0362,
+   "churn_percent": 3.6,
+   "risk_level": "low",
+   "is_churned": true,
+   "recency_days": 79,
+   "frequency": 14,
+   "monetary_total": 197210.48,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 4,384",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 4,384"
+    },
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "8.8x the usual gap",
+     "impact": "negative",
+     "detail": "Time since last purchase compared with the usual gap: 8.8x the usual gap"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "5b0d6551-f8f8-43f7-a125-01396d4b57e1",
+   "customer_name": "Customer 053",
+   "churn_probability": 0.0356,
+   "churn_percent": 3.6,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 56,
+   "frequency": 21,
+   "monetary_total": 292868.3,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 13,813",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 13,813"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 27,627",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 27,627"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "e26928a2-81e1-4f6f-be2f-ddb791eebc94",
+   "customer_name": "Customer 057",
+   "churn_probability": 0.0342,
+   "churn_percent": 3.4,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 6,
+   "frequency": 14,
+   "monetary_total": 228207.87,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 13,574",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 13,574"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 67,871",
+     "impact": "negative",
+     "detail": "Spent in the last 90 days: Rs 67,871"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "17d625b1-1d0e-433e-afa8-bc25c94db2d9",
+   "customer_name": "Customer 029",
+   "churn_probability": 0.0337,
+   "churn_percent": 3.4,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 16,
+   "frequency": 13,
+   "monetary_total": 223896.48,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "55 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 55 days"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 48,340",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 48,340"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "ff9c938d-050f-476a-9def-7044fe79e2bc",
+   "customer_name": "Customer 062",
+   "churn_probability": 0.031,
+   "churn_percent": 3.1,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 29,
+   "frequency": 13,
+   "monetary_total": 176448.55,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 7,573",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 7,573"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Time since last purchase compared with the usual gap",
+     "value": "1.1x the usual gap",
+     "impact": "negative",
+     "detail": "Time since last purchase compared with the usual gap: 1.1x the usual gap"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "cc913a9a-4bfc-4b74-afbe-b763bd5e3eab",
+   "customer_name": "Customer 019",
+   "churn_probability": 0.0298,
+   "churn_percent": 3.0,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 7,
+   "frequency": 14,
+   "monetary_total": 228388.49,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 31,032",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 31,032"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "83 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 83 days"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "ee14ea2d-8347-4267-9572-8182a992da04",
+   "customer_name": "Customer 058",
+   "churn_probability": 0.0277,
+   "churn_percent": 2.8,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 30,
+   "frequency": 15,
+   "monetary_total": 236249.34,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 13,600",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 13,600"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 40,800",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 40,800"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "3f7d980d-1e47-46e6-8d2b-0e1f68e17d61",
+   "customer_name": "Customer 032",
+   "churn_probability": 0.0269,
+   "churn_percent": 2.7,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 37,
+   "frequency": 17,
+   "monetary_total": 243331.14,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 8,667",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 8,667"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "24 days",
+     "impact": "negative",
+     "detail": "Usual days between purchases: 24 days"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "12a24ff0-5200-4384-97d1-2ae868062a33",
+   "customer_name": "Customer 028",
+   "churn_probability": 0.0215,
+   "churn_percent": 2.2,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 9,
+   "frequency": 14,
+   "monetary_total": 176339.02,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "36 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 36 days"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 46,703",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 46,703"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "6f4c6894-c382-4198-87ac-fc93f39b36dc",
+   "customer_name": "Customer 035",
+   "churn_probability": 0.0211,
+   "churn_percent": 2.1,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 26,
+   "frequency": 16,
+   "monetary_total": 269047.85,
+   "explanations": [
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 42,453",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 42,453"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "48 days",
+     "impact": "positive",
+     "detail": "Usual days between purchases: 48 days"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "f4d323de-74d4-4ab0-a12d-b90bc5d5e73e",
+   "customer_name": "Customer 050",
+   "churn_probability": 0.0184,
+   "churn_percent": 1.8,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 4,
+   "frequency": 1,
+   "monetary_total": 5085.0,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 5,085",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 5,085"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Usual days between purchases",
+     "value": "not enough history",
+     "impact": "positive",
+     "detail": "Usual days between purchases: not enough history"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "8900dd6f-ed59-41d3-afdb-1f9f03a69310",
+   "customer_name": "Customer 014",
+   "churn_probability": 0.0159,
+   "churn_percent": 1.6,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 9,
+   "frequency": 11,
+   "monetary_total": 147099.72,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 13,496",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 13,496"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 40,488",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 40,488"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    }
+   ],
+   "action": "No action needed."
+  },
+  {
+   "customer_id": "3b9e5900-54c8-4bad-b013-75b594f80dc0",
+   "customer_name": "Customer 052",
+   "churn_probability": 0.0152,
+   "churn_percent": 1.5,
+   "risk_level": "low",
+   "is_churned": false,
+   "recency_days": 12,
+   "frequency": 14,
+   "monetary_total": 189512.17,
+   "explanations": [
+    {
+     "factor": "Average bill (last 90 days)",
+     "value": "Rs 9,679",
+     "impact": "positive",
+     "detail": "Average bill (last 90 days): Rs 9,679"
+    },
+    {
+     "factor": "Share of recent purchases left unpaid",
+     "value": "0%",
+     "impact": "positive",
+     "detail": "Share of recent purchases left unpaid: 0%"
+    },
+    {
+     "factor": "Spent in the last 90 days",
+     "value": "Rs 38,716",
+     "impact": "positive",
+     "detail": "Spent in the last 90 days: Rs 38,716"
+    }
+   ],
+   "action": "No action needed."
+  }
+ ]
+}

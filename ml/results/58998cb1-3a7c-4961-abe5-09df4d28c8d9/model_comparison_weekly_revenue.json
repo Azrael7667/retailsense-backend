@@ -1,0 +1,43 @@
+{
+ "horizon_weeks": 4,
+ "folds": 6,
+ "avg_week": 398909.48,
+ "table": [
+  {
+   "model": "Prophet (Optuna-tuned)",
+   "mean_mae": 30412.0,
+   "fold_std": 10250.0,
+   "mae_pct_of_avg_week": 7.6,
+   "interval_coverage_80": 79.0
+  },
+  {
+   "model": "Blend (tuned Prophet + naive)",
+   "mean_mae": 30454.0,
+   "fold_std": 8772.0,
+   "mae_pct_of_avg_week": 7.6,
+   "interval_coverage_80": null
+  },
+  {
+   "model": "Holt (damped trend)",
+   "mean_mae": 30785.0,
+   "fold_std": 9529.0,
+   "mae_pct_of_avg_week": 7.7,
+   "interval_coverage_80": null
+  },
+  {
+   "model": "Naive (last 8-week average)",
+   "mean_mae": 30794.0,
+   "fold_std": 7395.0,
+   "mae_pct_of_avg_week": 7.7,
+   "interval_coverage_80": null
+  },
+  {
+   "model": "Prophet (default)",
+   "mean_mae": 31172.0,
+   "fold_std": 10668.0,
+   "mae_pct_of_avg_week": 7.8,
+   "interval_coverage_80": 79.0
+  }
+ ],
+ "improvement_over_naive_pct": 1.2
+}

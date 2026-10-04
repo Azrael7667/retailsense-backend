@@ -29,13 +29,20 @@ from routers import (
     khata, reports, dashboard,
     pending_documents, reminders, platform_admin,
     ai_cash_flow, ai_inventory, ai_churn,
-    ai_sales_trend, ai_anomaly, ai_credit
+    ai_sales_trend, ai_anomaly, ai_credit,
+    ocr
 )
 
+from routers import quotations
 # Core routers
 app.include_router(classification.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
+from routers import activity as activity_router
+from services.activity import ActivityLogMiddleware
+
 app.include_router(auth.router,       prefix="/api/auth",       tags=["Auth"])
+app.add_middleware(ActivityLogMiddleware)
+app.include_router(activity_router.router, prefix="/api/activity", tags=["Activity"])
 app.include_router(products.router,   prefix="/api/products",   tags=["Products"])
 app.include_router(categories.router, prefix="/api/categories", tags=["Categories"])
 app.include_router(customers.router,  prefix="/api/customers",  tags=["Customers"])
@@ -51,6 +58,8 @@ app.include_router(khata.router,      prefix="/api/khata",      tags=["Khata / U
 app.include_router(reports.router,    prefix="/api/reports",    tags=["Reports"])
 app.include_router(dashboard.router,  prefix="/api/dashboard",  tags=["Dashboard"])
 app.include_router(pending_documents.router, prefix="/api/pending-documents", tags=["Pending Documents"])
+app.include_router(quotations.router, prefix="/api/quotations", tags=["Quotations"])
+app.include_router(ocr.router, prefix="/api/ocr", tags=["OCR"])
 app.include_router(reminders.router,  prefix="/api/reminders",  tags=["Reminders"])
 app.include_router(platform_admin.router, prefix="/api/platform-admin", tags=["Platform Admin"])
 

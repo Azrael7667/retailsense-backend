@@ -1,3 +1,5 @@
+from fastapi import Depends
+from middleware.auth_middleware import get_active_store_id, get_current_user
 import os, sys, json
 from datetime import datetime, date, timedelta
 from fastapi import APIRouter, BackgroundTasks, HTTPException
@@ -13,7 +15,7 @@ REORDER_LEVELS = {
     "fast":       5,
     "moderate":   3,
     "slow":       2,
-    "dead_stock": 2,
+    "dead_stock": 0,
 }
 
 def get_model_status():
@@ -42,52 +44,17 @@ async def model_status():
     return { "models": status, "trained_count": sum(1 for s in status.values() if s.get("trained")), "total": 6 }
 
 @router.post("/train-all")
-async def train_all(background_tasks: BackgroundTasks):
-    if training_status["is_training"]:
-        return {"status": "already_training"}
-    def run_all():
-        training_status["is_training"] = True
-        training_status["started_at"]  = datetime.now().isoformat()
-        sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-        import importlib
-        for key, mod_path in [
-            ("cashFlow",  "ml.training.cash_flow_model"),
-            ("inventory", "ml.training.inventory_demand_model"),
-            ("churn",     "ml.training.churn_model"),
-            ("trend",     "ml.training.sales_trend_model"),
-            ("anomaly",   "ml.training.anomaly_model"),
-            ("credit",    "ml.training.credit_score_model"),
-        ]:
-            try:
-                mod = importlib.import_module(mod_path)
-                mod.train(STORE_ID)
-                training_status["results"][key] = "success"
-            except Exception as e:
-                training_status["results"][key] = f"failed: {e}"
-        training_status["is_training"]  = False
-        training_status["completed_at"] = datetime.now().isoformat()
-    background_tasks.add_task(run_all)
-    return {"status": "training_started", "message": "All 6 models training in background"}
+async def train_all(user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
+    """The AI helpers are trained offline in a notebook. This only reports the results that are loaded for this shop."""
+    from services import ai_results as ai
+    names = {"cashFlow": "cash_flow", "inventory": "restock", "churn": "churn", "trend": "sales_trend", "anomaly": "anomaly", "credit": "credit"}
+    return {**ai.TRAIN_MESSAGE, "trained_on": {k: (ai.load(v, store_id) or {}).get("trained_on") for k, v in names.items()}}
+
 
 @router.post("/train/{model_key}")
-async def train_single(model_key: str, background_tasks: BackgroundTasks):
-    model_map = {
-        "cashFlow":  "ml.training.cash_flow_model",
-        "inventory": "ml.training.inventory_demand_model",
-        "churn":     "ml.training.churn_model",
-        "trend":     "ml.training.sales_trend_model",
-        "anomaly":   "ml.training.anomaly_model",
-        "credit":    "ml.training.credit_score_model",
-    }
-    if model_key not in model_map:
-        raise HTTPException(status_code=404, detail=f"Model not found: {model_key}")
-    def run():
-        sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-        import importlib
-        mod = importlib.import_module(model_map[model_key])
-        mod.train(STORE_ID)
-    background_tasks.add_task(run)
-    return {"status": "training_started", "model": model_key}
+async def train_single(model_key: str, user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
+    from services import ai_results as ai
+    return ai.TRAIN_MESSAGE
 
 @router.get("/training-progress")
 async def training_progress():
@@ -95,7 +62,7 @@ async def training_progress():
 
 
 @router.post("/classify-products")
-async def classify_products():
+async def classify_products(user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
     """
     Recalculate product_type (fast / moderate / slow / dead_stock) from the
     last 90 days of sales. Grace period: products added < 30 days ago are
@@ -107,17 +74,25 @@ async def classify_products():
     cutoff_90    = (date.today() - timedelta(days=90)).isoformat()
     grace_cutoff = date.today() - timedelta(days=30)
 
-    products = supabase.table("products") \
-        .select("id, product_type, stock_quantity, created_at") \
-        .eq("store_id", STORE_ID) \
-        .eq("is_active", True) \
-        .execute().data
+    def _page(build):
+        # one request returns at most 1000 rows, so read in pages
+        rows, i = [], 0
+        while True:
+            part = build().range(i * 1000, (i + 1) * 1000 - 1).execute().data or []
+            rows += part
+            if len(part) < 1000:
+                break
+            i += 1
+        return rows
 
-    sales = supabase.table("invoice_items") \
-        .select("product_id, quantity, invoices!inner(invoice_date, store_id)") \
-        .eq("invoices.store_id", STORE_ID) \
-        .gte("invoices.invoice_date", cutoff_90) \
-        .execute().data
+    products = _page(lambda: supabase.table("products")
+        .select("id, product_type, stock_quantity, created_at")
+        .eq("store_id", store_id).eq("is_active", True).order("id"))
+
+    sales = _page(lambda: supabase.table("invoice_items")
+        .select("id, product_id, quantity, invoices!inner(invoice_date, store_id)")
+        .eq("invoices.store_id", store_id)
+        .gte("invoices.invoice_date", cutoff_90).order("id"))
 
     agg = {}
     for row in sales:

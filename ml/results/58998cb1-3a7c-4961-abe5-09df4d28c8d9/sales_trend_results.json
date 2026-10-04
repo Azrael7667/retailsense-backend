@@ -1,0 +1,287 @@
+{
+ "status": "success",
+ "model": "Prophet + Optuna",
+ "trained_on": "2026-10-04",
+ "data_through": "2026-10-03",
+ "best_params": {
+  "seasonality_prior_scale": 1.0,
+  "yearly_fourier": 0,
+  "changepoint_prior_scale": 0.001360354613611808
+ },
+ "n_trials": 30,
+ "metrics": {
+  "mae": 30722.85,
+  "rmse": 39509.06,
+  "baseline_mae": 30680.91,
+  "holdout_weeks": 8
+ },
+ "insights": {
+  "trend_direction": "stable",
+  "trend_percent": -1.8,
+  "avg_weekly_sales": 398909.48,
+  "best_week_ever": 489134.25,
+  "worst_week_ever": 302812.36,
+  "best_month": "Jun",
+  "worst_month": "Sep"
+ },
+ "forecast_8w": [
+  {
+   "week": "2026-10-10",
+   "revenue": 390166.67,
+   "revenue_lower": 345112.36,
+   "revenue_upper": 436062.5
+  },
+  {
+   "week": "2026-10-17",
+   "revenue": 389852.35,
+   "revenue_lower": 343172.12,
+   "revenue_upper": 439802.53
+  },
+  {
+   "week": "2026-10-24",
+   "revenue": 389538.04,
+   "revenue_lower": 340433.16,
+   "revenue_upper": 433859.75
+  },
+  {
+   "week": "2026-10-31",
+   "revenue": 389223.73,
+   "revenue_lower": 342901.98,
+   "revenue_upper": 441921.9
+  },
+  {
+   "week": "2026-11-07",
+   "revenue": 388909.42,
+   "revenue_lower": 341720.62,
+   "revenue_upper": 435370.0
+  },
+  {
+   "week": "2026-11-14",
+   "revenue": 388595.11,
+   "revenue_lower": 340491.96,
+   "revenue_upper": 437214.22
+  },
+  {
+   "week": "2026-11-21",
+   "revenue": 388280.79,
+   "revenue_lower": 337748.43,
+   "revenue_upper": 432082.33
+  },
+  {
+   "week": "2026-11-28",
+   "revenue": 387966.48,
+   "revenue_lower": 343082.63,
+   "revenue_upper": 432678.22
+  }
+ ],
+ "historical": [
+  {
+   "week": "2025-10-11",
+   "revenue": 376347.81
+  },
+  {
+   "week": "2025-10-18",
+   "revenue": 370749.0
+  },
+  {
+   "week": "2025-10-25",
+   "revenue": 489134.25
+  },
+  {
+   "week": "2025-11-01",
+   "revenue": 405515.46
+  },
+  {
+   "week": "2025-11-08",
+   "revenue": 375062.46
+  },
+  {
+   "week": "2025-11-15",
+   "revenue": 425183.03
+  },
+  {
+   "week": "2025-11-22",
+   "revenue": 439838.69
+  },
+  {
+   "week": "2025-11-29",
+   "revenue": 376407.32
+  },
+  {
+   "week": "2025-12-06",
+   "revenue": 419152.98
+  },
+  {
+   "week": "2025-12-13",
+   "revenue": 380034.89
+  },
+  {
+   "week": "2025-12-20",
+   "revenue": 415327.77
+  },
+  {
+   "week": "2025-12-27",
+   "revenue": 302812.36
+  },
+  {
+   "week": "2026-01-03",
+   "revenue": 435501.97
+  },
+  {
+   "week": "2026-01-10",
+   "revenue": 423808.66
+  },
+  {
+   "week": "2026-01-17",
+   "revenue": 325318.96
+  },
+  {
+   "week": "2026-01-24",
+   "revenue": 383876.24
+  },
+  {
+   "week": "2026-01-31",
+   "revenue": 386520.61
+  },
+  {
+   "week": "2026-02-07",
+   "revenue": 448909.26
+  },
+  {
+   "week": "2026-02-14",
+   "revenue": 393635.44
+  },
+  {
+   "week": "2026-02-21",
+   "revenue": 398920.21
+  },
+  {
+   "week": "2026-02-28",
+   "revenue": 443922.51
+  },
+  {
+   "week": "2026-03-07",
+   "revenue": 406671.34
+  },
+  {
+   "week": "2026-03-14",
+   "revenue": 379747.32
+  },
+  {
+   "week": "2026-03-21",
+   "revenue": 412631.41
+  },
+  {
+   "week": "2026-03-28",
+   "revenue": 397237.08
+  },
+  {
+   "week": "2026-04-04",
+   "revenue": 413368.16
+  },
+  {
+   "week": "2026-04-11",
+   "revenue": 464929.04
+  },
+  {
+   "week": "2026-04-18",
+   "revenue": 429803.37
+  },
+  {
+   "week": "2026-04-25",
+   "revenue": 386306.66
+  },
+  {
+   "week": "2026-05-02",
+   "revenue": 419620.8
+  },
+  {
+   "week": "2026-05-09",
+   "revenue": 335654.51
+  },
+  {
+   "week": "2026-05-16",
+   "revenue": 421128.08
+  },
+  {
+   "week": "2026-05-23",
+   "revenue": 408184.33
+  },
+  {
+   "week": "2026-05-30",
+   "revenue": 432304.74
+  },
+  {
+   "week": "2026-06-06",
+   "revenue": 432859.97
+  },
+  {
+   "week": "2026-06-13",
+   "revenue": 453492.94
+  },
+  {
+   "week": "2026-06-20",
+   "revenue": 371270.0
+  },
+  {
+   "week": "2026-06-27",
+   "revenue": 450059.63
+  },
+  {
+   "week": "2026-07-04",
+   "revenue": 377162.18
+  },
+  {
+   "week": "2026-07-11",
+   "revenue": 364321.27
+  },
+  {
+   "week": "2026-07-18",
+   "revenue": 356247.34
+  },
+  {
+   "week": "2026-07-25",
+   "revenue": 411333.28
+  },
+  {
+   "week": "2026-08-01",
+   "revenue": 362085.9
+  },
+  {
+   "week": "2026-08-08",
+   "revenue": 401937.3
+  },
+  {
+   "week": "2026-08-15",
+   "revenue": 401234.38
+  },
+  {
+   "week": "2026-08-22",
+   "revenue": 414289.45
+  },
+  {
+   "week": "2026-08-29",
+   "revenue": 366576.64
+  },
+  {
+   "week": "2026-09-05",
+   "revenue": 413437.83
+  },
+  {
+   "week": "2026-09-12",
+   "revenue": 324669.24
+  },
+  {
+   "week": "2026-09-19",
+   "revenue": 342850.86
+  },
+  {
+   "week": "2026-09-26",
+   "revenue": 413240.3
+  },
+  {
+   "week": "2026-10-03",
+   "revenue": 362657.98
+  }
+ ]
+}

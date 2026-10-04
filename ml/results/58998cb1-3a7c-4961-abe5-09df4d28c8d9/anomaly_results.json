@@ -1,0 +1,497 @@
+{
+ "status": "success",
+ "model": "Isolation Forest",
+ "trained_on": "2026-10-04",
+ "data_through": "2026-10-03",
+ "metrics": {
+  "validation": "fake mistakes hidden in a copy of the data (synthetic injection), share found among the top 3% flagged",
+  "recall_by_type": {
+   "total_spike": 0.27,
+   "heavy_discount": 0.64,
+   "wrong_unit_price": 0.36
+  },
+  "recall_overall": 0.42,
+  "precision_overall": 0.42,
+  "random_guess_recall": 0.03,
+  "contamination": 0.03
+ },
+ "summary": {
+  "total_transactions": 1100,
+  "anomalies_detected": 33,
+  "anomaly_rate": 3.0
+ },
+ "anomalies": [
+  {
+   "invoice_id": "efcafd53-2f15-4ef6-a07e-f5a958c2e503",
+   "invoice_number": "INV-20251120-0250",
+   "invoice_date": "2025-12-22",
+   "total": 0.0,
+   "payment_method": "cash",
+   "status": "paid",
+   "is_anomaly": true,
+   "anomaly_score": -0.745,
+   "severity": 100,
+   "reasons": [
+    "Bill total is zero",
+    "Much smaller than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "87c1a3e5-b996-44f3-8b98-886c85f0983b",
+   "invoice_number": "INV-20260423-0715",
+   "invoice_date": "2026-05-25",
+   "total": 0.0,
+   "payment_method": "card",
+   "status": "paid",
+   "is_anomaly": true,
+   "anomaly_score": -0.745,
+   "severity": 100,
+   "reasons": [
+    "Bill total is zero",
+    "Much smaller than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "3e898628-c492-4b15-802a-152b357cc3db",
+   "invoice_number": "INV-20260530-0831",
+   "invoice_date": "2026-07-01",
+   "total": 0.0,
+   "payment_method": "card",
+   "status": "paid",
+   "is_anomaly": true,
+   "anomaly_score": -0.733,
+   "severity": 92,
+   "reasons": [
+    "Bill total is zero",
+    "Much smaller than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "58d432c0-f61f-4c8a-a03e-f43ecacaa2f2",
+   "invoice_number": "INV-20260224-0540",
+   "invoice_date": "2026-03-28",
+   "total": 0.0,
+   "payment_method": "esewa",
+   "status": "paid",
+   "is_anomaly": true,
+   "anomaly_score": -0.726,
+   "severity": 87,
+   "reasons": [
+    "Bill total is zero",
+    "Much smaller than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "d89c1127-6215-4b19-a866-86e8c4bb1688",
+   "invoice_number": "INV-20250929-0089",
+   "invoice_date": "2025-10-31",
+   "total": 1885.2,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6612,
+   "severity": 43,
+   "reasons": [
+    "Bill total (Rs 1,885) is unusually small",
+    "Much smaller than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "76a4c985-034b-4972-ac16-bd614ab43179",
+   "invoice_number": "INV-20251007-0117",
+   "invoice_date": "2025-11-08",
+   "total": 72063.0,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6572,
+   "severity": 40,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "13d82f7a-07b3-4274-a9b5-5579f4f43f34",
+   "invoice_number": "INV-2026-1098",
+   "invoice_date": "2026-09-23",
+   "total": 240.22,
+   "payment_method": "cash",
+   "status": "paid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6541,
+   "severity": 38,
+   "reasons": [
+    "Bill total (Rs 240) is unusually small",
+    "Much smaller than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "39593763-c4d6-48ab-934a-0612e6387177",
+   "invoice_number": "INV-20260420-0702",
+   "invoice_date": "2026-05-22",
+   "total": 37912.62,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6539,
+   "severity": 38,
+   "reasons": [
+    "Much larger than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "7bbfd653-8089-40f5-9bcc-cb3b369f978b",
+   "invoice_number": "INV-20251031-0186",
+   "invoice_date": "2025-12-02",
+   "total": 32802.38,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6506,
+   "severity": 35,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "b6b376ee-013a-4cac-b196-3fba2255898f",
+   "invoice_number": "INV-20260108-0398",
+   "invoice_date": "2026-02-09",
+   "total": 69665.31,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6472,
+   "severity": 33,
+   "reasons": [
+    "Much larger than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "324960a5-a628-4628-a1c7-3fa1d6a826e9",
+   "invoice_number": "INV-20260218-0519",
+   "invoice_date": "2026-03-22",
+   "total": 71450.17,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6401,
+   "severity": 28,
+   "reasons": [
+    "Much larger than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "99c2deb5-8187-4e34-9346-42b94a1f5f7e",
+   "invoice_number": "INV-20251108-0213",
+   "invoice_date": "2025-12-10",
+   "total": 68683.58,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6372,
+   "severity": 26,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "c81bf65f-040b-4c34-9460-d744e898785e",
+   "invoice_number": "INV-20260211-0500",
+   "invoice_date": "2026-03-15",
+   "total": 66441.62,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6366,
+   "severity": 26,
+   "reasons": [
+    "Much larger than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "17fc45e8-610a-4fd8-97a2-c6180934d5cf",
+   "invoice_number": "INV-2026-1099",
+   "invoice_date": "2026-09-28",
+   "total": 1280.77,
+   "payment_method": "cash",
+   "status": "partial",
+   "is_anomaly": true,
+   "anomaly_score": -0.6313,
+   "severity": 22,
+   "reasons": [
+    "Bill total (Rs 1,281) is unusually small",
+    "Much smaller than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "4e7514ee-d09d-485d-9ffd-0ec776ee5aad",
+   "invoice_number": "INV-20260702-0932",
+   "invoice_date": "2026-08-03",
+   "total": 62845.73,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6253,
+   "severity": 18,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "1c87dd18-dd49-44ab-829c-b073902c4ecc",
+   "invoice_number": "INV-20260101-0379",
+   "invoice_date": "2026-02-02",
+   "total": 78849.65,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6247,
+   "severity": 18,
+   "reasons": [
+    "Bill total (Rs 78,850) is unusually large",
+    "Much larger than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "32829756-a6f7-408c-a31c-ca0795def80a",
+   "invoice_number": "INV-20251231-0378",
+   "invoice_date": "2026-02-01",
+   "total": 73886.58,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6233,
+   "severity": 17,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "d78f3758-8581-42c7-84d4-292386fdcf88",
+   "invoice_number": "INV-20250922-0062",
+   "invoice_date": "2025-10-24",
+   "total": 86701.95,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6227,
+   "severity": 16,
+   "reasons": [
+    "Bill total (Rs 86,702) is unusually large",
+    "Much larger than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "dc51b980-3514-4ed5-bc94-848229c4882f",
+   "invoice_number": "INV-20260818-1055",
+   "invoice_date": "2026-09-19",
+   "total": 6153.29,
+   "payment_method": "credit",
+   "status": "partial",
+   "is_anomaly": true,
+   "anomaly_score": -0.6213,
+   "severity": 15,
+   "reasons": [
+    "Much smaller than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "16fc6c5d-3934-45f8-a677-64bdcad95e4a",
+   "invoice_number": "INV-20260825-1075",
+   "invoice_date": "2026-09-26",
+   "total": 69112.18,
+   "payment_method": "credit",
+   "status": "partial",
+   "is_anomaly": true,
+   "anomaly_score": -0.6159,
+   "severity": 12,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "823f32ec-5511-43a1-8151-2b9ebe248d2d",
+   "invoice_number": "INV-20260213-0506",
+   "invoice_date": "2026-03-17",
+   "total": 71640.31,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6135,
+   "severity": 10,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "ce4b6f84-c4b2-48ff-b7c6-08538183a6b1",
+   "invoice_number": "INV-20260311-0586",
+   "invoice_date": "2026-04-12",
+   "total": 50535.93,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6132,
+   "severity": 10,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "a979c60d-51ce-4fea-9cb3-376306921bfd",
+   "invoice_number": "INV-20251025-0171",
+   "invoice_date": "2025-11-26",
+   "total": 36890.39,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6093,
+   "severity": 7,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "204e43e8-f6e8-4be9-928b-72072dc3e5ca",
+   "invoice_number": "INV-20260717-0964",
+   "invoice_date": "2026-08-18",
+   "total": 16868.47,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6065,
+   "severity": 5,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "73cae844-8817-4835-a1b5-3b5f17941feb",
+   "invoice_number": "INV-20260416-0691",
+   "invoice_date": "2026-05-18",
+   "total": 52981.11,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6054,
+   "severity": 4,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "1ac64cd2-f90f-43b9-b2ee-7bac30d254f6",
+   "invoice_number": "INV-20260305-0566",
+   "invoice_date": "2026-04-06",
+   "total": 37943.07,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6053,
+   "severity": 4,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "f054576e-0f7a-4770-92c1-b596e063ccd1",
+   "invoice_number": "INV-20260117-0424",
+   "invoice_date": "2026-02-18",
+   "total": 69646.5,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6053,
+   "severity": 4,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "0503ac06-1665-4417-98e5-2a5ffc8cde45",
+   "invoice_number": "INV-20251030-0185",
+   "invoice_date": "2025-12-01",
+   "total": 82326.42,
+   "payment_method": "credit",
+   "status": "partial",
+   "is_anomaly": true,
+   "anomaly_score": -0.6048,
+   "severity": 4,
+   "reasons": [
+    "Bill total (Rs 82,326) is unusually large",
+    "Much larger than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "e78127c1-26c1-4d38-b6b7-93cd55308467",
+   "invoice_number": "INV-20250909-0020",
+   "invoice_date": "2025-10-11",
+   "total": 82054.44,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6044,
+   "severity": 4,
+   "reasons": [
+    "Bill total (Rs 82,054) is unusually large"
+   ]
+  },
+  {
+   "invoice_id": "fd1c27c2-ece0-43e3-96fa-81591d7da06a",
+   "invoice_number": "INV-20251020-0151",
+   "invoice_date": "2025-11-21",
+   "total": 59575.68,
+   "payment_method": "credit",
+   "status": "partial",
+   "is_anomaly": true,
+   "anomaly_score": -0.6018,
+   "severity": 2,
+   "reasons": [
+    "Much larger than this customer's usual bills"
+   ]
+  },
+  {
+   "invoice_id": "80ff19a0-f3d5-42ef-b7b4-c9ef3e6675b2",
+   "invoice_number": "INV-20260611-0866",
+   "invoice_date": "2026-07-13",
+   "total": 72594.0,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.6001,
+   "severity": 1,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "dd475576-3df0-4015-924b-20908aa13029",
+   "invoice_number": "INV-20260716-0959",
+   "invoice_date": "2026-08-17",
+   "total": 39788.55,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.5995,
+   "severity": 1,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  },
+  {
+   "invoice_id": "e203e9b9-b793-46a0-b2cc-99a46b1ca7ff",
+   "invoice_number": "INV-20251212-0324",
+   "invoice_date": "2026-01-13",
+   "total": 13895.46,
+   "payment_method": "credit",
+   "status": "unpaid",
+   "is_anomaly": true,
+   "anomaly_score": -0.5995,
+   "severity": 1,
+   "reasons": [
+    "Unusual combination of values"
+   ]
+  }
+ ]
+}

@@ -1,51 +1,51 @@
-import os, json
-from fastapi import APIRouter, HTTPException, BackgroundTasks
-import sys
+import math
 
-router    = APIRouter()
-MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "ml", "models_saved")
-STORE_ID  = "58998cb1-3a7c-4961-abe5-09df4d28c8d9"
+from fastapi import APIRouter, Depends
 
-def load_data():
-    meta_path = os.path.join(MODEL_DIR, f"inventory_meta_{STORE_ID}.json")
-    fc_path   = os.path.join(MODEL_DIR, f"inventory_forecasts_{STORE_ID}.json")
-    if not os.path.exists(meta_path):
-        return None, None
-    with open(meta_path) as f: meta = json.load(f)
-    with open(fc_path) as f:   fc   = json.load(f)
-    return meta, fc
+from middleware.auth_middleware import get_active_store_id, get_current_user
+from services import ai_results as ai
 
-@router.get("/inventory-demand")
-async def inventory_demand(filter: str = "all"):
-    meta, fc = load_data()
-    if not meta:
-        raise HTTPException(status_code=404, detail="Model not trained yet.")
-    recs = fc.get("recommendations", [])
-    if filter == "restock": recs = [r for r in recs if r["needs_restock"]]
-    elif filter == "healthy": recs = [r for r in recs if not r["needs_restock"]]
-    all_recs = fc.get("recommendations", [])
-    return {
-        "status": "success", "model": "LightGBM per product",
-        "trained_on": meta.get("trained_on"),
-        "summary": {
-            "total_products": meta.get("n_products"),
-            "needs_restock":  sum(1 for r in all_recs if r["needs_restock"]),
-            "healthy_stock":  sum(1 for r in all_recs if not r["needs_restock"]),
-        },
-        "recommendations": recs,
-    }
+router = APIRouter()
 
-@router.post("/inventory-demand/train")
-async def train_inventory(background_tasks: BackgroundTasks):
-    def run():
-        sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-        from ml.training.inventory_demand_model import train
-        train(STORE_ID)
-    background_tasks.add_task(run)
-    return {"status": "training_started"}
+# Shop policy, not a model output: flag a product when its stock covers fewer than this many weeks of expected sales.
+# The owner orders from the big suppliers 2 to 3 times a week and from the rest at least weekly, so about 2 weeks
+# (order gap plus delivery). Change it here, or call the endpoint with ?cover_weeks=N. No retraining needed.
+RESTOCK_COVER_WEEKS = 2.0
+RESTOCK_TARGET_WEEKS = 4.0      # when ordering, order enough to cover this many weeks
+
 
 @router.get("/inventory-demand/status")
-async def inventory_status():
-    meta, _ = load_data()
-    if not meta: return {"trained": False}
-    return {"trained": True, "trained_on": meta.get("trained_on")}
+async def inventory_status(user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
+    return ai.status("restock", store_id)
+
+
+@router.get("/inventory-demand")
+async def inventory_demand(only_needs_restock: bool = False, cover_weeks: float = RESTOCK_COVER_WEEKS,
+                           target_weeks: float = RESTOCK_TARGET_WEEKS,
+                           user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
+    d = ai.require("restock", store_id)
+    recs = []
+    for r in d["recommendations"]:
+        x = dict(r)
+        x["predictions"] = [p["qty"] if isinstance(p, dict) else p for p in r.get("predictions", [])]   # plain numbers, as the page expects
+        demand, stock = float(r["next_4w_demand"]), float(r["current_stock"])
+        weekly = demand / 4
+        needs = bool(demand >= 1 and weekly > 0 and stock / weekly < cover_weeks)
+        x["needs_restock"] = needs
+        x["suggested_order"] = int(math.ceil(max(0.0, weekly * target_weeks - stock))) if needs else 0
+        if only_needs_restock and not needs:
+            continue
+        recs.append(x)
+    recs.sort(key=lambda r: (not r["needs_restock"], r["weeks_of_stock"], r["product_name"]))
+    n = sum(r["needs_restock"] for r in recs)
+    out = {k: v for k, v in d.items() if k not in ("recommendations", "summary", "cover_rule")}
+    out["cover_rule"] = f"needs restock = stock covers fewer than {cover_weeks:g} weeks of expected sales; order up to {target_weeks:g} weeks"
+    out["summary"] = {"total_products": len(d["recommendations"]), "needs_restock": n, "healthy_stock": len(d["recommendations"]) - n}
+    out["recommendations"] = recs
+    return out
+
+
+@router.post("/inventory-demand/train")
+async def train_inventory(user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
+    ai.require("restock", store_id)
+    return ai.TRAIN_MESSAGE

@@ -1,9 +1,33 @@
 from fastapi import Depends, Header, HTTPException, status
+import base64
+import json
+import time
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from database import get_supabase, get_supabase_admin
 from models.store_helper import get_store_id
 
 security = HTTPBearer()
+
+
+MAX_SESSION_SECONDS = 24 * 60 * 60     # ask the user to log in again after 24 hours
+
+
+def _login_time(token: str):
+    """When this login started, read from the token's amr claim (earliest entry). None if the token has no usable entry."""
+    try:
+        part = token.split(".")[1]
+        part += "=" * (-len(part) % 4)
+        claims = json.loads(base64.urlsafe_b64decode(part))
+        stamps = [int(a["timestamp"]) for a in claims.get("amr", []) if isinstance(a, dict) and a.get("timestamp")]
+        return min(stamps) if stamps else None
+    except Exception:
+        return None
+
+
+def _enforce_session_age(token: str):
+    started = _login_time(token)
+    if started and time.time() - started > MAX_SESSION_SECONDS:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Session expired, please log in again")
 
 
 class AuthedUser:
@@ -31,6 +55,7 @@ async def get_current_user(
     already using this keeps working exactly as before.
     """
     token = credentials.credentials
+    _enforce_session_age(token)
     supabase = get_supabase()
     try:
         response = supabase.auth.get_user(token)
@@ -121,6 +146,7 @@ async def get_current_user_with_role(
     staff.
     """
     token = credentials.credentials
+    _enforce_session_age(token)
     supabase = get_supabase()
     try:
         response = supabase.auth.get_user(token)
