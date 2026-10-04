@@ -645,3 +645,332 @@ def _build_item(lines):
         logging.getLogger("uvicorn.error").warning("row repair patch v5 failed: %r", e)
     return item
 # --- end row repair patch v5 ---
+
+
+# --- hsn/part patch v7: HSN is not a part number; Unit-Qty-Rate layout; header-line rows ---
+import contextvars as _cv
+import logging
+
+_NOPART_V7 = _cv.ContextVar("nopart_v7", default=False)
+_UNITW_V7 = r"(?:Pcs|Pes|Pc|Nos|No|Sets|Set|Box|Ltr|Kg|Mtr|Pair|Doz)"
+_UNIT_START_V7 = _re.compile(r"^(?:ML|LTR|LITRE|L|KG|GM|MM|CM|INCH|IN|PCS|PC|NO|NOS|SET|SETS|PAIR)\b", _re.I)
+_JUNK_ROW_V7 = _re.compile(r"print|date|time|page|words|remark|total|signature", _re.I)
+
+
+def _header_no_part_col_v7(text):
+    for line in text.splitlines():
+        if _re.search(r"Particulars|escription", line, _re.I) and _re.search(r"Qty|Quant|Rate|Amount|Unit", line, _re.I):
+            return not _re.search(r"Part[\s.]*(?:No|Num|#)", line, _re.I)
+    return False
+
+
+def _qty_tok_v7(t):
+    if _MONEY_TOK_V5.match(t):
+        return _f_v5(t.lstrip("$S|"))
+    if _re.fullmatch(r"\d{1,6}", t):
+        v = int(t)
+        return v / 100 if len(t) >= 3 and t.endswith("00") else float(v)
+    return None
+
+
+def _particulars_v7(toks):
+    toks = list(toks)
+    for i in range(min(5, len(toks) - 1)):
+        if _re.fullmatch(r"\d{4,8}", toks[i]) and all(len(t) <= 3 for t in toks[:i]):
+            toks = toks[i + 1:]
+            break
+    while toks:
+        t = toks[-1]
+        if _tail_junk_v5(t):
+            toks.pop()
+        elif _re.fullmatch(r"\d{1,5}", t) and len(toks) >= 2 and _re.fullmatch(_UNITW_V7, toks[-2], _re.I):
+            toks.pop()
+        else:
+            break
+    return " ".join(toks).strip(" |-=~.:;_")
+
+
+def _split_particulars_v7(s):
+    m = _re.match(r"^([A-Z]{2,5})[ \-]?(\d[0-9A-Z\-/]+)\s+(.+)$", s)
+    if m and not _UNIT_START_V7.match(m.group(3)):
+        if not _re.search(r"[AEIOU]", m.group(1)) or len(_re.sub(r"\D", "", m.group(2))) >= 4:
+            return s[:m.end(2)].strip(), m.group(3).strip()
+    words = s.split()
+    if len(words) >= 2:
+        t = words[0]
+        if len(t) >= 5 and sum(c.isdigit() for c in t) >= 3 and _re.fullmatch(r"[A-Za-z0-9\-/.]+", t):
+            return t, " ".join(words[1:])
+    return "", s
+
+
+_build_item_v7_orig = _build_item
+
+
+def _build_item(lines):
+    item = _build_item_v7_orig(lines)
+    try:
+        toks = (lines[0] if lines else "").split()
+        if not item.get("qty") or not item.get("rate"):
+            u = next((i for i, t in enumerate(toks) if i >= 2 and _re.fullmatch(_UNITW_V7, t, _re.I)), None)
+            if u is not None and not _MONEY_TOK_V5.match(toks[u - 1]):
+                nums = []
+                for k, t in enumerate(x for x in toks[u + 1:] if x != "|"):
+                    v = _qty_tok_v7(t) if k == 0 else (_f_v5(t.lstrip("$S|")) if _MONEY_TOK_V5.match(t) else None)
+                    if v is None:
+                        break
+                    nums.append(v)
+                if len(nums) >= 2 and nums[0] > 0 and nums[1] > 0:
+                    q, r, rest = nums[0], nums[1], nums[2:]
+                    amt = next((x for x in rest if abs(x - q * r) <= max(1.0, 0.005 * q * r)), None)
+                    pct = 0.0
+                    if amt is None:
+                        pct = rest[0] if rest and 0 < rest[0] <= 100 else 0.0
+                        amt = round(q * r * (1 - pct / 100), 2)
+                    item["qty"] = int(q) if q == int(q) else q
+                    item["rate"] = r
+                    item["amount"] = amt
+                    item["net_amount"] = amt
+                    if pct:
+                        item["disc_pct"] = pct
+                    item["needs_review"] = True
+                    for k, v in list(item.items()):
+                        if isinstance(v, str) and "not read" in v.lower():
+                            item[k] = ""
+        if _NOPART_V7.get() and _re.fullmatch(r"\d{4,8}", str(item.get("part_no") or "")):
+            pn, name = _split_particulars_v7(_particulars_v7(toks))
+            if name:
+                item["part_no"], item["description"] = pn, name
+    except Exception as e:
+        logging.getLogger("uvicorn.error").warning("hsn/part patch v7 failed: %r", e)
+    return item
+
+
+_parse_bill_v7_orig = parse_bill
+
+
+def parse_bill(text):
+    tok = _NOPART_V7.set(_header_no_part_col_v7(text))
+    try:
+        out = _parse_bill_v7_orig(text)
+    finally:
+        _NOPART_V7.reset(tok)
+    try:
+        if isinstance(out, dict):
+            if isinstance(out.get("items"), list):
+                out["items"] = [
+                    it for it in out["items"]
+                    if not (not it.get("qty") and not it.get("rate") and not it.get("amount")
+                            and _JUNK_ROW_V7.search(str(it.get("description") or "") + " " + str(it.get("part_no") or "")))
+                ]
+            f = out.get("fields")
+            if isinstance(f, dict) and f.get("supplier_name"):
+                f["supplier_name"] = _re.sub(r"^[A-Za-z][,.]?\s+(?=[A-Z][A-Za-z]{2,})", "", f["supplier_name"])
+    except Exception as e:
+        logging.getLogger("uvicorn.error").warning("hsn/part patch v7 (post) failed: %r", e)
+    return out
+# --- end hsn/part patch v7 ---
+
+
+# --- cleanup patch v8: trailing symbols in rows, junk rows with an amount, supplier name noise ---
+def _particulars_v7(toks):
+    toks = list(toks)
+    for i in range(min(5, len(toks) - 1)):
+        if _re.fullmatch(r"\d{4,8}", toks[i]) and all(len(t) <= 3 for t in toks[:i]):
+            toks = toks[i + 1:]
+            break
+    while toks:
+        t = toks[-1]
+        if _tail_junk_v5(t) or not _re.search(r"[A-Za-z0-9]", t):
+            toks.pop()
+        elif _re.fullmatch(r"\d{1,5}", t) and len(toks) >= 2 and _re.fullmatch(_UNITW_V7, toks[-2], _re.I):
+            toks.pop()
+        else:
+            break
+    s = " ".join(toks).strip(" |-=~.:;_")
+    s = _re.sub(r"\s+" + _UNITW_V7 + r"\b(?:\s+[\d.,|]+)+\s*$", "", s, flags=_re.I)
+    return s.strip(" |-=~.:;_")
+
+
+_parse_bill_v8_orig = parse_bill
+
+
+def parse_bill(text):
+    out = _parse_bill_v8_orig(text)
+    try:
+        if isinstance(out, dict):
+            if isinstance(out.get("items"), list):
+                out["items"] = [
+                    it for it in out["items"]
+                    if not (not it.get("qty") and not it.get("rate")
+                            and _JUNK_ROW_V7.search(str(it.get("description") or "") + " " + str(it.get("part_no") or "")))
+                ]
+            f = out.get("fields")
+            if isinstance(f, dict) and f.get("supplier_name"):
+                n = _re.sub(r"(?:\s+[a-z]{1,2}\.?)+$", "", f["supplier_name"])
+                f["supplier_name"] = _re.sub(r"\bPyt\b", "Pvt", n)
+    except Exception as e:
+        logging.getLogger("uvicorn.error").warning("cleanup patch v8 failed: %r", e)
+    return out
+# --- end cleanup patch v8 ---
+
+
+# --- cleanup patch v9: cut the name at the unit word, ignore trailing noise ---
+def _particulars_v7(toks):
+    toks = list(toks)
+    for i in range(min(5, len(toks) - 1)):
+        if _re.fullmatch(r"\d{4,8}", toks[i]) and all(len(t) <= 3 for t in toks[:i]):
+            toks = toks[i + 1:]
+            break
+    s = " ".join(toks)
+    m = _re.search(r"\s+" + _UNITW_V7 + r"(?![A-Za-z])\s*[\d|]", s, _re.I)
+    if m:
+        s = s[:m.start()]
+    toks = s.split()
+    while toks:
+        t = toks[-1]
+        if _tail_junk_v5(t) or not _re.search(r"[A-Za-z0-9]", t) or _re.fullmatch(r"[a-z]{1,2}", t):
+            toks.pop()
+        elif _re.fullmatch(r"\d{1,5}", t) and len(toks) >= 2 and _re.fullmatch(_UNITW_V7, toks[-2], _re.I):
+            toks.pop()
+        else:
+            break
+    return " ".join(toks).strip(" |-=~.:;_")
+# --- end cleanup patch v9 ---
+
+
+# --- sipradi patch v10: solve qty / price / amount together from the row ---
+def _sip_fix_v10(item, row):
+    oq, orate, oam = item.get("qty"), item.get("rate"), item.get("amount")
+    if oq and orate and oam and abs(oq * orate - oam) <= max(1.0, 0.006 * oq):
+        return
+    toks = row.split()
+    ci = next((i for i, t in enumerate(toks) if _re.search(r"N[0-9]", t)), None)
+    if ci is None:
+        return
+    A, full = None, False
+    for t in toks[ci + 1:]:
+        c = _re.sub(r"[^\d.,]", "", t)
+        if _re.fullmatch(r"\d{1,3}(?:,\d{3})*(?:\.\d{0,2})?|\d+(?:\.\d{0,2})?", c):
+            v = float(c.replace(",", "").rstrip(".") or 0)
+            if v >= 100:
+                A, full = v, bool(_re.search(r"\.\d{2}$", c))
+                break
+    if A is None:
+        return
+    disc, di = None, None
+    for i in range(ci - 1, -1, -1):
+        c = _re.sub(r"[^\d]", "", toks[i])
+        if c and len(c) <= 3 and int(c) <= 100 and "." not in toks[i]:
+            disc, di = int(c), i
+            break
+    if di is None:
+        return
+    raw, garbled, pi = None, False, None
+    for i in range(di - 1, -1, -1):
+        m = _re.search(r"(\d{1,3}(?:,\d{3})*\.\d{2})$", toks[i])
+        if m:
+            raw, garbled, pi = m.group(1).replace(",", ""), len(toks[i]) > len(m.group(1)), i
+            break
+    if raw is None:
+        return
+    plist = [float(raw)] + ([float(str(d) + raw) for d in range(1, 10)] if garbled else [])
+    ui = next((i for i in range(pi - 1, -1, -1) if "unit" in toks[i].lower()), None)
+    qtok = _re.sub(r"\D", "", toks[ui - 1]) if ui and ui >= 1 else ""
+    cands = []
+    for P in plist:
+        q = round(A / P)
+        tol = max(1.0, 0.006 * q) + (0.0 if full else 1.0)
+        if q >= 1 and abs(q * P - A) <= tol:
+            cands.append((abs(q * P - A), q, P))
+    cands.sort()
+    pick = None
+    if len(cands) == 1:
+        pick = cands[0]
+    elif len(cands) > 1:
+        pre = [c for c in cands if qtok and (str(c[1]) == qtok or qtok.startswith(str(c[1])))]
+        if len(pre) == 1:
+            pick = pre[0]
+        elif cands[0][0] * 4 <= cands[1][0]:
+            pick = cands[0]
+    if not pick:
+        return
+    _, q, P = pick
+    amt = A if full else round(q * P, 2)
+    item["qty"], item["rate"], item["amount"] = int(q), P, amt
+    item["disc_pct"] = float(disc)
+    item["net_amount"] = round(amt * (1 - disc / 100), 2)
+    if "discount" in item:
+        item["discount"] = round(amt * disc / 100, 2)
+    item["needs_review"] = True
+    for k, v in list(item.items()):
+        if isinstance(v, str) and "not read" in v.lower():
+            item[k] = ""
+
+
+_build_sip_item_v10_orig = _build_sip_item
+
+
+def _build_sip_item(lines):
+    item = _build_sip_item_v10_orig(lines)
+    try:
+        _sip_fix_v10(item, lines[0] if lines else "")
+    except Exception as e:
+        logging.getLogger("uvicorn.error").warning("sipradi patch v10 failed: %r", e)
+    return item
+
+
+_parse_bill_v10_orig = parse_bill
+
+
+def parse_bill(text):
+    out = _parse_bill_v10_orig(text)
+    try:
+        f = out.get("fields") if isinstance(out, dict) else None
+        if isinstance(f, dict) and f.get("supplier_name"):
+            toks = [t for t in f["supplier_name"].split() if len(_re.findall(r"[a-z][A-Z]", t)) < 2]
+            f["supplier_name"] = _re.sub(r"(?:\s+\d{1,2})+$", "", " ".join(toks))
+    except Exception as e:
+        logging.getLogger("uvicorn.error").warning("sipradi patch v10 (supplier) failed: %r", e)
+    return out
+# --- end sipradi patch v10 ---
+
+
+# --- sipradi names patch v11: rebuild an empty name from the row text ---
+def _sip_name_v11(item, lines):
+    if (item.get("description") or "").strip():
+        return
+    toks = (lines[0] if lines else "").split()
+    pi = next((i for i, t in enumerate(toks) if _re.fullmatch(r"\d{9,14}", t)), None)
+    if pi is None:
+        return
+    hi = pi + 1 if pi + 1 < len(toks) and _re.fullmatch(r"\d{4}", toks[pi + 1]) else pi
+    ui = next((i for i, t in enumerate(toks) if i > hi and "unit" in t.lower()), None)
+    end = ui if ui is not None else len(toks)
+    if end - 1 > hi and _re.fullmatch(r"\W*\d{1,4}\W*", toks[end - 1]):
+        end -= 1
+    words = toks[hi + 1:end]
+    for extra in lines[1:3]:
+        if not _re.search(r"\d+[.,]\d{2}", extra):
+            words += extra.split()
+    keep = []
+    for t in words:
+        t2 = _re.sub(r"^[^A-Za-z0-9(]+|[^A-Za-z0-9)/]+$", "", t)
+        if len(t2) >= 2 and _re.search(r"[A-Z0-9]", t2) and _re.fullmatch(r"[A-Za-z0-9()\-/.,&+]+", t2):
+            keep.append(t2)
+    name = " ".join(keep).strip(" -.,")
+    if name:
+        item["description"] = name
+        item["needs_review"] = True
+
+
+_build_sip_item_v11_orig = _build_sip_item
+
+
+def _build_sip_item(lines):
+    item = _build_sip_item_v11_orig(lines)
+    try:
+        _sip_name_v11(item, lines)
+    except Exception as e:
+        logging.getLogger("uvicorn.error").warning("sipradi names patch v11 failed: %r", e)
+    return item
+# --- end sipradi names patch v11 ---

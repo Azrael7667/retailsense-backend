@@ -298,3 +298,81 @@ def clean_desc(d):
     s = re.sub(r"\(\s*\)", "", s)
     return re.sub(r"\s+", " ", s).strip(" -.,")
 # --- end clean_desc patch v6 ---
+
+
+# --- reconcile patch v10: names the old rule blanked, and one misread discount % ---
+import logging
+
+_clean_desc_v10_orig = clean_desc
+
+
+def clean_desc(d):
+    out = _clean_desc_v10_orig(d)
+    if not out:
+        keep = []
+        for t in (d or "").split():
+            t2 = re.sub(r"^[^A-Za-z0-9(]+|[^A-Za-z0-9)/]+$", "", t)
+            if len(t2) >= 2 and re.search(r"[A-Z0-9]", t2) and re.fullmatch(r"[A-Za-z0-9()\-/.,&+]+", t2):
+                keep.append(t2)
+        out = " ".join(keep).strip(" -.,")
+    out = re.sub(r"\b8S(?=\d)", "BS", out)
+    return re.sub(r"\bAJR\b", "AIR", out)
+
+
+def _disc_fix_v10(val):
+    f = val.get("fields") or {}
+    items = val.get("items") or []
+    T, X = f.get("total_amount"), f.get("taxable_amount")
+    if not T or not X or len(items) < 2:
+        return
+    A = [float(i.get("amount") or 0) for i in items]
+    if abs(sum(A) - T) > 3.0:
+        return
+    d = [float(i.get("disc_pct") or 0) for i in items]
+    gap = (T - X) - sum(a * x / 100 for a, x in zip(A, d))
+    if abs(gap) <= 10.0:
+        return
+    cands = []
+    for k, a in enumerate(A):
+        if a <= 0:
+            continue
+        nd = d[k] + 100 * gap / a
+        if 0 <= nd <= 100 and abs(nd - round(nd)) <= 0.03 and round(nd) != round(d[k]):
+            cands.append((k, int(round(nd))))
+    if len(cands) > 1:
+        zero = [c for c in cands if d[c[0]] == 0]
+        if len(zero) == 1:
+            cands = zero
+    if len(cands) != 1:
+        return
+    k, nd = cands[0]
+    it = items[k]
+    it["disc_pct"] = float(nd)
+    it["net_amount"] = round(A[k] * (1 - nd / 100), 2)
+    if "discount" in it:
+        it["discount"] = round(A[k] * nd / 100, 2)
+    it["needs_review"] = True
+    val.setdefault("corrections", []).append(
+        f"row {k + 1} discount % {d[k]:g} -> {nd} so that the discounts add up to the printed total")
+
+
+_validate_bill_v10_orig = validate_bill
+
+
+def validate_bill(fields, items, text):
+    val = _validate_bill_v10_orig(fields, items, text)
+    try:
+        _disc_fix_v10(val)
+    except Exception as e:
+        logging.getLogger("uvicorn.error").warning("reconcile patch v10 failed: %r", e)
+    return val
+# --- end reconcile patch v10 ---
+
+
+# --- bs-code patch v12: OCR reads BS3/4 as 853/4 or 8S3/4 ---
+_clean_desc_v12_orig = clean_desc
+
+
+def clean_desc(d):
+    return re.sub(r"\b8[S5](?=\d/\d)", "BS", _clean_desc_v12_orig(d))
+# --- end bs-code patch v12 ---
