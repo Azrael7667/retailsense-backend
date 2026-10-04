@@ -1,13 +1,10 @@
 services:
   - type: web
     name: retailsense-backend
-    env: python
+    runtime: docker
     region: singapore
     plan: free
-    runtime: python
-    pythonVersion: "3.11.9"
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: SUPABASE_URL
         sync: false
@@ -21,3 +18,5 @@ services:
         generateValue: true
       - key: ALLOWED_ORIGINS
         sync: false
+      - key: OCR_ENGINE
+        value: selfhosted
