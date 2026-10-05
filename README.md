@@ -102,7 +102,6 @@ retailsense-backend/
 │   ├── khata.py
 │   ├── reports.py
 │   ├── dashboard.py
-│   └── ai_models.py
 ├── schemas/             # Pydantic models
 ├── services/            # Business logic
 ├── ml/                  # Machine learning
@@ -114,3 +113,60 @@ retailsense-backend/
 ## Deployment
 
 Deployed on **Render**. Every push to `main` triggers automatic deployment.
+
+## Machine learning models
+
+The six AI helpers are trained offline for each shop. The API does not run the models. It serves the results they publish, so predictions are precomputed (see the report, Section 5.7).
+
+### Where everything is
+
+| Item | Location |
+|---|---|
+| Export of one shop (pseudonymised) | `ml/export_shop.py` |
+| Training and evaluation of all six helpers | `ml/train_shop.py`, `ml/train_cells.py` |
+| Notebook version of the training code | `ml/notebooks/retailsense_models.ipynb` |
+| Weekly retraining script | `ml/retrain.sh` |
+| Shops to retrain | `ml/shops.txt` |
+| ML package versions | `ml/requirements-ml.txt` |
+| Latest trained models and results | `ml/results/<store_id>/` |
+
+### Trained model files (latest retrain, 4 October 2026)
+
+| Helper | Model | Saved model | Served results |
+|---|---|---|---|
+| Business Direction | Prophet with Optuna | `sales_trend_model.json` | `sales_trend_results.json` |
+| Cash Flow Forecast | Prophet | `cash_flow_revenue_model.json` | `cash_flow_results.json` |
+| Restock Advisor | LightGBM | `restock_lightgbm.txt` | `restock_results.json` |
+| Customers Leaving | LightGBM with SHAP | `churn_lightgbm.txt` | `churn_results.json` |
+| Udharo Advisor | Logistic regression | `credit_logistic_regression.json` | `credit_results.json` |
+| Unusual Transactions | Isolation Forest | `anomaly_isolation_forest.joblib` | `anomaly_results.json` |
+
+`model_report*.json` and `model_comparison_weekly_revenue.json` hold the evaluation figures reported in the final report, and `retrain_status.json` records which helpers succeeded. The `.joblib` file is a scikit-learn model saved with joblib (a pickle format), so it must be loaded with the same scikit-learn version listed in `ml/requirements-ml.txt`.
+
+### Data
+
+The evaluation used the real records of one shop, Bijeta Auto Parts. The raw records are not included. The export step replaces customer names with labels such as "Customer 001" and removes phone, email, address and PAN. Purchase quantities, stock levels and dates were adjusted, and every change is listed in the final report (Section 8.6).
+
+### Retraining
+
+Create the ML environment once:
+
+    python3 -m venv ~/retailsense-ml/venv
+    ~/retailsense-ml/venv/bin/pip install -r ml/requirements-ml.txt
+
+Retrain every shop in `ml/shops.txt`, or only the ones you name:
+
+    ml/retrain.sh
+    ml/retrain.sh <store_id>
+
+This needs a `.env` with the Supabase settings (see `.env.example`), because step 1 exports the shop from the database. Results are written to `ml/results/<store_id>/`. A helper that fails does not overwrite its previous results.
+
+## Running the API locally
+
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    cp .env.example .env      # then fill in your own Supabase values
+    uvicorn main:app --port 8000
+
+Interactive API documentation is then at `http://localhost:8000/docs`. The Docker build (`Dockerfile`) installs Tesseract with English and Nepali data for the Scan Bill feature.
