@@ -3,3 +3,4 @@ venv
 .git
 __pycache__
 ml/results
+ocr_eval/
