@@ -5,6 +5,8 @@
 # Optional settings in front of the command:
 #   RESULTS_DIR=/some/folder  publish somewhere else (a trial run that leaves the live results alone)
 #   TRIALS=10                 fewer Optuna trials for a quicker run (default 30)
+# Weekly schedule (Sunday 02:00), add with `crontab -e`:
+#   0 2 * * 0 /home/solomon/retailsense-backend/ml/retrain.sh
 # Step 1 (backend Python)  exports the shop's data.   Step 2 (ML Python)  trains and publishes to ml/results/<store_id>/.
 # Everything is written to ml/logs/retrain_<time>.log as well. Exit code 0 means no helper failed.
 set -u

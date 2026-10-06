@@ -1,6 +1,7 @@
 import asyncio
 import json
 import difflib
+import re
 import time
 import uuid
 from datetime import date, datetime
@@ -13,6 +14,7 @@ from database import get_supabase_admin
 from middleware.auth_middleware import require_role, get_active_store_id
 from config import get_settings
 from utils.nepali_date import parse_bs_string_to_ad
+from utils.product_names import compose_name
 
 from services.ocr.pipeline import extract_with_engine
 from google import genai
@@ -120,21 +122,38 @@ def extract_bill_data(image_bytes: bytes, mime_type: str) -> dict:
     raise last_error
 
 
+def _aliases(candidate: dict) -> List[str]:
+    """The product's own name plus every comma-separated local name, lower-cased."""
+    names = [candidate["name"]] + re.split(r"\s+/\s+", candidate["name"]) + (candidate.get("local_names") or "").split(",")
+    return [n.strip().lower() for n in names if n and n.strip()]
+
+
+def _merge_local_names(existing: Optional[str], added: Optional[str]) -> str:
+    """Comma-separated union of two local-name lists, without duplicates, keeping the original spelling."""
+    out: List[str] = []
+    for n in ((existing or "") + "," + (added or "")).split(","):
+        n = n.strip()
+        if n and n.lower() not in (o.lower() for o in out):
+            out.append(n)
+    return ", ".join(out)
+
+
 def fuzzy_match(name: str, candidates: List[dict]) -> Optional[dict]:
     """
-    candidates: list of {"id": ..., "name": ...}
+    candidates: list of {"id": ..., "name": ..., "local_names": optional comma-separated aliases}
     Returns the best match dict (with a similarity score attached) if above
     threshold, else None. Uses difflib (stdlib, no extra dependency) rather
-    than a fuzzy-matching library.
+    than a fuzzy-matching library. A local name counts like the real name.
     """
     best = None
     best_score = 0.0
     name_lower = name.strip().lower()
     for c in candidates:
-        score = difflib.SequenceMatcher(None, name_lower, c["name"].strip().lower()).ratio()
-        if score > best_score:
-            best_score = score
-            best = c
+        for alias in _aliases(c):
+            score = difflib.SequenceMatcher(None, name_lower, alias).ratio()
+            if score > best_score:
+                best_score = score
+                best = c
     if best and best_score >= MATCH_THRESHOLD:
         return {**best, "match_confidence": round(best_score, 2)}
     return None
@@ -186,7 +205,7 @@ def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
     producing the structure the frontend review screen actually renders.
     """
     products = supabase.table("products") \
-        .select("id, name") \
+        .select("id, name, local_names") \
         .eq("store_id", store_id).eq("is_active", True) \
         .execute().data or []
 
@@ -205,6 +224,7 @@ def build_review_draft(extracted: dict, store_id: str, supabase) -> dict:
             "product_name": match["name"] if match else raw_name,
             "is_new": match is None,
             "part_number": item.get("part_number") or None,
+            "local_names": (match.get("local_names") if match else None) or "",
             "unit": item.get("unit") or None,  # extracted from bill; reviewer can still edit
             "quantity": item.get("quantity") or 0,
             "unit_price": item.get("unit_price") or 0,
@@ -477,8 +497,9 @@ async def approve_pending_document(
         if item.get("is_new") and not product_id:
             new_product = supabase.table("products").insert({
                 "store_id": store_id,
-                "name": item["product_name"],
+                "name": compose_name(item["product_name"], item.get("local_names")),
                 "sku": item.get("part_number") or None,
+                "local_names": (item.get("local_names") or "").strip() or None,
                 "unit": item.get("unit") or "pcs",
                 "cost_price": net_price,
                 "list_price": gross_price,
@@ -567,15 +588,20 @@ async def approve_pending_document(
     #    cost_price; whatever it was before is kept in previous_cost_price
     #    purely for reference, doesn't affect stock valuation math).
     for i in resolved_items:
-        prod = supabase.table("products").select("stock_quantity, cost_price").eq("id", i["product_id"]).single().execute()
+        prod = supabase.table("products").select("name, stock_quantity, cost_price, local_names").eq("id", i["product_id"]).single().execute()
         if prod.data:
             new_qty = prod.data["stock_quantity"] + i["quantity"]
-            supabase.table("products").update({
+            update = {
                 "stock_quantity": new_qty,
                 "previous_cost_price": prod.data["cost_price"],
                 "cost_price": i["net_price"],
                 "list_price": i["gross_price"],
-            }).eq("id", i["product_id"]).execute()
+            }
+            merged = _merge_local_names(prod.data.get("local_names"), i.get("local_names"))
+            if merged != (prod.data.get("local_names") or ""):
+                update["local_names"] = merged
+                update["name"] = compose_name(prod.data["name"], merged, prod.data.get("local_names"))
+            supabase.table("products").update(update).eq("id", i["product_id"]).execute()
 
     # 4. Mark the pending document approved
     supabase.table("pending_documents").update({

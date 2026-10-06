@@ -6,6 +6,7 @@ class ProductBase(BaseModel):
     name: str
     sku: Optional[str] = None
     barcode: Optional[str] = None
+    local_names: Optional[str] = None
     category_id: Optional[UUID] = None
     unit: str = "pcs"
     cost_price: float = 0.0

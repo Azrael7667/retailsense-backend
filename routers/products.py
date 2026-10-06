@@ -1,8 +1,10 @@
+import re
 from fastapi import APIRouter, Depends, HTTPException
 from schemas.product import ProductCreate, ProductUpdate, ProductOut
 from middleware.auth_middleware import get_current_user, get_active_store_id
 from database import get_supabase
 from typing import List, Optional
+from utils.product_names import compose_name
 
 router = APIRouter()
 
@@ -19,7 +21,9 @@ async def list_products(
     if category_id:
         q = q.eq("category_id", category_id)
     if search:
-        q = q.ilike("name", f"%{search}%")
+        term = re.sub(r"[,()%*]", " ", search).strip()
+        if term:
+            q = q.or_(f"name.ilike.%{term}%,sku.ilike.%{term}%,local_names.ilike.%{term}%")
     if low_stock:
         q = q.lt("stock_quantity", "reorder_level")
     result = q.execute()
@@ -30,6 +34,7 @@ async def create_product(body: ProductCreate, user=Depends(get_current_user), st
     supabase = get_supabase(user.access_token)
     data = body.model_dump()
     data["store_id"] = store_id
+    data["name"] = compose_name(data["name"], data.get("local_names"))
     if data.get("category_id"):
         data["category_id"] = str(data["category_id"])
     result = supabase.table("products").insert(data).execute()
@@ -47,6 +52,9 @@ async def get_product(product_id: str, user=Depends(get_current_user), store_id:
 async def update_product(product_id: str, body: ProductUpdate, user=Depends(get_current_user), store_id: str = Depends(get_active_store_id)):
     supabase = get_supabase(user.access_token)
     data = {k: v for k, v in body.model_dump().items() if v is not None}
+    if "local_names" in data:
+        current = supabase.table("products").select("name, local_names").eq("id", product_id).eq("store_id", store_id).single().execute().data or {}
+        data["name"] = compose_name(data.get("name") or current.get("name", ""), data["local_names"], current.get("local_names"))
     result = supabase.table("products").update(data).eq("id", product_id).eq("store_id", store_id).execute()
     return result.data[0]
 

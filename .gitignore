@@ -13,3 +13,5 @@ build/
 .pytest_cache/
 ml/logs/
 .ocr_cache/
+venv/
+*.bak*
