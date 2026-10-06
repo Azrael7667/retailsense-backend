@@ -15,3 +15,8 @@ ml/logs/
 .ocr_cache/
 venv/
 *.bak*
+
+# OCR test bills (supplier bank details, PANs)
+ocr_eval/bills/
+ocr_eval/labels/
+ocr_eval/results/

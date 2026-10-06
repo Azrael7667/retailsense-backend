@@ -974,3 +974,88 @@ def _build_sip_item(lines):
         logging.getLogger("uvicorn.error").warning("sipradi names patch v11 failed: %r", e)
     return item
 # --- end sipradi names patch v11 ---
+
+
+# --- header patch v13: OCR look-alikes in bill numbers; never the buyer's PAN ---
+_LABEL_V13 = _re.compile(r"(?:[Il1]?nv[o0][il1]ce|nvolce|voice|Bill)\s*No\b\.?", _re.I)
+_SEP_V13 = r"(?:[\s:;.,+=|\-—_]|[$23](?=\s))*"  # a ':' is often read as 2, 3 or $
+_NO_V13 = _re.compile(r"([A-Z][A-Z0-9 ]{0,8}?[A-Z0-9/\-]*[0-9][A-Z0-9/\-]*)", _re.A)
+_BUYER_V13 = _re.compile(r"customer|buyer|party\s*name|bill\s*to|consignee", _re.I)
+
+
+def _fix_lookalikes_v13(s):
+    s = _re.sub(r"(?<=[A-Z]-)S8(?=-)", "SB", s)          # RAPL-HO-S8-083 -> SB
+    s = _re.sub(r"(?<=\s)[$5S]B(?=-\d)", "SB", s)          # GBAS $B-83/84 -> SB
+    return s
+
+
+def _bill_no_v13(text):
+    for line in text.splitlines():
+        m = _LABEL_V13.search(line)
+        if not m:
+            continue
+        rest = _re.sub("^" + _SEP_V13, "", line[m.end():])
+        rest = _fix_lookalikes_v13(" " + rest)[1:]
+        # "SI-0853" / "SI/0365" read as $1-0853, S1-0865, SV0365, 5/0332, $1/0708, $0345
+        si = _re.match(r"[S$5][IVl1|]?\s*([/-]?)\s*(\d{4})\b", rest)
+        if si and not _re.match(r"\d{5,}", rest):
+            return "SI" + (si.group(1) or "/") + si.group(2)
+        # Ladali "000712/8384" read with a space inside: "00071 2/8384"
+        sp = _re.match(r"(\d{3,8}) (\d{1,3}/\d{2,6})\b", rest)
+        if sp:
+            return sp.group(1) + sp.group(2)
+        # long codes: keep letters, digits, / and -, one inner space only before SB- (GBAS SB-83/84-316)
+        m2 = _re.match(r"([A-Z]{2,6} SB-[0-9/\-]+|[A-Z0-9][A-Z0-9/\-]{4,30})", rest)
+        if m2 and _re.search(r"\d", m2.group(1)):
+            return m2.group(1).rstrip("-/.")
+    return None
+
+
+def _ladali_suffix_v13(bill_no, text):
+    """Ladali-style 000600/8334: the challan number on the same bill ends with the right /8384."""
+    m = _re.fullmatch(r"(\d{6})/(\d{4})", bill_no or "")
+    c = _re.search(r"Challan\s*No[^\n]*?/(\d{4})\b", text, _re.I)
+    if m and c and m.group(2) != c.group(1):
+        diff = sum(a != b for a, b in zip(m.group(2), c.group(1)))
+        if diff == 1:
+            return f"{m.group(1)}/{c.group(1)}"
+    return bill_no
+
+
+def _supplier_pan_v13(text, current, customer_pan):
+    """The supplier's VAT number is printed above the buyer block; anything after it belongs to the buyer."""
+    lines = text.splitlines()
+    cut = next((i for i, l in enumerate(lines) if _BUYER_V13.search(l)), len(lines))
+    buyer = {customer_pan} if customer_pan else set()
+    for l in lines[cut:cut + 4]:
+        if _re.search(r"\b(?:PAN|VAT)", l, _re.I):
+            buyer.update(_PAN9.findall(l))
+    if current and current not in buyer:
+        return current
+    for l in lines[:cut]:
+        if _re.search(r"\b(?:PAN|VAT)", l, _re.I):
+            for p in _PAN9.findall(l):
+                if p not in buyer:
+                    return p
+    return None
+
+
+_parse_bill_v13_orig = parse_bill
+
+
+def parse_bill(text):
+    out = _parse_bill_v13_orig(text)
+    try:
+        f = out["fields"]
+        cur = f.get("bill_no")
+        new = _bill_no_v13(text)
+        # keep an earlier reading that already looks complete; take the new one when it is longer
+        if new and (not cur or len(re.sub(r"\W", "", new)) > len(re.sub(r"\W", "", cur))
+                    or not re.search(r"[/\-]", cur)):
+            f["bill_no"] = new
+        f["bill_no"] = _ladali_suffix_v13(f.get("bill_no"), text)
+        f["supplier_pan"] = _supplier_pan_v13(text, f.get("supplier_pan"), f.get("customer_pan"))
+    except Exception:
+        pass
+    return out
+# --- end header patch v13 ---

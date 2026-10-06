@@ -3,7 +3,7 @@ import base64
 import json
 import time
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from database import get_supabase, get_supabase_admin
+from database import get_supabase, get_supabase_admin, get_token_verifier
 from models.store_helper import get_store_id
 
 security = HTTPBearer()
@@ -46,7 +46,7 @@ class AuthedUser:
         return getattr(self._supabase_user, name)
 
 
-async def get_current_user(
+def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
 ):
     """
@@ -56,7 +56,7 @@ async def get_current_user(
     """
     token = credentials.credentials
     _enforce_session_age(token)
-    supabase = get_supabase()
+    supabase = get_token_verifier()  # shared: get_user(token) keeps no state on the client
     try:
         response = supabase.auth.get_user(token)
         if not response.user:
@@ -72,7 +72,7 @@ async def get_current_user(
         )
 
 
-async def get_active_store_id(
+def get_active_store_id(
     x_store_id: str | None = Header(default=None, alias="X-Store-Id"),
     user: AuthedUser = Depends(get_current_user),
 ) -> str:
@@ -126,7 +126,7 @@ DEFAULT_PERMISSIONS = {
 }
 
 
-async def get_current_user_with_role(
+def get_current_user_with_role(
     credentials: HTTPAuthorizationCredentials = Depends(security),
 ):
     """
@@ -147,7 +147,7 @@ async def get_current_user_with_role(
     """
     token = credentials.credentials
     _enforce_session_age(token)
-    supabase = get_supabase()
+    supabase = get_token_verifier()  # shared: get_user(token) keeps no state on the client
     try:
         response = supabase.auth.get_user(token)
         if not response.user:

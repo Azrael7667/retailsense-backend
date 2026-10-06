@@ -1,5 +1,5 @@
 import re
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 def _pct(it: Dict) -> float:
@@ -23,17 +23,34 @@ def _clean_name(n):
     return " ".join(toks)
 
 
-def _friendly(s: str) -> str:
+def _friendly(s: str) -> Optional[str]:
+    """A validator check in words a shop owner can act on; None for checks that are internal only."""
     m = re.match(r"items_sum_matches_(?:taxable|total): rows sum ([0-9.]+), (?:taxable|total) ([0-9.]+)", s)
     if m:
         a, b = float(m.group(1)), float(m.group(2))
         return (f"Item amounts add up to Rs {a:,.2f} but the bill says Rs {b:,.2f} "
                 f"(difference Rs {abs(b - a):,.2f}). An item may be missing or misread.")
-    if s.startswith("amount_in_words"):
-        return "The amount in words could not be read, so the total is not double-checked."
-    if s.startswith("supplier_pan"):
-        return "Supplier PAN was not read."
-    return s
+    simple = {
+        "amount_in_words": "The amount in words could not be read, so the total is not double-checked.",
+        "supplier_pan": "Supplier PAN was not read. Enter it from the paper.",
+        "bill_no_present": "Bill number was not read. Enter it from the paper.",
+        "date_present": "Bill date was not read. Enter it from the paper.",
+        "date_not_in_future": "The bill date was read as a future date. Check it against the paper.",
+        "items_found": "No item rows could be read. Enter the items from the paper.",
+        "vat_is_13_percent": "VAT on the bill is not 13% of the taxable amount. Check the VAT rate.",
+        "taxable_plus_vat_equals_net": "Taxable amount plus VAT does not match the bill total. Check the totals.",
+    }
+    for key, text in simple.items():
+        if s.startswith(key):
+            return text
+    return None  # taxable_consistent, ad_bs_years_consistent, item_recovery: internal cross-checks
+
+
+def _friendly_correction(s: str) -> Optional[str]:
+    m = re.match(r"net_amount missing -> ([0-9.]+) \(from amount in words\)", s)
+    if m:
+        return f"Bill total taken from the amount in words: Rs {float(m.group(1)):,.2f}."
+    return s if s[:1].isupper() else None  # lower-case ones are internal repair logs
 
 
 def _reasons(it: Dict) -> List[str]:
@@ -58,7 +75,7 @@ def to_gemini_shape(val: Dict[str, Any], ocr: Dict[str, Any]) -> Dict[str, Any]:
         items.append({
             "name": it.get("description") or it.get("part_no") or "",
             "part_number": it.get("part_no"),
-            "unit": None,
+            "unit": it.get("unit"),
             "quantity": it.get("qty"),
             "unit_price": it.get("rate"),
             "discount_percent": _pct(it),
@@ -71,8 +88,10 @@ def to_gemini_shape(val: Dict[str, Any], ocr: Dict[str, Any]) -> Dict[str, Any]:
     if f.get("net_amount") is not None:
         notes.append(f"Bill total printed on the paper: Rs {f['net_amount']:,.2f}. Compare it with the Total below.")
     notes.append("The bill number cannot be verified automatically: compare it with the paper.")
-    notes += [_friendly(n) for n in val.get("needs_review", []) if not n.startswith("row ")]
-    notes += val.get("corrections", [])
+    for n in [_friendly(n) for n in val.get("needs_review", []) if not n.startswith("row ")] + \
+            [_friendly_correction(c) for c in val.get("corrections", [])]:
+        if n and n not in notes:
+            notes.append(n)
 
     return {
         "supplier_name": _clean_name(f.get("supplier_name")),

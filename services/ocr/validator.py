@@ -44,6 +44,8 @@ def _word_tokens(chunk: str) -> List[str]:
             continue
         if t in ("ond", "nd", "aand", "an"):
             t = "and"
+        t = {"tivo": "two", "twa": "two", "tow": "two", "ane": "one", "flve": "five",
+             "nlne": "nine", "elght": "eight", "slx": "six", "thlrty": "thirty"}.get(t, t)
         if t not in VOCAB:
             c = difflib.get_close_matches(t, VOCAB, n=1, cutoff=0.67)
             if not c:
