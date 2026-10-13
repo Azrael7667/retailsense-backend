@@ -225,6 +225,7 @@ def main():
 
     if args.tag:
         out = ROOT / "results" / f"{args.tag}.json"
+        out.parent.mkdir(exist_ok=True)
         out.write_text(json.dumps({"per_field": per, "fields": [R, N], "bills": results}, indent=1, default=str))
         print("saved", out.relative_to(ROOT.parent))
 

@@ -19,4 +19,5 @@ venv/
 # OCR test bills (supplier bank details, PANs)
 ocr_eval/bills/
 ocr_eval/labels/
+ocr_eval/labels_draft/
 ocr_eval/results/
